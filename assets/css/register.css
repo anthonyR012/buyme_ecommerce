@@ -1,0 +1,256 @@
+
+
+/* PERFIL */
+
+.sectionPerfilBm{
+    background-color: var(--container-bg);
+    box-sizing: border-box;
+    border-radius: var(--radius-generally);
+    margin-top: 30px;
+    padding-bottom: 5px;
+}
+
+.imgPerfBm{
+    margin-left: 4%;
+    margin-top: 40px;
+    width: 10%;
+    height: 10%;
+}
+
+.credentialBm{
+    margin-left: 25px;
+    margin-right: 25px;
+    background-color: var(--main-seconday-color);
+    border-radius: 15px;
+    margin-bottom: 40px;
+    margin-top:40px;
+}
+.headerCredentialBm{
+    
+    background: var(--main-primary-color);
+    border-radius: 15px 15px 0px 0px;
+        display: grid;
+        grid-template-columns: auto 1fr auto auto auto;
+        grid-template-areas: "live menu actions tinkerbell search";
+      
+    
+}
+.containerEditBm{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+}
+
+.imgPerfilbm{
+    cursor:pointer;
+    padding: 3px;
+}
+.colorTextBm1{
+
+font-family: Content;
+font-style: normal;
+font-weight: bold;
+font-size: 1.3rem;
+padding: 5px;
+
+
+}
+.colorTextBm2{
+
+    font-family: Content;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 5px;
+    
+    
+    }
+    .colorTextBm3{
+
+        font-family: Content;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 1.3rem;
+        padding: 5px;
+        
+        
+        }
+.colorTextBm1::before{
+    
+    content: url('../img/credenciales.png');
+ 
+}
+.colorTextBm2::before{
+    
+    content: url('../img/personal.png');
+ 
+}
+.colorTextBm3::before{
+    
+    content: url('../img/pqrs.png');
+ 
+}
+
+.addPqrsBm{
+    font-family: Content;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.addPqrsBm::before{
+ 
+    content: url('../img/agregar.png');
+    cursor:pointer;
+    
+}
+.textColumBm{
+    font-family: Content;
+font-style: normal;
+font-weight: bold;
+font-size: 1rem;
+
+}
+.textValueBm{
+
+    font-family: Content;
+font-size: 1rem;
+
+}
+
+/* LOGIN */
+.loginBm{
+    
+    margin-bottom: 25% !important;
+    margin-left: 22% !important;
+    margin-right: 22% !important;
+    margin-top: 15%;
+    background:var(--container-bg);
+ 
+ }
+ .checkBm{
+    font-size: 11.5px;
+   margin-bottom: 2px;
+    
+ 
+ }
+ .registrateBm{
+    font-weight: bolder;
+    font-size: 6px;
+    
+ }
+ .sloganBm{
+    font-size: 9px;
+    
+ }
+ .textInputBm{
+    font-weight: bold;
+    font-size: 10px;
+ }
+ .boxBm{
+    border: none;
+    width: 100%;
+ }
+
+ /* .enviarBm{
+    padding: 5px 11px 5px 11px;
+    color: aliceblue;
+    border: none;
+    background: var(--main-primary-color);
+    border-radius: 5px;
+    font-size: 15px;
+    margin: auto;
+ }
+ 
+ 
+ .enviarBm:hover{
+    background: #D48A32;
+    transform: scale(1.1);
+    transition: 0.5s;
+    }
+    .enviar:not(:hover){
+    transform: scale(1.0);
+    transition: 1s;
+    }
+    .enviar:active{
+       transform: scale(1.2);
+    } */
+ 
+ 
+ .imgBm{
+    width: 110px;
+    margin-top: 25px;
+    margin-left: 20%;
+    margin-right: 20%;
+
+ }
+
+ 
+
+/* REGISTRO */
+.formRegisterBm{
+    
+	width: 95%;
+	max-width: 500px;
+	margin: auto;
+	background: white;
+	border-radius: 7px;
+}
+.formTituloBm{
+	background: var(--main-primary-color);
+    margin-top: 30px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	border-bottom: 3px solid var(--main-primary-color);
+	
+}
+.contenedorInputsBm{
+	padding: 10px 30px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.input-48Bm{
+	width: 48%;
+    margin-bottom: 15px;
+	padding: 15px;
+	font-size: 16px;
+	border-radius: 3px;
+	border: 1px solid darkgray;
+    
+}
+.input-100Bm{
+	width: 100%;
+    margin-bottom: 15px;
+	padding: 15px;
+	font-size: 16px;
+	border-radius: 3px;
+	border: 1px solid darkgray;
+}
+
+
+.formLinkBm{
+	width: 100%;
+	margin: 7px;
+	font-size: 14px;
+	text-align: center;
+}
+.imgLogoRegisterBm{
+	width: 190px;
+   height: 80px;
+   margin-left: -10px;
+   margin-right: 20px;
+}
+.titlePrincipal{
+	color: #707171 ;
+	font-weight: bolder;
+	text-align: center;
+	display: flex;
+justify-content: center;
+align-items: center;
+	font-size: 18px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	
+}

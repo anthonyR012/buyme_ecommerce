@@ -1,0 +1,86 @@
+html,body,p,ol,ul,li,pre,code,address,form,fieldset,blockquote{
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    font-weight: normal;
+    }
+    table{ border-collapse: collapse; border-spacing: 0; }
+    img,fieldset{border: 0;}
+    ol{padding-left: 1.4cm; list-style: decimal;}
+    ul{padding-left: 1.4cm; list-style: square;}
+    q:before, q:after {content: "";}
+
+
+/* CONTAINER CSS BG */
+/* body{
+   background-color: antiquewhite;
+    margin: 0 auto;
+    width: 100%;
+   
+} */
+#container{
+    background-image: url(../Img/Fondo.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+}
+ 
+/* HEADER CLASS */
+#headerBm{
+    display:flex;
+    background-color: var(--main-primary-color);
+    height:8%;
+    
+}
+
+
+
+#logoBm{
+   
+   height: 100%;
+   width: 30%;
+   max-width: 230px;
+   max-height: 120px;
+   flex: 1;
+}
+
+/* ICON HEADER NO USADO ACTUALMENTE */
+/* .groupIconsBm{
+    margin-right: 15px;
+    flex: 2;
+    padding: 5px;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+} */
+
+li{
+    list-style: none;
+}
+.iconHeaderBm{
+    width: 30px;
+    height: 30px;
+}
+
+/* FOOTER CLASS */
+
+#footerBm{
+     background-color: var(--main-primary-color);
+     
+}
+
+
+
+/* DISPOSITIVOS ENTRE 200PX Y 765PX */
+
+@media (min-width: 200px) and (max-width: 765PX) {
+    #logoBuyMe{
+   
+        max-width: 120px;
+        max-height: 80px;
+        flex: 1;
+     }
+
+     
+ }

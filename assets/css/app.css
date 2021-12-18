@@ -1,0 +1,18 @@
+
+@import url(container.css);
+@import url(register.css);
+@import url(bootstrap.min.css);
+@import url(dashboard.css);
+
+
+/* VARIABLES */
+
+:root {
+    --main-primary-color: #9fc5e8 !important;
+    --main-seconday-color: #99adbf !important;
+    --opacity: 64% !important;
+    --container-bg:rgba(248, 188, 117, 0.5) !important;
+    --radius-generally: 15px !important;
+  }
+  
+
