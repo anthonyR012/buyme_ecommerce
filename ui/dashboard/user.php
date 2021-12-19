@@ -79,8 +79,12 @@
         <h5 class="modal-title" id="staticBackdropLabel">Editar Credenciales</h5>
         <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
       </div>
-      <div class="modal-body">
-        ...
+      <div class="modal-body  bg-warning">
+        <div class="container">
+            <input type="email" id="emailupd" name="email" placeholder="Correo" class="input-100Bm" required>
+            <input type="password" id="passanti" name="pass" placeholder="Antigua Contraseña" class="input-100Bm"required >
+            <input type="password" id="passnew" name="pass" placeholder="Nueva Contraseña" class="input-100Bm"required >
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -97,8 +101,8 @@
         <h5 class="modal-title" id="staticBackdropLabel">Editar Información</h5>
         <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
       </div>
-      <div class="modal-body">
-        ...
+      <div class="modal-body bg-warning">
+      <div class="container"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -116,8 +120,8 @@
         <h5 class="modal-title" id="staticBackdropLabel">Editar Pqrs</h5>
         <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
       </div>
-      <div class="modal-body">
-        ...
+      <div class="modal-body bg-warning">
+      <div class="container"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

@@ -1,4 +1,4 @@
- 
+<script src="<?php echo RUTA_JS?>isWindowLoguet.js"></script>
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo RUTA_IMAGENES;?>favicon.png">
@@ -13,4 +13,5 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- css styles -->
   <link href="<?php echo RUTA_CSS;?>app.css" rel="stylesheet" />
+  
 </head>

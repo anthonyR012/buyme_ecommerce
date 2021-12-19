@@ -5,8 +5,6 @@ window.addEventListener('DOMContentLoaded',() => {
     const user = JSON.parse(localStorage.getItem('usuario'));
     verifyUserLogin(user);
     verifyRolUser(user);
-
-   
 })
 
 function verifyUserLogin(user){
@@ -136,7 +134,7 @@ function busqueUsuario(e) {
 
 function consultaApi(url){
     const data = new FormData(document.querySelector('#formLogin'));
-    console.log( email.value);
+   
     data.append('searchEmail', email.value);
     data.append('searchPass', pass.value);
 
@@ -182,7 +180,7 @@ function validarFormulario(e){
    } else {
         e.target.className+= ' is-invalid';
    }
-   console.log(this.type);
+
    if(this.type === 'email') {
     validarEmail(this);
     }
@@ -244,8 +242,6 @@ function eventRegistro(){
 
 
     
-
-    
     getDepartamentos();
     getMunicipios();
     
@@ -300,16 +296,7 @@ function consultaApiRegistro(url){
 
 function insertDetail(data){
     if(data["response"]!=="Error"){
-        console.log(data);
-       
-        const usuario = {
-            id: data["id"],
-            nombre: data["Nombre"],
-            apellido: data["Apellido"],
-            rol: data["rol"],
-        }
-        const usuarioString = JSON.stringify(usuario);
-        localStorage.setItem('usuario', usuarioString);
+        
         window.location.href = "../../ui/credenciales/login.php";
     }else{
         alert("Verifique su conexion");
@@ -423,13 +410,19 @@ function eventPerfil(){
     const pqrsUser = document.querySelector("#pqrsUser");
     getUser();
     getPqrs();
-
-    
+    editCredentials();
 
 
 }
 
+function editCredentials(){
+    const emailEdit = document.querySelector("#emailupd");
+    const passEditAnt = document.querySelector("passanti");
+    const passEditNew = document.querySelector("passnew");
 
+   
+
+}
 function getPqrs() {
     url = "http://localhost/Webservice/search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
 
@@ -452,7 +445,7 @@ function setDataPqrsUser(pqrs){
     if(pqrs.response!="No found pqrs"){
         for(let i=0; i<pqrs.length; i++){
 
-            // console.log(pqrs[i])
+          
             html+=` <div class="col-4">
             <p class="textColumBm">Tipo PQRS:</p>
             <p class="textColumBm">Descripción:</p>
@@ -484,7 +477,7 @@ function setDataUser(user) {
     lastUser.innerHTML = `${user[0].Apellido}`;
     adressUser.innerHTML = `${user[0].Direccion}`;
     phoneUser.innerHTML = `${user[0].Telefono}`;
-
+    document.querySelector("#emailupd").placeholder = `${user[0].Email}`;
 }
 
 // ---------------------------EVENTOS INDEX, PETICION ESTADO ACTIVIDAD-----------------------
@@ -497,6 +490,7 @@ function eventIndex(){
 // ---------------------------EVENTOS DASHBOARD, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventDashboard(){
+   
   getPqrsActive();
   getLastPeditor();
 }
@@ -527,7 +521,7 @@ function setDataOrdersAll(allOrders){
     if(allOrders.length> 0 || !allOrders =="Error"){
         
         allOrders.forEach(element => {
-            console.log(element)
+            
 
             html+=`
             <tr>

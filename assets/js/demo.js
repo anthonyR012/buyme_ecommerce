@@ -384,11 +384,29 @@ function getDataRegister() {
  
 }
 function saveData(data) {
-  let meses;
-//TODO realizar datos de grafica
-  // for (let i = 1; i <= 12;i++){
-  //   data.forEach(e=> console.log(e.1))
-  // }
+
+  //Recorrer data de api con fecha de registrados y ponerlos en la grafica
+  let meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+ let valores = [];
+ let save = false;
+ let mes = 0;
+//  console.log(Object.keys(data[0])[0] == 1)
+  for (let i = 1; i <= 12;i++){
+
+    for (let m = 0; m <data.length;m++){
+      if (Object.keys(data[m])[0] == i) {
+        valores[mes] = parseInt(Object.values(data[m])[0]);
+        save = true;
+      }
+    }
+    if(!save){
+      valores[mes] = 0;
+    }
+    mes+=1;
+    save = false;
+  }
+  
+console.log(valores)
   var ctx = document.getElementById('bigDashboardChart').getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
@@ -404,7 +422,7 @@ function saveData(data) {
     myChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+        labels: meses,
         
         datasets: [{
           label: "Data",
@@ -423,8 +441,7 @@ function saveData(data) {
           borderWidth: 2,
           // DATOS DE GRAFICA
 
-          data: [0,
-             150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
+          data: valores
         }]
       },
       options: {
