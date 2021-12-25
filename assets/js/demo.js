@@ -1,6 +1,14 @@
-
-var myChart;
 document.addEventListener('DOMContentLoaded',getDataRegister);
+getActiveUser();
+
+// SE VUELVE A EJECUTAR PETICIONES DESPUES DE UNOS SEGUNDOS
+setInterval( () => {
+  
+  getActiveUser(); 
+  console.log("recarga...")
+},10000);
+
+
 demo = {
   initPickColor: function() {
     $('.pick-class-label').click(function() {
@@ -231,38 +239,7 @@ demo = {
     var cardStatsMiniLineColor = "#fff",
       cardStatsMiniDotColor = "#fff";
 
-    ctx = document.getElementById('lineChartExample').getContext("2d");
-
-    gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-    gradientStroke.addColorStop(0, '#80b6f4');
-    gradientStroke.addColorStop(1, chartColor);
-
-    gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
-
-    myChart = new Chart(ctx, {
-      type: 'line',
-      responsive: true,
-      data: {
-        labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-        datasets: [{
-          label: "Active Users",
-          borderColor: "#f96332",
-          pointBorderColor: "#FFF",
-          pointBackgroundColor: "#f96332",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          backgroundColor: gradientFill,
-          borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
-        }]
-      },
-      options: gradientChartOptionsConfiguration
-    });
+    
 
 
     ctx = document.getElementById('lineChartExampleWithNumbersAndGrid').getContext("2d");
@@ -376,6 +353,17 @@ demo = {
  
 };
 
+function getActiveUser() {
+
+  url = "http://localhost/webservice/querys.php?case=activos";
+  fetch(url)
+  .then(response => response.json())
+  .then(data => 
+    document.querySelector(".chart-area").innerHTML =`<div class='row justify-content-center align-items-center minh-100'><h1 class="mx-auto my-auto">${data.response[0].cuenta}</h1></div>`)
+
+  
+}
+
 function getDataRegister() {
   url = "http://localhost/Webservice/querys.php?case=registrados";
   fetch(url)
@@ -402,7 +390,7 @@ function saveData(data) {
     if(!save){
       valores[mes] = 0;
     }
-    mes+=1;
+    mes+=1; 
     save = false;
   }
   

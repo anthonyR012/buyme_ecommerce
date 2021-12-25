@@ -68,9 +68,6 @@
     
 
 
-
-      
-
 <!-- Modal EDITAR CREDENCIALES-->
 <div class="modal fade" id="editCredentials" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -80,15 +77,17 @@
         <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
       </div>
       <div class="modal-body  bg-warning">
+        <form action="#" method="POST" id="formEditCredential">
         <div class="container">
             <input type="email" id="emailupd" name="email" placeholder="Correo" class="input-100Bm" required>
             <input type="password" id="passanti" name="pass" placeholder="Antigua Contraseña" class="input-100Bm"required >
             <input type="password" id="passnew" name="pass" placeholder="Nueva Contraseña" class="input-100Bm"required >
+            </form>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-primary" id="editCredential" data-bs-dismiss="modal"  disabled>Aceptar</button>
       </div>
     </div>
   </div>
@@ -102,11 +101,18 @@
         <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
       </div>
       <div class="modal-body bg-warning">
-      <div class="container"></div>
+      <form action="#" method="POST" id="formEditInformacion">
+        <div class="container">
+            <input type="text" id="nombresUpt" name="email" placeholder="Nuevos Nombres" class="input-100Bm" required>
+            <input type="text" id="apellidosUpt" name="pass" placeholder="Nuevos Apellidos" class="input-100Bm"required >
+            <input type="text" id="direccionUpt" name="pass" placeholder="Nueva Direccion" class="input-100Bm"required >
+            <input type="text" id="telefonoUtp" name="pass" placeholder="Nuevo Telefono" class="input-100Bm"required >
+            </form>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+        <button type="button" id="editInformations" class="btn btn-primary" data-bs-dismiss="modal" disabled>Aceptar</button>
       </div>
     </div>
   </div>
@@ -132,9 +138,12 @@
 </div>
 
 <div class="content contentPerfil">
-      
+  
       <section  class="sectionPerfilBm">
       <img src="<?php echo RUTA_IMAGENES?>perfil.png" class="imgPerfBm" alt="">
+        <!-- NOTIFICACIONES PARA USUARIO -->
+        <div id="notification">
+              </div>
         <!-- CREDENCIALES -->
         <div class="credentialBm">       
             <div class="headerCredentialBm">

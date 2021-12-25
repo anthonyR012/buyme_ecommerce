@@ -411,18 +411,11 @@ function eventPerfil(){
     getUser();
     getPqrs();
     editCredentials();
-
-
-}
-
-function editCredentials(){
-    const emailEdit = document.querySelector("#emailupd");
-    const passEditAnt = document.querySelector("passanti");
-    const passEditNew = document.querySelector("passnew");
-
-   
+    editInformation();
 
 }
+
+
 function getPqrs() {
     url = "http://localhost/Webservice/search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
 
@@ -478,14 +471,179 @@ function setDataUser(user) {
     adressUser.innerHTML = `${user[0].Direccion}`;
     phoneUser.innerHTML = `${user[0].Telefono}`;
     document.querySelector("#emailupd").placeholder = `${user[0].Email}`;
+    document.querySelector("#nombresUpt").placeholder = `${user[0].Nombre}`;
+    document.querySelector("#apellidosUpt").placeholder = `${user[0].Apellido}`;
+    document.querySelector("#direccionUpt").placeholder = `${user[0].Direccion}`;  
+    document.querySelector("#telefonoUtp").placeholder = `${user[0].Telefono}`;  
+}
+
+function editCredentials(){
+    const emailEdit = document.querySelector("#emailupd");
+    const passEditAnt = document.querySelector("#passanti");
+    const passEditNew = document.querySelector("#passnew");   
+   
+    passEditNew.addEventListener("blur",validarEdit); 
+    emailEdit.addEventListener("blur",validarEdit);
+    passEditAnt.addEventListener("blur",validarEdit);
+    
+    
+    const btnEditCredential = document.querySelector("#editCredential");
+    btnEditCredential.addEventListener("click",editarCredenciales);
+    
+}
+
+function editInformation(){
+    const nombresEdit = document.querySelector("#nombresUpt");
+    const apellidosEdit = document.querySelector("#apellidosUpt");
+    const direccionEdit = document.querySelector("#direccionUpt");  
+    const telefonoEdit = document.querySelector("#telefonoUtp");   
+
+   
+    nombresEdit.addEventListener("blur",validarEdit2); 
+    apellidosEdit.addEventListener("blur",validarEdit2);
+    direccionEdit.addEventListener("blur",validarEdit2);
+    telefonoEdit.addEventListener("blur",validarEdit2);
+    
+    const editInformation = document.querySelector("#editInformations");
+    editInformation.addEventListener("click",editarInformaciones);
+    
+}
+function editarInformaciones() {
+    
+    // GUARDAR VALORES VACIOS DE INPUT LLENOS.
+        const dataEdit = new FormData(document.querySelector('#formEditInformacion'));
+        let nombres = document.querySelector("#nombresUpt").value!=''||document.querySelector("#nombresUpt").value.length>5?document.querySelector("#nombresUpt").value:document.querySelector("#nombresUpt").placeholder;
+
+        let apellidos = document.querySelector("#apellidosUpt").value!=''||document.querySelector("#apellidosUpt").value.length>5?document.querySelector("#apellidosUpt").value:document.querySelector("#apellidosUpt").placeholder;
+
+        let direccion = document.querySelector("#direccionUpt").value!=''||document.querySelector("#direccionUpt").value.length>5?document.querySelector("#direccionUpt").value:document.querySelector("#direccionUpt").placeholder;
+
+        let telefono = document.querySelector("#telefonoUtp").value!=''||document.querySelector("#telefonoUtp").value.length>5?document.querySelector("#telefonoUtp").value:document.querySelector("#telefonoUtp").placeholder;
+        
+    
+        url = "http://localhost/webservice/Update.php?case=perfil&editinformation&id="+JSON.parse(localStorage.getItem('usuario')).id+"&telefono="+telefono+"&nombres="+nombres+"&apellidos="+apellidos+"&direccion="+direccion;
+       
+        fetch(url)
+        .then(response => response.json())
+        .then(data => verifyChangePass(data.response));   
+        
+        
+}
+
+function editarCredenciales() {
+    
+    const dataEdit = new FormData(document.querySelector('#formEditCredential'));
+    let email = document.querySelector("#emailupd").value!=''||document.querySelector("#emailupd").value.length>5?document.querySelector("#emailupd").value:document.querySelector("#emailupd").placeholder;
+
+    dataEdit.append('email', email);
+    dataEdit.append('password', document.querySelector("#passnew").value);
+    dataEdit.append('lastpassword', document.querySelector("#passanti").value);
+    console.log(dataEdit);
+    url = "http://localhost/webservice/Update.php?case=perfil&editcredential&id="+JSON.parse(localStorage.getItem('usuario')).id;
+    console.log(url)
+    fetch(url,{
+        method: 'POST',
+        body: dataEdit
+    })
+    .then(response => response.json())
+    .then(data => verifyChangePass(data.response));   
+    
+    dataEdit.reset();
+}
+
+function verifyChangePass(data){
+    const notifications = document.querySelector("#notification");
+    let html = "";
+    console.log(data);
+
+    if(data[0].response=="update complete"){
+
+        html= `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Ey!</strong> Has modificado satisfactoriamente tus datos
+      
+      </div>`
+        
+    }else{
+        html = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Ey!</strong> Parece que no concuerdan las contraseñas :( </div>`
+
+    }
+    notifications.innerHTML = html;
+
+    setTimeout( () => {
+        notifications.removeChild(notifications.firstChild);
+        location.reload();
+     }, 3000);
+    
+
+}
+
+function validarEdit2(e){
+    
+    if(e.target.value.length > 3 ) {
+        e.target.style.border = '1px solid';
+        e.target.style.borderColor = 'green';
+   } else {
+        e.target.style.border = '1px solid';
+        e.target.style.borderColor = 'red';
+   }  
+    
+    const btnEditInformation = document.querySelector("#editInformations");
+
+if(document.querySelector("#nombresUpt").value !== '' 
+    || document.querySelector("#apellidosUpt").value !== ''
+    || document.querySelector("#direccionUpt").value !== ''
+    || document.querySelector("#telefonoUtp").value !== '' 
+    && document.querySelector("#nombresUpt").value.length > 3
+    || document.querySelector("#apellidosUpt").value.length > 3
+    || document.querySelector("#direccionUpt").value.length > 3
+    || document.querySelector("#telefonoUtp").value.length > 3) {
+
+        btnEditInformation.disabled = false;
+}else{
+        btnEditInformation.disabled = true;
+}
+
+
+}
+
+function validarEdit(e){
+    
+    if(e.target.value.length > 3 ) {
+        e.target.style.border = '1px solid';
+        e.target.style.borderColor = 'green';
+   } else {
+        e.target.style.border = '1px solid';
+        e.target.style.borderColor = 'red';
+   }
+   if(this.type === 'email') {
+         validarEmailRegister(this);
+    }
+    
+    
+    const btnEditCredential = document.querySelector("#editCredential");
+
+if(document.querySelector("#passanti").value !== '' 
+    && document.querySelector("#passnew").value !== '' 
+    && document.querySelector("#passanti").value.length > 3
+    && document.querySelector("#passnew").value.length > 3) {
+
+    btnEditCredential.disabled = false;
+}else{
+    btnEditCredential.disabled = true;
+}
+
+
 }
 
 // ---------------------------EVENTOS INDEX, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventIndex(){
   
-
 }
+
+
+
 
 // ---------------------------EVENTOS DASHBOARD, PETICION ESTADO ACTIVIDAD-----------------------
 
