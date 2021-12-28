@@ -45,6 +45,10 @@ html,body,p,ol,ul,li,pre,code,address,form,fieldset,blockquote{
    flex: 1;
 }
 
+.navbar-buyme{
+    background-color: var(--main-primary-color);
+}
+
 /* ICON HEADER NO USADO ACTUALMENTE */
 /* .groupIconsBm{
     margin-right: 15px;

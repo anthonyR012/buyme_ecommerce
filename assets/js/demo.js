@@ -1,4 +1,11 @@
-document.addEventListener('DOMContentLoaded',getDataRegister);
+
+//VARIABLES
+let meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+
+// FUNCIONES
+document.addEventListener('DOMContentLoaded',getDataRegisterUser);
+document.addEventListener('DOMContentLoaded',getDataRegisterProduct);
 getActiveUser();
 
 // SE VUELVE A EJECUTAR PETICIONES DESPUES DE UNOS SEGUNDOS
@@ -275,80 +282,11 @@ demo = {
       options: gradientChartOptionsConfigurationWithNumbersAndGrid
     });
 
-    var e = document.getElementById("barChartSimpleGradientsNumbers").getContext("2d");
-
-    gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, hexToRGB('#2CA8FF', 0.6));
     
-    var a = {
-      type: "bar",
-      data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        datasets: [{
-          label: "Active Countries",
-          backgroundColor: gradientFill,
-          borderColor: "#2CA8FF",
-          pointBorderColor: "#FFF",
-          pointBackgroundColor: "#2CA8FF",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          borderWidth: 1,
-          data: [80, 99, 86, 96, 123, 85, 100, 75, 88, 90, 123, 155]
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          bodySpacing: 4,
-          mode: "nearest",
-          intersect: 0,
-          position: "nearest",
-          xPadding: 10,
-          yPadding: 10,
-          caretPadding: 10
-        },
-        responsive: 1,
-        scales: {
-          yAxes: [{
-            gridLines: 0,
-            gridLines: {
-              zeroLineColor: "transparent",
-              drawBorder: false
-            }
-          }],
-          xAxes: [{
-            display: 0,
-            gridLines: 0,
-            ticks: {
-              display: false
-            },
-            gridLines: {
-              zeroLineColor: "transparent",
-              drawTicks: false,
-              display: false,
-              drawBorder: false
-            }
-          }]
-        },
-        layout: {
-          padding: {
-            left: 0,
-            right: 0,
-            top: 15,
-            bottom: 15
-          }
-        }
-      }
-    };
+    
+    
 
-    var viewsChart = new Chart(e, a);
+    
   }
  
 };
@@ -364,17 +302,127 @@ function getActiveUser() {
   
 }
 
-function getDataRegister() {
-  url = "http://localhost/Webservice/querys.php?case=registrados";
+function getDataRegisterProduct() {
+  url = "http://localhost/Webservice/querys.php?case=registradosProductos";
   fetch(url)
   .then(response => response.json())
-  .then(data => saveData(data.response));
+  .then(data => saveDataProduct(data.response));
  
 }
-function saveData(data) {
+
+function getDataRegisterUser() {
+  url = "http://localhost/Webservice/querys.php?case=registradosUsuarios";
+  fetch(url)
+  .then(response => response.json())
+  .then(data => saveDataUser(data.response));
+ 
+}
+
+function saveDataProduct(data) {
+  
+   //Recorrer data de api con fecha de registrados y ponerlos en la grafica
+  
+ let valores = [];
+ let save = false;
+ let mes = 0;
+//  console.log(Object.keys(data[0])[0] == 1)
+  for (let i = 1; i <= 12;i++){
+
+    for (let m = 0; m <data.length;m++){
+      if (Object.keys(data[m])[0] == i) {
+        valores[mes] = parseInt(Object.values(data[m])[0]);
+        save = true;
+      }
+    }
+    if(!save){
+      valores[mes] = 0;
+    }
+    mes+=1; 
+    save = false;
+  }
+
+
+  ctx = document.getElementById('lineChartExampleWithNumbersAndGrid').getContext("2d");
+  
+  var e = document.getElementById("barChartSimpleGradientsNumbers").getContext("2d");
+
+  gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+  gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+  gradientFill.addColorStop(1, hexToRGB('#2CA8FF', 0.6));
+
+  var a = {
+    type: "bar",
+    data: {
+      labels: meses,
+      datasets: [{
+        label: "Total",
+        backgroundColor: "#72E27C",
+        borderColor: "#2CA8FF",
+        pointBorderColor: "#FFF",
+        pointBackgroundColor: "#2CA8FF",
+        pointBorderWidth: 2,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 1,
+        pointRadius: 4,
+        fill: true,
+        borderWidth: 1,
+        data: valores
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        bodySpacing: 4,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest",
+        xPadding: 10,
+        yPadding: 10,
+        caretPadding: 10
+      },
+      responsive: 1,
+      scales: {
+        yAxes: [{
+          gridLines: 0,
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          display: 0,
+          gridLines: 0,
+          ticks: {
+            display: false
+          },
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawTicks: false,
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 15,
+          bottom: 15
+        }
+      }
+    }
+  };
+  var viewsChart = new Chart(e, a);
+}
+
+function saveDataUser(data) {
 
   //Recorrer data de api con fecha de registrados y ponerlos en la grafica
-  let meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  
  let valores = [];
  let save = false;
  let mes = 0;
@@ -394,7 +442,7 @@ function saveData(data) {
     save = false;
   }
   
-console.log(valores)
+
   var ctx = document.getElementById('bigDashboardChart').getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);

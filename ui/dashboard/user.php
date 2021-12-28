@@ -10,7 +10,7 @@
 <?php include_once("../modulos/header.php");?>
 
   <div class="wrapper ">
-    <div class="sidebar" data-color="orange">
+    <div  class="sidebar bg-primary" style="background-color:aliceblue">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -22,6 +22,13 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
+        <li>
+            <a href="<?php echo RUTA_PAGES."index.php";?>">
+              <i class="now-ui-icons business_bank"></i>
+              <p>Inicio</p>
+            </a>
+          </li>
+          
         <li id="panelAdministratorUser">
           </li>
         
@@ -76,10 +83,10 @@
         <h5 class="modal-title" id="staticBackdropLabel">Editar Credenciales</h5>
         <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
       </div>
-      <div class="modal-body  bg-warning">
+      <div class="modal-body" style="background:var(--main-primary-color)">
         <form action="#" method="POST" id="formEditCredential">
         <div class="container">
-            <input type="email" id="emailupd" name="email" placeholder="Correo" class="input-100Bm" required>
+            <input type="email"  id="emailupd" name="email" placeholder="Correo" class="input-100Bm" required>
             <input type="password" id="passanti" name="pass" placeholder="Antigua Contraseña" class="input-100Bm"required >
             <input type="password" id="passnew" name="pass" placeholder="Nueva Contraseña" class="input-100Bm"required >
             </form>
@@ -100,7 +107,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">Editar Información</h5>
         <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
       </div>
-      <div class="modal-body bg-warning">
+      <div class="modal-body" style="background:var(--main-primary-color)">
       <form action="#" method="POST" id="formEditInformacion">
         <div class="container">
             <input type="text" id="nombresUpt" name="email" placeholder="Nuevos Nombres" class="input-100Bm" required>
@@ -118,28 +125,9 @@
   </div>
 </div>
 
-<!-- Modal EDITAR MIS PQRS-->
-<div class="modal fade" id="editPqrs" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Pqrs</h5>
-        <img data-bs-dismiss="modal" aria-label="Close" class="btn-close imgPerfilbm" src="<?php echo RUTA_IMAGENES ?>cerrar.png" alt="">
-      </div>
-      <div class="modal-body bg-warning">
-      <div class="container"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="content contentPerfil">
   
-      <section  class="sectionPerfilBm">
       <img src="<?php echo RUTA_IMAGENES?>perfil.png" class="imgPerfBm" alt="">
         <!-- NOTIFICACIONES PARA USUARIO -->
         <div id="notification">
@@ -197,7 +185,7 @@
         </div>
         <!-- MIS PQRS -->
         <div class="credentialBm">       
-            <div class="headerCredentialBm" data-bs-toggle="modal" data-bs-target="#editPqrs">
+            <div class="headerCredentialBm" >
                 <p class="colorTextBm3">MIS PQRS</p>
 
                 <div class="containerEditBm">
@@ -214,7 +202,7 @@
 
             </div>
         </div>
-        </section>
+      
       </div>
       
       <!-- FIN CONTENIDO -->

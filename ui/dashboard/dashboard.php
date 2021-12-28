@@ -11,7 +11,7 @@
 <body class="">
 <?php include_once(RUTA_MODULOS."/header.php");?>
   <div class="wrapper ">
-    <div class="sidebar" data-color="orange">
+    <div class="sidebar bg-primary" style="background-color:aliceblue">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -23,13 +23,20 @@
       
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
+        <li>
+            <a href="<?php echo RUTA_PAGES."index.php";?>">
+              <i class="now-ui-icons business_bank"></i>
+              <p>Inicio</p>
+            </a>
+          </li>
+
+          <li class="active">
             <a href="./dashboard.php">
-              <i class="now-ui-icons design_app"></i>
+              <i class="now-ui-icons business_chart-bar-32"></i>
               <p>Panel de control</p>
             </a>
           </li>      
-    
+          
           <li>
             <a href="./user.php">
               <i class="now-ui-icons users_single-02"></i>
@@ -154,7 +161,7 @@
             <div class="card  card-tasks">
               <div class="card-header ">
                 <h5 class="card-category">PQRS</h5>
-                <h4 class="card-title">Activos</h4>
+                <h4 class="card-title">Sin responder</h4>
               </div>
               <div class="card-body ">
                 <div class="table-full-width table-responsive">

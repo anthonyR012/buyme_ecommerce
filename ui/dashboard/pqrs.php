@@ -8,7 +8,7 @@
 <body class="">
 <?php include_once("../modulos/header.php");?>
   <div class="wrapper ">
-    <div class="sidebar" data-color="orange">
+    <div class="sidebar bg-primary" style="background-color:aliceblue">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -19,6 +19,12 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav" >
+        <li>
+            <a href="<?php echo RUTA_PAGES."index.php";?>">
+              <i class="now-ui-icons business_bank"></i>
+              <p>Inicio</p>
+            </a>
+          </li>
           <li id="panelAdministratorPqrs">
           </li>
           <li>

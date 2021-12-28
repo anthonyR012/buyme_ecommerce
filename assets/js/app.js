@@ -5,28 +5,63 @@ window.addEventListener('DOMContentLoaded',() => {
     const user = JSON.parse(localStorage.getItem('usuario'));
     verifyUserLogin(user);
     verifyRolUser(user);
+    clicknavbarglobal();
 })
 
+
+
+function clicknavbarglobal(){
+    const nav = document.querySelector('#navbarglobal');
+    const button = document.querySelector('#buttonDisplay');
+    nav.style.z_index = 80;
+    button.addEventListener('click',()=>{
+        if(nav.classList.contains('bg-white')){
+            nav.classList.remove('bg-white');
+            nav.classList.add('navbar-transparent');
+        }else{
+            nav.classList.add('bg-white');
+            nav.classList.remove('navbar-transparent');
+        }
+       
+    })
+
+}
 function verifyUserLogin(user){
     const inItem = document.querySelector('#itemLogin');
     const inItem2 = document.querySelector('#itemLogin2');
+    const inItem2_ = document.querySelector('#itemLogin2_');
+    const inItemInicio = document.querySelector('#itemInicio');
 
     if(user!= null){
         let html2= `<li class="nav-item">
         <a class="nav-link" href="../dashboard/user.php">
           <img src="../../assets/img/account.png" class="iconHeaderBm" alt="">
           <p>
-            <span class="d-lg-none d-md-block">Account</span>
+            <span class="d-lg-none d-md-block">Perfil</span>
           </p>
         </a>
       </li>
         `
-        let html = `<!-- Nav Item - User Information -->
+        
+        let htmlInicio = `
+        <li class="nav-item dropdown">
 
-     
+        <li class="nav-item">
+        <a class="nav-link" href="../pages/index.php">
+          <img src="../../assets/img/inicio.png" class="iconHeaderBm" alt="">
+          <p>
+            <span class="d-lg-none d-md-block">Inicio</span>
+          </p>
+        </a>
+      </li>
+        `
+
+        let html = `<!-- Nav Item - User Information -->
 
         <!-- ACCION AL DAR CLICK EN EL DESPLEGADOR -->
         <li class="nav-item dropdown">
+
+        
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="now-ui-icons location_world"></i>
             <p>
@@ -39,8 +74,28 @@ function verifyUserLogin(user){
           </div>
         </li>`
 
+        if(user.rol!=="Usuario"){
+            let html_ =`
+            <li class="nav-item dropdown">
+    
+            <li class="nav-item">
+            <a class="nav-link" href="../dashboard/dashboard.php">
+              <img src="../../assets/img/dashboard.png" class="iconHeaderBm" alt="">
+              <p>
+                <span class="d-lg-none d-md-block">Panel Administración</span>
+              </p>
+            </a>
+          </li>
+            `
+            inItem2_.innerHTML =html_;
+        }
+
+        
+      
+
   inItem2.innerHTML =html2;
   inItem.innerHTML = html;
+  inItemInicio.innerHTML = htmlInicio;
 
   const sesionCerrar = document.querySelector("#closeSesionBuyme");
   
@@ -80,13 +135,13 @@ function verifyRolUser(user){
         const adminPqrs = document.querySelector("#panelAdministratorPqrs");
         if(adminPqrs!=null){
             adminPqrs.innerHTML = `  <a href="./dashboard.php">
-            <i class="now-ui-icons design_app"></i>
+            <i class="now-ui-icons business_chart-bar-32"></i>
             <p>panel de control</p>
           </a>`;
         }
         if(adminUser!=null) {
             adminUser.innerHTML = `  <a href="./dashboard.php">
-            <i class="now-ui-icons design_app"></i>
+            <i class="now-ui-icons business_chart-bar-32"></i>
             <p>panel de control</p>
           </a>`;
         }
@@ -639,10 +694,236 @@ if(document.querySelector("#passanti").value !== ''
 // ---------------------------EVENTOS INDEX, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventIndex(){
-  
+  getProductPhone();
 }
 
 
+function getProductPhone(){
+    url = "  http://localhost/webservice/querys.php?case=productos";
+    
+    fetch(url)
+    .then(response => response.json())
+    .then(data => setDataProductPhone(data.response));
+  
+}
+function setDataProductPhone(products){
+    const productSetPhone = document.querySelector("#getProductPhone");
+    const productSetCompu = document.querySelector("#getProductCompu");
+    const productSetTable = document.querySelector("#getProductTable");
+
+    let htmlPhone = "";
+    let htmlTable = "";
+    let htmlCompu = "";
+    
+    let icompu = 1,iphone = 1,itable = 1;
+    htmlCompu = `<div class="carousel-inner"> <div class="carousel-item active">`;
+    htmlTable = `<div class="carousel-inner"> <div class="carousel-item active">`;
+    htmlPhone = `<div class="carousel-inner"> <div class="carousel-item active">`;
+
+    products.forEach(element => {
+            
+        if(element.Categoria==="Celulares"){
+            
+            if(iphone<=4){
+                htmlPhone+=`
+        
+                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                <div class="card-body">
+                <h5 class="card-title">${element.Nombre}</h5>
+                <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                <a href="#" class="btn btn-primary">Comprar</a>
+                <a href="#" class="btn btn-danger">Detalle</a>
+                </div>
+            </div>
+           
+                `;
+            
+            }else{
+                if(iphone===5){
+                    htmlPhone+=`
+                    </div>
+                    <div class="carousel-item"> 
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                    <div class="card-body">
+                    <h5 class="card-title">${element.Nombre}</h5>
+                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-danger">Detalle</a>
+                    </div>
+                </div>
+                    `;
+                    iphone=1;
+                }else{
+                    htmlPhone+=`
+    
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                    <div class="card-body">
+                    <h5 class="card-title">${element.Nombre}</h5>
+                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-danger">Detalle</a>
+                    </div>
+                </div>
+                    `;
+
+                }
+               
+                
+            }
+            iphone+=1;
+        }else if(element.Categoria==="Computadores"){
+            
+            if(icompu<=4){
+                htmlCompu+=`
+        
+                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                <div class="card-body">
+                <h5 class="card-title">${element.Nombre}</h5>
+                <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                <a href="#" class="btn btn-primary">Comprar</a>
+                <a href="#" class="btn btn-danger">Detalle</a>
+                </div>
+            </div>
+           
+                `;
+            
+            }else{
+                if(icompu===5){
+                    htmlCompu+=`
+                    </div>
+                    <div class="carousel-item"> 
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                    <div class="card-body">
+                    <h5 class="card-title">${element.Nombre}</h5>
+                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-danger">Detalle</a>
+                    </div>
+                </div>
+                    `;
+                    icompu=1;
+                }else{
+                    htmlCompu+=`
+    
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                    <div class="card-body">
+                    <h5 class="card-title">${element.Nombre}</h5>
+                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-danger">Detalle</a>
+                    </div>
+                </div>
+                    `;
+
+                }
+               
+                
+            }
+           
+            icompu+=1;
+           
+        }else{
+            if(itable<=4){
+                htmlTable+=`
+        
+                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                <div class="card-body">
+                <h5 class="card-title">${element.Nombre}</h5>
+                <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                <a href="#" class="btn btn-primary">Comprar</a>
+                <a href="#" class="btn btn-danger">Detalle</a>
+                </div>
+            </div>
+           
+                `;
+            
+            }else{
+                if(itable===5){
+                    htmlTable+=`
+                    </div>
+                    <div class="carousel-item"> 
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                    <div class="card-body">
+                    <h5 class="card-title">${element.Nombre}</h5>
+                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-danger">Detalle</a>
+                    </div>
+                </div>
+                    `;
+                    itable=1;
+                }else{
+                    htmlTable+=`
+    
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <img src="${element.Imagen}"  class="card-img-top" alt="post">
+                    <div class="card-body">
+                    <h5 class="card-title">${element.Nombre}</h5>
+                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-danger">Detalle</a>
+                    </div>
+                </div>
+                    `;
+
+                }
+               
+                
+            }
+            itable+=1;
+        }
+        
+        
+        
+        console.log(itable)
+    });
+    
+    if(icompu<=4){
+        htmlCompu +=`</div>`;
+    }
+    if(iphone<=4){
+        htmlPhone +=`</div>`;
+    }
+    if(itable<=4){
+        htmlTable +=`</div>`;
+    }
+    htmlCompu += `
+    </div><button class="carousel-control-prev" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
+   </button>
+   <button class="carousel-control-next" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="next">
+   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+   </button></div> `;
+   htmlPhone += `
+   </div><button class="carousel-control-prev" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="prev">
+   <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="next">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </button></div> `;
+  htmlTable += `
+  </div><button class="carousel-control-prev" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="prev">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
+ </button>
+ <button class="carousel-control-next" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="next">
+ <span class="carousel-control-next-icon" aria-hidden="true"></span>
+ </button></div> `;
+    console.log(htmlTable)
+
+    productSetPhone.innerHTML = htmlPhone;
+    productSetCompu.innerHTML = htmlCompu;
+    productSetTable.innerHTML = htmlTable;
+
+
+}
 
 
 // ---------------------------EVENTOS DASHBOARD, PETICION ESTADO ACTIVIDAD-----------------------

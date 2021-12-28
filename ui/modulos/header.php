@@ -9,14 +9,14 @@
     
             <!-- <img src="../../Assets/img/volver.png" alt="volver"
             ><img src="" alt=""> -->
-            <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+            <nav class="navbar navbar-expand-lg navbar-transparent " style="position: absolute;width:100%;z-index: 8000;" id="navbarglobal">
                 <!-- MODO MOVILE -->
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <div class="navbar-toggle">
                         </div>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" id="buttonDisplay" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
                 <!-- FORMULARIO DE BUSQUEDA -->
-            <form >
+            <!-- <form >
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Buscar...">
                 <div class="input-group-append">
@@ -34,8 +34,16 @@
                   </div>
                 </div>
               </div>
-            </form>
-        
+            </form> -->
+            <form class="d-flex">
+            <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Buscar...">
+                <div class="input-group-append">
+  
+                </div>
+              </div>
+           
+          </form>
             
               <!-- ITEM NAVBAR -->
               <li class="nav-item">
@@ -46,8 +54,14 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item" id="itemInicio">
+              
+              </li>
+              <li class="nav-item" id="itemLogin2_">
+              </li>
               <li class="nav-item" id="itemLogin2">
               </li>
+              
               <li class="nav-item" id="itemLogin">
               </li>
              
