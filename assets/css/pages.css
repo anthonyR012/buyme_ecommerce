@@ -39,7 +39,11 @@
   
   }
   
-  
+  .buttonStyle{
+    width: 30px !important;
+    height: 30px !important;
+    margin-top:190px;
+  }
   
   .celulares{
     border-right: black solid 2px;

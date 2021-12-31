@@ -8,15 +8,13 @@
 <!-- ETIQUETA HEAD -->
 <?php include_once(RUTA_MODULOS.'headEtiqueta.php');?>
 <!-- COMIENZA CUERPO DE HTML -->
-<body>
+<body style="max-width: 1700px;margin: auto;">
 <?php include_once(RUTA_MODULOS."header.php");?>
 
 
-    <div class="contentPerfil p-5">
+    <div class="contentPerfil" style="padding-top: 100px;padding-bottom: 30px">
    
-
-            <div class="container">
-            <div class="loginBm shadow p-3 mb-5 rounded row">
+            <div class="loginBm shadow p-5 mb-5 rounded row">
 
             <div class="col-sm-8 ">
                 <form action="#" method="POST" id="formLogin">
@@ -47,8 +45,6 @@
             
             </div>
 
-            
-     </div>
 
 
       <?php include_once RUTA_MODULOS.'/footer.php'; ?>

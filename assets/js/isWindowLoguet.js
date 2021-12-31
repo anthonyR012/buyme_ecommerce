@@ -6,7 +6,8 @@
     || window.location.href==="http://localhost/buyme/ui/modulos/footer.php" 
     || window.location.href==="http://localhost/buyme/ui/modulos/header.php"
     || window.location.href==="http://localhost/buyme/ui/modulos/headEtiqueta.php"
-    || window.location.href==="http://localhost/buyme/ui/modulos/routes.php"){
+    || window.location.href==="http://localhost/buyme/ui/modulos/routes.php"
+    || window.location.href==="http://localhost/buyme/ui/dashboard/productCreate.php"){
         
         
         if(JSON.parse(localStorage.getItem('usuario'))==null){

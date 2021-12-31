@@ -14,6 +14,11 @@ setInterval( () => {
   getActiveUser(); 
   console.log("recarga...")
 },10000);
+setInterval( () => {
+  
+  getDataRegisterProduct();
+  console.log("recarga...")
+},60000*5);
 
 
 demo = {
@@ -297,7 +302,7 @@ function getActiveUser() {
   fetch(url)
   .then(response => response.json())
   .then(data => 
-    document.querySelector(".chart-area").innerHTML =`<div class='row justify-content-center align-items-center minh-100'><h1 class="mx-auto my-auto">${data.response[0].cuenta}</h1></div>`)
+    document.querySelector(".chart-area").innerHTML =`<div class=''><h1 class="row justify-content-center align-items-center minh-100">${data.response[0].cuenta}</h1></div>`)
 
   
 }

@@ -6,8 +6,8 @@ window.addEventListener('DOMContentLoaded',() => {
     verifyUserLogin(user);
     verifyRolUser(user);
     clicknavbarglobal();
+   
 })
-
 
 
 function clicknavbarglobal(){
@@ -130,7 +130,7 @@ function verifyUserLogin(user){
 function verifyRolUser(user){
     if(user!=null && user.rol =="Administrador"){
         
-        
+         
         const adminUser = document.querySelector("#panelAdministratorUser");
         const adminPqrs = document.querySelector("#panelAdministratorPqrs");
         if(adminPqrs!=null){
@@ -145,7 +145,16 @@ function verifyRolUser(user){
             <p>panel de control</p>
           </a>`;
         }
-        
+        let isAdmin = document.querySelector("#isAdmin");
+
+        isAdmin!=null?document.querySelector("#isAdmin").innerHTML = ` 
+        <a href="./dashboard.php">
+        <i class="now-ui-icons business_chart-bar-32"></i>
+        <p>Panel de control</p>
+      </a>`:null;
+       
+           
+          
     }
 
 }
@@ -694,19 +703,19 @@ if(document.querySelector("#passanti").value !== ''
 // ---------------------------EVENTOS INDEX, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventIndex(){
-  getProductPhone();
+  getProducts();
 }
 
 
-function getProductPhone(){
+function getProducts(){
     url = "  http://localhost/webservice/querys.php?case=productos";
     
     fetch(url)
     .then(response => response.json())
-    .then(data => setDataProductPhone(data.response));
+    .then(data => setDataProduct(data.response));
   
 }
-function setDataProductPhone(products){
+function setDataProduct(products){
     const productSetPhone = document.querySelector("#getProductPhone");
     const productSetCompu = document.querySelector("#getProductCompu");
     const productSetTable = document.querySelector("#getProductTable");
@@ -896,25 +905,25 @@ function setDataProductPhone(products){
         htmlTable +=`</div>`;
     }
     htmlCompu += `
-    </div><button class="carousel-control-prev" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="prev">
+    </div><button class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
    </button>
-   <button class="carousel-control-next" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="next">
-   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+   <button class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="next">
+   <span class="carousel-control-next-icon " aria-hidden="true"></span>
    </button></div> `;
    htmlPhone += `
-   </div><button class="carousel-control-prev" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="prev">
+   </div><button class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="prev">
    <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="next">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <button class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="next">
+  <span class="carousel-control-next-icon " aria-hidden="true"></span>
   </button></div> `;
   htmlTable += `
-  </div><button class="carousel-control-prev" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="prev">
+  </div><button class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="prev">
   <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
  </button>
- <button class="carousel-control-next" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="next">
- <span class="carousel-control-next-icon" aria-hidden="true"></span>
+ <button class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="next">
+ <span class="carousel-control-next-icon " aria-hidden="true"></span>
  </button></div> `;
     console.log(htmlTable)
 
@@ -932,6 +941,14 @@ function eventDashboard(){
    
   getPqrsActive();
   getLastPeditor();
+
+  setInterval( () => {
+  
+    getPqrsActive(); 
+    getLastPeditor();
+    console.log("recarga...")
+  },60000*3);
+
 }
 
 function getPqrsActive(){
@@ -1025,4 +1042,140 @@ function setDataPqrsAll(allPqrs){
     }
     tablePqrs.innerHTML = html;
     }
+}
+
+// ------------EVENTOS CREACION DE PRODUCTOS---------------
+
+
+var imagen;
+function eventCreateProduct(){
+    getCategorias();
+    document.querySelector('#capturarImg').addEventListener('change',previsualization);
+    document.querySelector('#producto').addEventListener('blur',validarCreateProduct);
+    document.querySelector('#marca').addEventListener('blur',validarCreateProduct);
+    document.querySelector('#referencia').addEventListener('blur',validarCreateProduct);
+    document.querySelector('#garantia').addEventListener('blur',validarCreateProduct)
+    document.querySelector('#precio').addEventListener('blur',validarCreateProduct);
+    document.querySelector('#descripcion').addEventListener('blur',validarCreateProduct);
+    document.querySelector('#cantidad').addEventListener('blur',validarCreateProduct);
+    document.querySelector('#selectCategoria').addEventListener('change',validarCreateProduct);
+    document.querySelector('#publicar').addEventListener('click',insertServerProduct);
+}
+function previsualization(){
+    const previsualization = document.querySelector("#previsualizar");
+    const archivo = document.querySelector("#capturarImg").files;
+    const primerArchivo = archivo[0];
+
+     var reader = new FileReader();
+    // Lo convertimos a un objeto de tipo objectURL
+    const objectURL = URL.createObjectURL(primerArchivo);
+    // Y a la fuente de la imagen le ponemos el objectURL
+    previsualization.src = objectURL;
+     // Closure to capture the file information.
+     
+     reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          imagen = e.target.result;
+        //  console.log(escape(theFile.name))
+        };
+      })(primerArchivo);
+     // Read in the image file as a data URL.
+     reader.readAsDataURL(primerArchivo);
+    
+}
+
+
+function validarCreateProduct(e){
+    if(this.type !== 'select-one'){
+    if(e.target.value.length > 0 ) {
+        e.target.style.border = '1px solid';
+        e.target.style.borderColor = 'green';
+   } else {
+        e.target.style.border = '1px solid';
+        e.target.style.borderColor = 'red';
+   }
+  
+}
+    const btn = document.querySelector("#publicar");
+    console.log(imagen);
+if(document.querySelector("#producto").value !== '' 
+    && document.querySelector("#marca").value !== '' 
+    && document.querySelector("#referencia").value !== '' 
+    && document.querySelector("#descripcion").value !== '' 
+    && document.querySelector("#cantidad").value !== '' 
+    && document.querySelector("#precio").value !== '' 
+    && document.querySelector("#garantia").value !== '' 
+    && document.querySelector("#selectCategoria").value!=="false"
+    && document.querySelector("#producto").value.length > 3
+    && document.querySelector("#marca").value.length > 3
+    && document.querySelector("#referencia").value.length > 3
+    && document.querySelector("#descripcion").value.length > 3
+    && document.querySelector("#precio").value.length > 3
+    && document.querySelector("#garantia").value.length > 0
+    && imagen != undefined) {
+
+        btn.disabled = false;
+}else{
+        btn.disabled = true;
+}
+
+
+}
+
+function getCategorias() {
+    url = "http://localhost/WEbservice/querys.php?case=categorias";
+    fetch(url)
+    .then(response => response.json())
+    .then(data => setCate(data.response));
+}
+function setCate(data){
+    
+        let html = "<option value='false' selected>Categoria</option>";
+        const selectMunicipios = document.querySelector("#selectCategoria");
+        for (let i = 0;i < data.length;i++) {
+            html += `<option value='${data[i].id}'>${data[i].Nombre}</option>`;
+    
+        }
+    
+        selectMunicipios.innerHTML = html;
+
+}
+
+function insertServerProduct(e){
+    e.preventDefault();
+    const producto =document.querySelector("#producto").value  
+    const marca = document.querySelector("#marca").value 
+    const referencia = document.querySelector("#referencia").value 
+    const descripcion =document.querySelector("#descripcion").value
+    const precio =document.querySelector("#precio").value
+    const cantidad = document.querySelector("#cantidad").value 
+    const garantia = document.querySelector("#garantia").value 
+    const selectCategoria = document.querySelector("#selectCategoria").value
+    
+
+    url = `http://localhost/webservice/insert.php?case=productos&nombre=${producto}&marca=${marca}&referencia=${referencia}&descripcion=${descripcion}&precio=${precio}&existencia=${cantidad}&garantia=${garantia}&categoria=${selectCategoria}`;
+    
+    sendDataServerProduct(url);
+}
+function sendDataServerProduct(url){
+    const data = new FormData();
+     
+    console.log("carga"+imagen.replace('data:image/jpg;base64,', '')
+    ||imagen.replace('data:image/png;base64,', '')
+    ||imagen.replace('data:image/svg;base64,', '')
+    ||imagen.replace('data:image/gif;base64,', ''));
+
+    // data.append('imagen',
+    //  imagen.replace('data:image/jpg;base64,', '')
+    //  ||imagen.replace('data:image/png;base64,', '')
+    //  ||imagen.replace('data:image/svg;base64,', '')
+    //  ||imagen.replace('data:image/gif;base64,', ''));
+
+    // fetch(url,{
+    //     method: 'POST',
+    //     body: data
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data.response));
 }

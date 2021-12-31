@@ -8,8 +8,13 @@
 <!-- ETIQUETA HEAD -->
 <?php include_once(RUTA_MODULOS.'headEtiqueta.php');?>
 <!-- COMIENZA CUERPO DE HTML -->
-
-<body>
+<style type="text/css">
+  html, body 
+{
+     overflow-x:scroll;
+}
+</style>
+<body style="max-width: 1800px;margin: auto;">
 
 <?php include_once(RUTA_MODULOS.'header.php'); ?>
     
@@ -35,23 +40,16 @@
      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
        <div class="carousel-inner">
          <div class="carousel-item active">
-           <center><img src="<?php echo RUTA_IMAGENES ?>/account.png" class="d-block w-200" alt="..."></center>
+           <center><img src="<?php echo RUTA_IMAGENES ?>/LandingPage1.png" class="d-block w-200" alt="..."></center>
          </div>
          <div class="carousel-item">
-           <center><img src="<?php echo RUTA_IMAGENES ?>/agregar.png" class="d-block w-200" alt="..."></center>
+           <center><img src="<?php echo RUTA_IMAGENES ?>/LandingPage2.jpg" class="d-block w-200" alt="..."></center>
          </div>
          <div class="carousel-item">
-           <center><img src="<?php echo RUTA_IMAGENES ?>/correo.png" class="d-block w-200" alt="..." ></center>
+           <center><img src="<?php echo RUTA_IMAGENES ?>/LandingPage3.jpg" class="d-block w-200" alt="..." ></center>
          </div>
        </div>
-       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+      
      </div>
      
      
