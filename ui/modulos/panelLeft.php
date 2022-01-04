@@ -21,7 +21,7 @@
 
           <li>
             <a href="./productCreate.php">
-              <i class="now-ui-icons users_single-02"></i>
+              <i class="now-ui-icons files_box"></i>
               <p>Publicar Producto</p>
             </a>
           </li>

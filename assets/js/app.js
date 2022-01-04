@@ -602,9 +602,9 @@ function editarCredenciales() {
     dataEdit.append('email', email);
     dataEdit.append('password', document.querySelector("#passnew").value);
     dataEdit.append('lastpassword', document.querySelector("#passanti").value);
-    console.log(dataEdit);
+   
     url = "http://localhost/webservice/Update.php?case=perfil&editcredential&id="+JSON.parse(localStorage.getItem('usuario')).id;
-    console.log(url)
+    
     fetch(url,{
         method: 'POST',
         body: dataEdit
@@ -704,6 +704,159 @@ if(document.querySelector("#passanti").value !== ''
 
 function eventIndex(){
   getProducts();
+  // Listeners
+cargarEventListeners();
+}
+
+// METODOS CARRITO DE COMPRA
+// Variables
+const carrito = document.querySelector('#carrito');
+const listaCursos = document.querySelector('#lista-productos');
+const contenedorCarrito = document.querySelector('#lista-carrito tbody');
+const vaciarCarritoBtn = document.querySelector('#vaciar-carrito'); 
+let articulosCarrito = [];
+
+
+
+
+function cargarEventListeners() {
+   
+    document.querySelector('#img-carrito').addEventListener('click', mostrarCarrito)
+     // Dispara cuando se presiona "Agregar Carrito"
+     listaCursos.addEventListener('click', agregarCurso);
+
+     // Cuando se elimina un curso del carrito
+     carrito.addEventListener('click', eliminarCurso);
+
+     // Al Vaciar el carrito
+     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+
+
+     // NUEVO: Contenido cargado
+     document.addEventListener('DOMContentLoaded', () => {
+          articulosCarrito = JSON.parse( localStorage.getItem('carrito') ) || []  ;
+          // console.log(articulosCarrito);
+          carritoHTML();
+     });
+}
+
+function mostrarCarrito() {
+
+    if(carrito.style.display=="none"){
+        carrito.style.display = "block";
+    }else{
+        carrito.style.display = "none";
+    }
+    
+
+
+}
+// Función que añade el curso al carrito
+function agregarCurso(e) {
+     e.preventDefault();
+     
+     // Delegation para agregar-carrito
+     if(e.target.classList.contains('agregar-carrito')) {
+        
+          const curso = e.target.parentElement.parentElement;
+         
+          // Enviamos el curso seleccionado para tomar sus datos
+          leerDatosCurso(curso);
+     }
+}
+
+// Lee los datos del curso
+function leerDatosCurso(curso) {
+     const infoCurso = {
+          imagen: curso.querySelector('img').src,
+          titulo: curso.querySelector('h5').textContent,
+          precio: curso.querySelector('.precio b').textContent,
+          id: curso.querySelector('a').getAttribute('data-id'), 
+          cantidad: 1
+     }
+     console.log(infoCurso);
+
+     if( articulosCarrito.some( curso => curso.id === infoCurso.id ) ) { 
+          const cursos = articulosCarrito.map( curso => {
+               if( curso.id === infoCurso.id ) {
+                    let cantidad = parseInt(curso.cantidad);
+                    cantidad++
+                    curso.cantidad =  cantidad;
+                    return curso;
+               } else {
+                    return curso;
+               }
+          })
+          articulosCarrito = [...cursos];
+     }  else {
+          articulosCarrito = [...articulosCarrito, infoCurso];
+     }
+
+     console.log(articulosCarrito)
+
+     
+
+     // console.log(articulosCarrito)
+     carritoHTML();
+}
+
+// Elimina el curso del carrito en el DOM
+function eliminarCurso(e) {
+     e.preventDefault();
+     if(e.target.classList.contains('borrar-curso') ) {
+          // e.target.parentElement.parentElement.remove();
+          const curso = e.target.parentElement.parentElement;
+          const cursoId = curso.querySelector('a').getAttribute('data-id');
+          console.log("produto "+cursoId)
+          // Eliminar del arreglo del carrito
+          articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
+
+          carritoHTML();
+     }
+}
+
+
+// Muestra el curso seleccionado en el Carrito
+function carritoHTML() {
+
+     vaciarCarrito();
+
+     articulosCarrito.forEach(curso => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+               <td>  
+                    <img src="${curso.imagen}" width=100>
+               </td>
+               <td>${curso.titulo}</td>
+               <td>${curso.precio}</td>
+               <td>${curso.cantidad} </td>
+               <td>
+                    <a href="#" class="borrar-curso" data-id="${curso.id}">X</a>
+               </td>
+          `;
+          contenedorCarrito.appendChild(row);
+     });
+
+     // NUEVO:
+     sincronizarStorage();
+
+}
+
+
+// NUEVO: 
+function sincronizarStorage() {
+     localStorage.setItem('carrito', JSON.stringify(articulosCarrito));
+}
+
+// Elimina los cursos del carrito en el DOM
+function vaciarCarrito() {
+     // forma rapida (recomendada)
+     while(contenedorCarrito.firstChild) {
+      
+          contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+
+      }
+      localStorage.removeItem("carrito");
 }
 
 
@@ -725,23 +878,24 @@ function setDataProduct(products){
     let htmlCompu = "";
     
     let icompu = 1,iphone = 1,itable = 1;
-    htmlCompu = `<div class="carousel-inner"> <div class="carousel-item active">`;
-    htmlTable = `<div class="carousel-inner"> <div class="carousel-item active">`;
-    htmlPhone = `<div class="carousel-inner"> <div class="carousel-item active">`;
+    htmlCompu = `<div class="carousel-inner text-center"> <div class="carousel-item active">`;
+    htmlTable = `<div class="carousel-inner text-center"> <div class="carousel-item active">`;
+    htmlPhone = `<div class="carousel-inner text-center"> <div class="carousel-item active">`;
 
     products.forEach(element => {
             
         if(element.Categoria==="Celulares"){
             
             if(iphone<=4){
+            
                 htmlPhone+=`
-        
-                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+            
+                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                 <img src="${element.Imagen}"  class="card-img-top" alt="post">
                 <div class="card-body">
                 <h5 class="card-title">${element.Nombre}</h5>
-                <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                <a href="#" class="btn btn-primary">Comprar</a>
+                <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                 <a href="#" class="btn btn-danger">Detalle</a>
                 </div>
             </div>
@@ -753,12 +907,12 @@ function setDataProduct(products){
                     htmlPhone+=`
                     </div>
                     <div class="carousel-item"> 
-                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
                     <h5 class="card-title">${element.Nombre}</h5>
-                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="#" class="btn btn-danger">Detalle</a>
                     </div>
                 </div>
@@ -767,12 +921,12 @@ function setDataProduct(products){
                 }else{
                     htmlPhone+=`
     
-                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
                     <h5 class="card-title">${element.Nombre}</h5>
-                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="#" class="btn btn-danger">Detalle</a>
                     </div>
                 </div>
@@ -788,12 +942,12 @@ function setDataProduct(products){
             if(icompu<=4){
                 htmlCompu+=`
         
-                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                 <img src="${element.Imagen}"  class="card-img-top" alt="post">
                 <div class="card-body">
                 <h5 class="card-title">${element.Nombre}</h5>
-                <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                <a href="#" class="btn btn-primary">Comprar</a>
+                <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                 <a href="#" class="btn btn-danger">Detalle</a>
                 </div>
             </div>
@@ -805,12 +959,12 @@ function setDataProduct(products){
                     htmlCompu+=`
                     </div>
                     <div class="carousel-item"> 
-                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
                     <h5 class="card-title">${element.Nombre}</h5>
-                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="#" class="btn btn-danger">Detalle</a>
                     </div>
                 </div>
@@ -819,12 +973,12 @@ function setDataProduct(products){
                 }else{
                     htmlCompu+=`
     
-                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
                     <h5 class="card-title">${element.Nombre}</h5>
-                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="#" class="btn btn-danger">Detalle</a>
                     </div>
                 </div>
@@ -841,12 +995,12 @@ function setDataProduct(products){
             if(itable<=4){
                 htmlTable+=`
         
-                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                 <img src="${element.Imagen}"  class="card-img-top" alt="post">
                 <div class="card-body">
                 <h5 class="card-title">${element.Nombre}</h5>
-                <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                <a href="#" class="btn btn-primary">Comprar</a>
+                <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                 <a href="#" class="btn btn-danger">Detalle</a>
                 </div>
             </div>
@@ -858,12 +1012,12 @@ function setDataProduct(products){
                     htmlTable+=`
                     </div>
                     <div class="carousel-item"> 
-                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
                     <h5 class="card-title">${element.Nombre}</h5>
-                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="#" class="btn btn-danger">Detalle</a>
                     </div>
                 </div>
@@ -872,12 +1026,12 @@ function setDataProduct(products){
                 }else{
                     htmlTable+=`
     
-                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
+                    <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
                     <h5 class="card-title">${element.Nombre}</h5>
-                    <p class="card-text text-truncate" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
+                    <a href="#" class="btn btn-primary" id="agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="#" class="btn btn-danger">Detalle</a>
                     </div>
                 </div>
@@ -892,7 +1046,6 @@ function setDataProduct(products){
         
         
         
-        console.log(itable)
     });
     
     if(icompu<=4){
@@ -925,7 +1078,6 @@ function setDataProduct(products){
  <button class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="next">
  <span class="carousel-control-next-icon " aria-hidden="true"></span>
  </button></div> `;
-    console.log(htmlTable)
 
     productSetPhone.innerHTML = htmlPhone;
     productSetCompu.innerHTML = htmlCompu;
@@ -988,7 +1140,7 @@ function setDataOrdersAll(allOrders){
             ${element.cantidad_productos}
             </td>
             <td>
-            ${element.fecha_pedido}
+            ${element.entregar_en}
             </td>
             <td>
             ${element.localidad}
@@ -1047,9 +1199,15 @@ function setDataPqrsAll(allPqrs){
 // ------------EVENTOS CREACION DE PRODUCTOS---------------
 
 
-var imagen;
+var imagenB64;
+var isOfert = false;
+var productoCase = "productos";
+var ofertaCase = "oferta";
+
 function eventCreateProduct(){
     getCategorias();
+
+
     document.querySelector('#capturarImg').addEventListener('change',previsualization);
     document.querySelector('#producto').addEventListener('blur',validarCreateProduct);
     document.querySelector('#marca').addEventListener('blur',validarCreateProduct);
@@ -1059,7 +1217,17 @@ function eventCreateProduct(){
     document.querySelector('#descripcion').addEventListener('blur',validarCreateProduct);
     document.querySelector('#cantidad').addEventListener('blur',validarCreateProduct);
     document.querySelector('#selectCategoria').addEventListener('change',validarCreateProduct);
+    document.querySelector("#selectType").addEventListener('change',validarCreateProduct);
+        document.querySelector("#caracteristicas").addEventListener('blur',validarCreateProduct);
+        document.querySelector("#porcentaje").addEventListener('blur',validarCreateProduct);
+        document.querySelector("#inicio").addEventListener('change',validarCreateProduct);
+        document.querySelector("#fin").addEventListener('blur',validarCreateProduct);
+        document.querySelector("#cantidad_oferta").addEventListener('blur',validarCreateProduct);
+
+    document.querySelector('#addOfert').addEventListener('click',openInputsOfert);
+
     document.querySelector('#publicar').addEventListener('click',insertServerProduct);
+    
 }
 function previsualization(){
     const previsualization = document.querySelector("#previsualizar");
@@ -1076,7 +1244,7 @@ function previsualization(){
      reader.onload = (function(theFile) {
         return function(e) {
           // Render thumbnail.
-          imagen = e.target.result;
+          imagenB64 = e.target.result;
         //  console.log(escape(theFile.name))
         };
       })(primerArchivo);
@@ -1084,7 +1252,32 @@ function previsualization(){
      reader.readAsDataURL(primerArchivo);
     
 }
+let contador = 0;
+function openInputsOfert(){
 
+    if (document.getElementById('addOfert').checked)
+    {
+        isOfert  = true;
+        
+        if(contador == 0){
+        
+            document.querySelector("#publicar").disabled = true;
+            contador+=1;
+        }
+      
+        document.getElementById('contenedorOculto').style.display = 'block';
+        
+
+    }else{
+        isOfert  = false;
+        document.querySelector("#publicar").disabled = false;
+        document.getElementById('contenedorOculto').style.display = 'none';
+       contador = 0;
+
+
+    }
+
+}
 
 function validarCreateProduct(e){
     if(this.type !== 'select-one'){
@@ -1098,7 +1291,7 @@ function validarCreateProduct(e){
   
 }
     const btn = document.querySelector("#publicar");
-    console.log(imagen);
+    
 if(document.querySelector("#producto").value !== '' 
     && document.querySelector("#marca").value !== '' 
     && document.querySelector("#referencia").value !== '' 
@@ -1107,15 +1300,32 @@ if(document.querySelector("#producto").value !== ''
     && document.querySelector("#precio").value !== '' 
     && document.querySelector("#garantia").value !== '' 
     && document.querySelector("#selectCategoria").value!=="false"
-    && document.querySelector("#producto").value.length > 3
-    && document.querySelector("#marca").value.length > 3
-    && document.querySelector("#referencia").value.length > 3
-    && document.querySelector("#descripcion").value.length > 3
-    && document.querySelector("#precio").value.length > 3
+    && document.querySelector("#producto").value.length > 2
+    && document.querySelector("#marca").value.length > 2
+    && document.querySelector("#referencia").value.length > 2
+    && document.querySelector("#descripcion").value.length > 2
+    && document.querySelector("#precio").value.length > 2
     && document.querySelector("#garantia").value.length > 0
-    && imagen != undefined) {
+    && imagenB64 != undefined) {
+        if(document.getElementById('addOfert').checked){
 
-        btn.disabled = false;
+            console.log(document.querySelector("#selectType"))
+            if(document.querySelector("#selectType").value!="false"
+            && document.querySelector("#caracteristicas").value !== ''
+            && document.querySelector("#caracteristicas").value.length > 2
+            && document.querySelector("#inicio").value !== ''
+            && document.querySelector("#fin").value !== ''
+            && document.querySelector("#porcentaje").value !== ''
+            && document.querySelector("#cantidad_oferta").value !== ''
+            ){
+                console.log("dasabilita")
+                btn.disabled = false;
+            }
+
+        }else{
+            btn.disabled = false;
+        }
+
 }else{
         btn.disabled = true;
 }
@@ -1153,29 +1363,80 @@ function insertServerProduct(e){
     const garantia = document.querySelector("#garantia").value 
     const selectCategoria = document.querySelector("#selectCategoria").value
     
+    const spinner = document.querySelector('#spinner');
+    spinner.className += " spinner-grow text-muted";
+  
+    // Ocultar Spinner y enviar informacion
+    setTimeout( () => {
+       spinner.classList.remove("spinner-grow");
 
-    url = `http://localhost/webservice/insert.php?case=productos&nombre=${producto}&marca=${marca}&referencia=${referencia}&descripcion=${descripcion}&precio=${precio}&existencia=${cantidad}&garantia=${garantia}&categoria=${selectCategoria}`;
+       url = `http://localhost/webservice/insert.php?case=${isOfert?ofertaCase:productoCase}&nombre=${producto}&marca=${marca}&referencia=${referencia}&descripcion=${descripcion}&precio=${precio}&existencia=${cantidad}&garantia=${garantia}&categoria=${selectCategoria}&id_proveedor=${JSON.parse(localStorage.getItem('usuario')).id}`;
+       sendDataServerProduct(url);
+    }, 3000);
     
-    sendDataServerProduct(url);
+
 }
 function sendDataServerProduct(url){
-    const data = new FormData();
-     
-    console.log("carga"+imagen.replace('data:image/jpg;base64,', '')
-    ||imagen.replace('data:image/png;base64,', '')
-    ||imagen.replace('data:image/svg;base64,', '')
-    ||imagen.replace('data:image/gif;base64,', ''));
+    var strImage;
+    strImage = imagenB64.replace(/^data:image\/[a-z]+;base64,/, "");
+    let myJSON;
 
-    // data.append('imagen',
-    //  imagen.replace('data:image/jpg;base64,', '')
-    //  ||imagen.replace('data:image/png;base64,', '')
-    //  ||imagen.replace('data:image/svg;base64,', '')
-    //  ||imagen.replace('data:image/gif;base64,', ''));
+   if(isOfert){
+    
+    precioOferta = parseFloat(document.querySelector("#precio").value)-((parseFloat(document.querySelector("#porcentaje").value)/100)*parseFloat(document.querySelector("#precio").value));
+     myJSON = { 
+        imagen: strImage ,
+        tipo: document.querySelector("#selectType").value,    
+        caracteristica: document.querySelector("#caracteristicas").value,
+        inicio: document.querySelector("#inicio").value,
+        fin: document.querySelector("#fin").value,
+        porcentaje: document.querySelector("#porcentaje").value,
+        precio: precioOferta+'',
+        cantidad: document.querySelector("#cantidad_oferta").value
+    };
 
-    // fetch(url,{
-    //     method: 'POST',
-    //     body: data
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data.response));
+   }else{
+   
+     myJSON = { imagen: strImage };
+   }
+    
+
+    fetch(url,{
+        method: 'POST',
+        body: JSON.stringify(myJSON),
+        headers: {
+            'Content-Type': 'application/json'
+          }
+    })
+    .then(response => response.json())
+    .then(data => confirmInsertProduct(data.response));
 }
+
+function confirmInsertProduct(data){
+    console.log(data);
+    if(data["response"]!=="Error"){
+
+        document.querySelector('#alertResult').innerHTML = `
+        <div class="alert alert-warning" id="alertResult" role="alert">
+        <h4 class="alert-heading">Muy bien!</h4>
+        <p>Has registrado tu producto satisfactoriamente.</p>
+        <hr>
+        <p class="mb-0">Puedes modificar el contenido en (Mis productos).</p></div>`;
+        
+    }else{
+        document.querySelector('#alertResult').innerHTML = `
+        <div class="alert alert-warning" id="alertResult" role="alert">
+        <h4 class="alert-heading">oh!</h4>
+        <p>Parece que hubo un fallo con la conexion.</p>
+        <hr>
+        <p class="mb-0">:(</p></div>`;
+    }
+
+    setTimeout( () => {
+        document.querySelector("#formRegisterProduct").reset();
+        document.querySelector('#alertResult').innerHTML = ``;
+        document.querySelector("#publicar").disabled = true;
+        document.getElementById('contenedorOculto').style.display = 'none';
+    },5000);
+
+}   

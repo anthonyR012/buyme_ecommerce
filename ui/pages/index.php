@@ -36,34 +36,52 @@
        </div>
         
      </div>
+
+     <div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner ">
+    <div class="carousel-item active ">
+    <img src="<?php echo RUTA_IMAGENES ?>/LandingPage1.png" class="d-block w-200 " alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Que esperas para comprar!!</h5>
+        <p>En esta epoca decembrina.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+    <img src="<?php echo RUTA_IMAGENES ?>/LandingPage2.jpg" class="d-block w-200" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Increibles ofertas!!</h5>
+        <p></p>
+      </div>
+    </div>
+    <div class="carousel-item">
+    <img src="<?php echo RUTA_IMAGENES ?>/LandingPage3.jpg" class="d-block w-200" alt="..." >
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Mas de cien mil productos</h5>
+        <p>y muchas más ofertas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
      
-     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-       <div class="carousel-inner">
-         <div class="carousel-item active">
-           <center><img src="<?php echo RUTA_IMAGENES ?>/LandingPage1.png" class="d-block w-200" alt="..."></center>
-         </div>
-         <div class="carousel-item">
-           <center><img src="<?php echo RUTA_IMAGENES ?>/LandingPage2.jpg" class="d-block w-200" alt="..."></center>
-         </div>
-         <div class="carousel-item">
-           <center><img src="<?php echo RUTA_IMAGENES ?>/LandingPage3.jpg" class="d-block w-200" alt="..." ></center>
-         </div>
-       </div>
+     
+     
       
-     </div>
-     
-     
-     
-     
      <br>
      <br>
-     
+     <div class="container" id="lista-productos">
      
        <P class="titulo">Celulares</P>
       <!--  <hr align="left" noshade="noshade" size="1" width="95%" /> -->
        <div class="decor"></div>
-     <div class="container">
-
+     
+     
      <div id="carouselControlsPhones" class="carousel slide"  data-interval="false">
         <div class="carousel-inner">
        <div class="row justify-content-center" id="getProductPhone">
@@ -84,17 +102,7 @@
         </div>
     </div>
      </div>
-        <!-- <div class="card mx-2 my-2 shadow-lg rounded" style="width: 15rem;">
-   <img src="<?php echo RUTA_IMAGENES ?>/informacion.png"  class="card-img-top" alt="post">
-   <div class="card-body">
-     <h5 class="card-title">MOTOROLA E6 Play 32GB Negro</h5>
-     <p class="card-text text-truncate" style="max-width: 400px">Precio Oferta :  $319.900 Precio Antes :  $449.900</p>
-     <a href="#" class="btn btn-primary">Comprar</a>
-     <a href="#" class="btn btn-danger">Detalle</a>
-   </div>
- </div> -->
-
-
+       
      
      <br>
      <br>
@@ -110,13 +118,12 @@
      </div>
     </div>
    
-<br><br>
- </div>     
-
+    <br><br>
+ </div> 
+</div>    
+ 
      
-     
-
-
+    
 <?php include_once RUTA_MODULOS.'/footer.php'; ?>
 
 <script>

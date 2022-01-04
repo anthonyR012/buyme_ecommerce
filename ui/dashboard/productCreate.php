@@ -22,8 +22,8 @@
             <div class="card-header text-center p-1 pr-3 " style="background-color:#ff7a00;min-height: 80px;">¿Quieres publicar tu producto?</div>
             <div class="card-body">
           </div>
-
-          <form action="#" method="POST" class="mx-auto my-auto p-5"  enctype="multipart/form-data">
+      <!-- COMIENZO FORMULARIO -->
+          <form action="#" method="POST" class="mx-auto my-auto p-5" id="formRegisterProduct" enctype="multipart/form-data">
             <div class="row align-items-center">
                 <div class="col-8">
                 <input type="text" id="producto" name="nombre" placeholder="Producto" class="input-48Bm" required>
@@ -40,33 +40,65 @@
     
 
         <div class="mb-3">
-            <label for="formFile" class="form-label" >Sube la imagen</label>
+            <label for="formFile" class="form-label ofertWords" >Sube la imagen</label>
             <input class="form-control" id="capturarImg" type="file" name="img" id="formFile" accept="image/*">
         </div>
             
         <select class="form-select input-100Bm" id="selectCategoria" aria-label="Default select example">
             </select>
             </div>
-        <div class="col-4">
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjoA0HbYnIK-EAaVk3gtJaZMY9fASkdgMGUQ&usqp=CAU" id="previsualizar" class="rounded float-start" alt="...">
-                <div class="card-body">
-                <p class="card-text text-center">Vista previa.</p>
-                </div>
-            </div>
 
+            <!-- VISUALIZAR VISTA PREVIA -->
+        <div class="col-lg-2">
+        <div class="card" style="width: 10rem;height: 10rem;">
+          <img src="<?php echo RUTA_IMAGENES?>vistaPrevia.png" class="card-img-top rounded"  id="previsualizar" alt="...">
+          <div class="card-body">
+            <p class="card-text">Vista previa.</p>
+          </div>
         </div>
+    
+        </div>
+        <!-- AGREGAR OFERTA -->
+        <div>
+        <input class="form-check-input checkOfert" type="checkbox" id="addOfert"  value="" aria-label="oferta"><label class="ofertWords">Agregar oferta</label>
+      </div>
+      <!-- FIN AGREGAR OFERTA -->
+      <!-- HTML DE OFERTA PRODUCTO -->
+      <div class="container" id="contenedorOculto" style="display: none">
+      <select class="form-select input-100Bm" id="selectType" aria-label="Default select example">
+          <option value="false">Tipo_Oferta</option>
+          <option value="Descuento">Descuento</option>
+          <option value="2x1">Page 1 lleve 2</option>
+      </select>
+      <div class="input-group">
+            <span class="input-group-text" >Caracteristicas oferta</span>
+            <textarea  id="caracteristicas" class=" input-100Bm" name="descripcion" aria-label="poster..."></textarea>
+        </div>
+        <input type="number" id="porcentaje" name="nombre" placeholder="Porcentaje decuento" class="input-48Bm" required>
+            <input type="number" id="cantidad_oferta" name="apellido" placeholder="Cantidad productos" class="input-48Bm" required>
+        <span class="input-group-text" >Fecha Inicio</span>
+        <input type="date" id="inicio" name="nombre" placeholder="Fecha Inicio" class="input-48Bm" required>
+        <span class="input-group-text" >Fecha Fin</span>
+        <input type="date" id="fin" name="apellido" placeholder="Fecha Fin" class="input-48Bm" required>
+    
+        </div>
+      <!-- SPINNER -->
+        <div id="alertResult" ></div>
+    <!-- FIN SPINNER -->
         <div class="container">
                   <div class="row">
+                  
                       <div class="col-12 text-center">
+                      <div id="spinner"></div>
                         <button type="submit" class="btn btn-default" id="publicar" style="background-color: #ff7a00;" disabled>Publicar</button>
                       </div>
+                    
                   </div>
                 </div>
         
         </div>
 </form>
-
+<!-- FIN FORMULARIO -->
 </div>
 </div>
 </div>

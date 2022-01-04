@@ -73,3 +73,41 @@
   
   
   
+/* CREATE PRODUCT */
+.checkOfert{
+  width: 15px;
+  height: 15px;
+  border: 1px solid ;
+}
+.ofertWords{
+  margin-left: 10px;
+  font-size: 1.2em !important;
+  font-weight: bold;
+  color: black !important;
+}
+
+/* CARRITO */
+/* .submenu #carrito{
+ 
+  display: none;
+  
+} */
+.mostrarCarrito{
+  /* display: block; */
+  position: absolute;
+  right:20%;
+  top:100%;
+  z-index: 1;
+  background-color: white;
+  padding: 20px;
+  min-height: 400px;
+  min-width: 300px;
+}
+
+.borrar-curso {
+  padding: 10px;
+  background-color: crimson;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+}

@@ -6,6 +6,7 @@ let meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct
 // FUNCIONES
 document.addEventListener('DOMContentLoaded',getDataRegisterUser);
 document.addEventListener('DOMContentLoaded',getDataRegisterProduct);
+document.addEventListener('DOMContentLoaded',getDataSending);
 getActiveUser();
 
 // SE VUELVE A EJECUTAR PETICIONES DESPUES DE UNOS SEGUNDOS
@@ -15,7 +16,7 @@ setInterval( () => {
   console.log("recarga...")
 },10000);
 setInterval( () => {
-  
+  getDataSending();
   getDataRegisterProduct();
   console.log("recarga...")
 },60000*5);
@@ -234,7 +235,75 @@ demo = {
       }
     };
     
-    var ctx = document.getElementById('bigDashboardChart').getContext("2d");
+    
+    
+    
+
+    
+  }
+ 
+};
+
+function getActiveUser() {
+
+  url = "http://localhost/webservice/querys.php?case=activos";
+  fetch(url)
+  .then(response => response.json())
+  .then(data => 
+    document.querySelector(".chart-area").innerHTML =`<div class=''><h1 class="row justify-content-center align-items-center minh-100">${data.response[0].cuenta}</h1></div>`)
+
+  
+}
+
+function getDataSending() {
+  url = "http://localhost/Webservice/querys.php?case=enviosProductos";
+  fetch(url)
+  .then(response => response.json())
+  .then(data => saveDataSend(data.response));
+ 
+}
+
+function getDataRegisterProduct() {
+  url = "http://localhost/Webservice/querys.php?case=registradosProductos";
+  fetch(url)
+  .then(response => response.json())
+  .then(data => saveDataProduct(data.response));
+ 
+}
+
+function getDataRegisterUser() {
+  url = "http://localhost/Webservice/querys.php?case=registradosUsuarios";
+  fetch(url)
+  .then(response => response.json())
+  .then(data => saveDataUser(data.response));
+ 
+}
+
+function saveDataSend(data) {
+  
+  //Recorrer data de api con fecha de registrados y ponerlos en la grafica
+ 
+let valores = [];
+let save = false;
+let mes = 0;
+//  console.log(Object.keys(data[0])[0] == 1)
+ for (let i = 1; i <= 12;i++){
+
+   for (let m = 0; m <data.length;m++){
+     if (Object.keys(data[m])[0] == i) {
+       valores[mes] = parseInt(Object.values(data[m])[0]);
+       save = true;
+     }
+   }
+   if(!save){
+     valores[mes] = 0;
+   }
+   mes+=1; 
+   save = false;
+ }
+
+
+ var ctx = document.getElementById('bigDashboardChart').getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
     gradientStroke.addColorStop(0, '#80b6f4');
@@ -268,9 +337,9 @@ demo = {
       type: 'line',
       responsive: true,
       data: {
-        labels: ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"],
+        labels: meses,
         datasets: [{
-          label: "Email Stats",
+          label: "Ventas",
           borderColor: "#18ce0f",
           pointBorderColor: "#FFF",
           pointBackgroundColor: "#18ce0f",
@@ -281,47 +350,17 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [40, 500, 650, 700, 1200, 1250, 1300, 1900]
+          data: valores
         }]
       },
       options: gradientChartOptionsConfigurationWithNumbersAndGrid
     });
 
     
-    
-    
-
-    
-  }
- 
-};
-
-function getActiveUser() {
-
-  url = "http://localhost/webservice/querys.php?case=activos";
-  fetch(url)
-  .then(response => response.json())
-  .then(data => 
-    document.querySelector(".chart-area").innerHTML =`<div class=''><h1 class="row justify-content-center align-items-center minh-100">${data.response[0].cuenta}</h1></div>`)
-
-  
 }
 
-function getDataRegisterProduct() {
-  url = "http://localhost/Webservice/querys.php?case=registradosProductos";
-  fetch(url)
-  .then(response => response.json())
-  .then(data => saveDataProduct(data.response));
- 
-}
 
-function getDataRegisterUser() {
-  url = "http://localhost/Webservice/querys.php?case=registradosUsuarios";
-  fetch(url)
-  .then(response => response.json())
-  .then(data => saveDataUser(data.response));
- 
-}
+
 
 function saveDataProduct(data) {
   

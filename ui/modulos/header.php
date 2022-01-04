@@ -46,13 +46,43 @@
           </form>
             
               <!-- ITEM NAVBAR -->
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                <img src="<?php echo RUTA_IMAGENES?>Carrito.png" class="iconHeaderBm" alt="">
-                  <p>
-                    <span class="d-lg-none d-md-block">carrito</span>
-                  </p>
-                </a>
+              <li class="nav-item submenu" >
+              <div class="nav-link" >
+              <img src="<?php echo RUTA_IMAGENES?>Carrito.png" style="cursor: pointer;" class="iconHeaderBm" id="img-carrito">
+              </div>
+                        <div id="carrito" class="mostrarCarrito" style="display: none;">
+                            <table class="table rounded-pill" id="lista-carrito">
+                                <thead>
+                                  <tr>
+
+                                  <th>Imagen</th> 
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Retirar</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                  <th scope="row"></th>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                </tr>
+                                </tbody>
+                               
+                              </table> 
+                              <div class="container">
+                                  <div class="row">
+                                  
+                                     
+                                      <div id="spinner"></div>
+                                        <button type="submit" class="btn btn-default " id="vaciar-carrito"   style="background-color: #ff7a00;" >Vaciar</button>
+                                      </div>
+                                </div> 
+                                    
+                            </div>
               </li>
               <li class="nav-item" id="itemInicio">
               
