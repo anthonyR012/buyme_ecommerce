@@ -172,8 +172,8 @@ function eventLogin(){
     const pass = document.querySelector("#pass");
     const login = document.querySelector("#login");
 
-    email.addEventListener('blur', validarFormulario);
-    pass.addEventListener('blur', validarFormulario);
+    email.addEventListener('input', validarFormulario);
+    pass.addEventListener('input', validarFormulario);
     login.addEventListener("click",busqueUsuario);
 
 }
@@ -212,8 +212,8 @@ function consultaApi(url){
 }
 
 function confirmeCredenciales(data){
-    
-    if(data["response"]!=="No found user"){
+    console.log(data);
+    if(data["response"]!=="No found user" && data["response"]!=="Login_failed"){
         
         const usuario = {
             id: data["id"],
@@ -226,7 +226,16 @@ function confirmeCredenciales(data){
 
         window.location.href = "../../ui/pages/index.php";
     }else{
-        alert("Credenciales incorrectas");
+        
+        Swal.fire({
+            title: 'Oh!',
+            text: 'Este usuario no existe.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
+
         document.querySelector('#formLogin').reset();
         email.classList.remove('is-valid');
         pass.classList.remove('is-valid');
@@ -616,27 +625,35 @@ function editarCredenciales() {
 }
 
 function verifyChangePass(data){
-    const notifications = document.querySelector("#notification");
-    let html = "";
-    console.log(data);
+   
+
 
     if(data[0].response=="update complete"){
 
-        html= `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Ey!</strong> Has modificado satisfactoriamente tus datos
-      
-      </div>`
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Actualización completa',
+            showConfirmButton: false,
+            timer: 1500
+          })
         
     }else{
-        html = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Ey!</strong> Parece que no concuerdan las contraseñas :( </div>`
+        Swal.fire({
+            title: 'Oh!',
+            text: 'No concuerda la contraseña.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
 
     }
-    notifications.innerHTML = html;
 
     setTimeout( () => {
-        notifications.removeChild(notifications.firstChild);
-        location.reload();
+        
+        getPqrs();
+        
      }, 3000);
     
 
@@ -703,9 +720,8 @@ if(document.querySelector("#passanti").value !== ''
 // ---------------------------EVENTOS INDEX, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventIndex(){
+
   getProducts();
-  // Listeners
-cargarEventListeners();
 }
 
 // METODOS CARRITO DE COMPRA
@@ -718,13 +734,16 @@ let articulosCarrito = [];
 
 
 
-
+cargarEventListeners();
 function cargarEventListeners() {
-   
+
+    //verifica que este logueado y compra producto
+    document.querySelector("#comprar-carrito").addEventListener("click", goProduct)
+   //Muestra informacion de carrito
     document.querySelector('#img-carrito').addEventListener('click', mostrarCarrito)
      // Dispara cuando se presiona "Agregar Carrito"
-     listaCursos.addEventListener('click', agregarCurso);
-
+     if(listaCursos!=null)  listaCursos.addEventListener('click', agregarCurso);
+    
      // Cuando se elimina un curso del carrito
      carrito.addEventListener('click', eliminarCurso);
 
@@ -740,6 +759,29 @@ function cargarEventListeners() {
      });
 }
 
+
+function goProduct() {
+    console.log("carga")
+    const user = JSON.parse(localStorage.getItem('usuario'));
+    carrito.style.display = "none";
+    if(user!=null){
+
+    }else{
+        Swal.fire({
+            title: 'Oh!',
+            text: 'Parece que no estas registrado aún.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            location.href = "http://localhost/buyme/ui/credenciales/login.php"
+          })
+    }
+
+    
+}
 function mostrarCarrito() {
 
     if(carrito.style.display=="none"){
@@ -1416,20 +1458,21 @@ function confirmInsertProduct(data){
     console.log(data);
     if(data["response"]!=="Error"){
 
-        document.querySelector('#alertResult').innerHTML = `
-        <div class="alert alert-warning" id="alertResult" role="alert">
-        <h4 class="alert-heading">Muy bien!</h4>
-        <p>Has registrado tu producto satisfactoriamente.</p>
-        <hr>
-        <p class="mb-0">Puedes modificar el contenido en (Mis productos).</p></div>`;
+        Swal.fire({
+            title: 'Publicación exitosa!',
+            text: 'Puedes modificar el contenido en (Mis productos).',
+            imageUrl: 'http://localhost/buyme/assets/img/bueno.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
         
     }else{
-        document.querySelector('#alertResult').innerHTML = `
-        <div class="alert alert-warning" id="alertResult" role="alert">
-        <h4 class="alert-heading">oh!</h4>
-        <p>Parece que hubo un fallo con la conexion.</p>
-        <hr>
-        <p class="mb-0">:(</p></div>`;
+        Swal.fire(
+            'Internet?',
+            'Verifica tu conexión',
+            'question'
+          )
     }
 
     setTimeout( () => {

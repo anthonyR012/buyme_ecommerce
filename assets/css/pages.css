@@ -17,7 +17,7 @@
   }
   
   .decor{
-     width: 1730px; 
+
      height: 10px; 
      background:#FF7A00;
      margin-top: 0%;
@@ -58,8 +58,12 @@
     background-color: #FEF8F1;
   }
   
-
-  
+#titleCarousel h5{
+  color: black;
+}
+#titleCarousel p{
+  color: black;
+}
   .celulares col-sm {
   
     display: block;
@@ -95,7 +99,7 @@
 .mostrarCarrito{
   /* display: block; */
   position: absolute;
-  right:20%;
+  right:0%;
   top:100%;
   z-index: 1;
   background-color: white;

@@ -23,7 +23,7 @@
 
 <!-- Modal EDITAR CREDENCIALES-->
 <div class="modal fade" id="editCredentials" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="padding-top:70px">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Editar Credenciales</h5>
@@ -47,7 +47,7 @@
 </div>
 <!-- Modal EDITAR INFORMACIÓN-->
 <div class="modal fade" id="editInformation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="padding-top:70px">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Editar Información</h5>

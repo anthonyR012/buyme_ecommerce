@@ -12,11 +12,12 @@
 <?php include_once(RUTA_MODULOS."header.php");?>
 
 
-    <div class="contentPerfil" style="padding-top: 100px;padding-bottom: 30px">
+    <div class="contentPerfil" style="padding-top: 100px;padding-bottom: 30px;height:800px">
    
             <div class="loginBm shadow p-5 mb-5 rounded row">
 
             <div class="col-sm-8 ">
+            <center><img src="https://www.kipclin.com/images/slider/cache/68bcf983c9bb075fbbb36f69f7d82976/Banners-Navidad-KipClin-2021-01.jpg" width="100%"></center>
                 <form action="#" method="POST" id="formLogin">
                 
                 <label class="textInputBm" >Correo Electronico</label><br>
@@ -33,9 +34,13 @@
                 <div class="" id="spinner"></div>
 
 
-                <p class="sloganBm">Si aún no eres miembro da click <br>
-                <a href="<?php echo RUTA_CREDENCIALES;?>register.php" class="registrateBm">REGISTRATE</a>
-                </p>
+                <center>
+                                 <font color="black">
+                                 <p>¿No tienes cuenta? <a href="register.php">Clic Aqui para Registrarse</a></p>
+                                 <p>Soporte: +57 318 5796296</p><b>
+                        
+                              </b></font><b>
+                              </b></center>
                 </form>
             </div>
                 <div class="col-sm-4">

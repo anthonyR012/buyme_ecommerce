@@ -46,6 +46,18 @@
           </form>
             
               <!-- ITEM NAVBAR -->
+              <li class="nav-item" id="itemLogin">
+              </li>
+              
+              <li class="nav-item" id="itemInicio">
+              
+              </li>
+              <li class="nav-item" id="itemLogin2_">
+              </li>
+              <li class="nav-item" id="itemLogin2">
+              </li>
+              
+             
               <li class="nav-item submenu" >
               <div class="nav-link" >
               <img src="<?php echo RUTA_IMAGENES?>Carrito.png" style="cursor: pointer;" class="iconHeaderBm" id="img-carrito">
@@ -75,26 +87,13 @@
                               </table> 
                               <div class="container">
                                   <div class="row">
-                                  
-                                     
-                                      <div id="spinner"></div>
-                                        <button type="submit" class="btn btn-default " id="vaciar-carrito"   style="background-color: #ff7a00;" >Vaciar</button>
+                                        <button type="submit" class="btn btn-default col" id="vaciar-carrito"   style="background-color: #ff7a00;" >Vaciar</button>
+                                        <button type="submit" class="btn btn-default col" id="comprar-carrito"   style="background-color: #72E27C ;" >Comprar</button>
                                       </div>
                                 </div> 
                                     
                             </div>
               </li>
-              <li class="nav-item" id="itemInicio">
-              
-              </li>
-              <li class="nav-item" id="itemLogin2_">
-              </li>
-              <li class="nav-item" id="itemLogin2">
-              </li>
-              
-              <li class="nav-item" id="itemLogin">
-              </li>
-             
             </ul>
             
           </div>
@@ -104,4 +103,4 @@
     
        
     </header>
-
+   

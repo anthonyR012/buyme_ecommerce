@@ -35,7 +35,7 @@
             <span class="input-group-text" >Descripción</span>
             <textarea  id="descripcion" class=" input-100Bm" name="descripcion" aria-label="poster..."></textarea>
         </div>
-        <input type="text" id="cantidad" name="nombre" placeholder="Cantidad" class="input-48Bm" required>
+        <input type="number" id="cantidad" name="nombre" placeholder="Cantidad" class="input-48Bm" required>
             <input type="number" id="precio" name="apellido" placeholder="Precio" class="input-48Bm" required>
     
 

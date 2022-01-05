@@ -13,9 +13,22 @@
         if(JSON.parse(localStorage.getItem('usuario'))==null){
             
             location.href = "../../ui/pages/index.php";
+           
         }else{
             if(window.location.href==="http://localhost/buyme/ui/dashboard/dashboard.php"){
                 JSON.parse(localStorage.getItem('usuario')).rol!=="Usuario"?null:location.href = "../../ui/pages/index.php";
             }
+        }
+    }
+
+
+    if(window.location.href==="http://localhost/buyme/ui/credenciales/login.php"
+    || window.location.href==="http://localhost/buyme/ui/credenciales/register.php"){
+        
+      
+        if(JSON.parse(localStorage.getItem('usuario'))!=null){
+          
+            location.href = "../../ui/pages/index.php";
+           
         }
     }
