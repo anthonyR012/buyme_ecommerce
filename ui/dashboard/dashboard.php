@@ -53,7 +53,7 @@
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">2021 Ventas</h5>
-                <h4 class="card-title">Todos los productos</h4>
+                <h4 class="card-title">Ventas globales</h4>
                 <div class="dropdown">
                   <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                     <i class="now-ui-icons loader_gear"></i>

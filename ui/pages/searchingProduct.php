@@ -1,4 +1,22 @@
 
+<!-- RUTAS -->
+<?php require_once('../modulos/routes.php');
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- ETIQUETA HEAD -->
+<?php include_once(RUTA_MODULOS.'headEtiqueta.php');?>
+<!-- COMIENZA CUERPO DE HTML -->
+<style type="text/css">
+  html, body 
+{
+     overflow-x:scroll;
+}
+</style>
+<body style="max-width: 1800px;margin: auto;">
+
+
     <!-- HEADER SUPERIOR  -->
 
 
@@ -24,26 +42,6 @@
                     <!-- ITEM NAVBAR -->
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
-                <!-- FORMULARIO DE BUSQUEDA -->
-            <!-- <form >
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Buscar...">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-                  </div>
-                </div>
-              </div>
-            </form> -->
-            <form class="d-flex">
-            <div class="input-group no-border">
-                <input type="text" value="" class="form-control" id="buscandoProduct" placeholder="Buscar...">
-                <div class="input-group-append">
-  
-                </div>
-              </div>
-           
-          </form>
             
               <!-- ITEM NAVBAR -->
               <li class="nav-item" id="itemLogin">
@@ -104,3 +102,79 @@
        
     </header>
    
+
+    
+<div class="contentPerfil">
+      <div class="container p-5" style="min-height: 800px;">
+
+    
+    <form action="">
+    <div class="row">
+        <div class="col-6">
+       
+        <div class="input-group mb-3">
+        <input type="text" id="productoBusqueda" name="nombre" placeholder="Producto" class="input-100Bm" >        
+         </div>
+        </div>
+
+         <div class="col-6">
+            <select class="form-select input-group form-select-lg mb-3" id="categoriaBusqueda">
+            <option selected value="">Categoria</option>
+            <option value="Celulares">Celulares</option>
+            <option value="Computadores">Computadores</option>
+            <option value="Tablets">Tablets</option>
+            </select>
+           
+        </div>
+        </div>
+       
+        <div class="row">
+            <div class="col-6">
+            <input type="number" id="minBusqueda"  placeholder="min precio" class="input-48Bm" >
+            <input type="number" id="maxBusqueda"  placeholder="max Precio" class="input-48Bm" >
+            </div>
+            <div class="col-6">
+            <input type="text" id="marcaBusqueda" placeholder="Marca" class="input-100Bm" > 
+            <div class=" form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="ofertaBusqueda" >
+            <label class="form-check-label" for="flexSwitchCheckChecked">Solamente ofertas</label>
+            </div>
+            </div>
+            
+            <div class="container">
+                  <div class="row">
+                  
+                      <div class="col-12 text-center">
+                      <div id="spinner"></div>
+                        <button type="submit" class="btn btn-default" id="buscar" style="background-color: #ff7a00;">Buscar mi producto</button>
+                      </div>
+                    
+                  </div>
+                </div>
+        
+        </div>
+       
+    </form>
+    <div class="decor" style="margin-top: 60px;"></div>
+    
+    <div class="container" id="lista-productos">
+  <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3" id="getBusquedaProduct">
+  
+    
+    </div>
+  </div>
+</div>
+   
+</div>
+</div>
+    
+ 
+     
+    
+<?php include_once RUTA_MODULOS.'/footer.php'; ?>
+
+<script>
+  searchingProducts();
+</script>
+</body>
+</html>

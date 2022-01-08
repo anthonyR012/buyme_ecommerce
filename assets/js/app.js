@@ -1,13 +1,34 @@
 
+ const user = JSON.parse(localStorage.getItem('usuario'));
+ const baseUrl = "http://localhost/webservice/";
 // --------------METODO GLOBALIZADO--------------------
 
 window.addEventListener('DOMContentLoaded',() => {
-    const user = JSON.parse(localStorage.getItem('usuario'));
+   
     verifyUserLogin(user);
     verifyRolUser(user);
     clicknavbarglobal();
+    searchProduct();
    
 })
+
+let busqueValorConcuerda = document.querySelector("#buscandoProduct");
+function searchProduct(){
+
+    if(busqueValorConcuerda!=null) busqueValorConcuerda.addEventListener('keypress',getProductoBuscado)
+   
+}
+function getProductoBuscado(e){
+   if(e.keyCode ==13){
+    e.preventDefault();
+    let busqueda  = busqueValorConcuerda.value;
+   
+    location.href = "http://localhost/buyme/ui/pages/searchingProduct.php?busqueda="+busqueda;
+    
+   }
+
+   
+}
 
 
 function clicknavbarglobal(){
@@ -159,7 +180,7 @@ function verifyRolUser(user){
 
 }
 function updateState(id){
-    url = "http://localhost/webservice/Update.php?case=actividad&id="+id;
+    url = baseUrl+"Update.php?case=actividad&id="+id;
     fetch(url)
     .then(response => response.json());
 }
@@ -190,7 +211,7 @@ function busqueUsuario(e) {
      setTimeout( () => {
         spinner.classList.remove("spinner-grow");
         
-        url = "http://localhost/webservice/Search.php?case=login";
+        url = baseUrl+"Search.php?case=login";
         consultaApi(url);
      }, 3000);
 
@@ -336,7 +357,7 @@ function registrarUsuario(e) {
     setTimeout( () => {
        spinner.classList.remove("spinner-grow");
        
-       url = "http://localhost/webservice/insert.php?case=usuarios";
+       url = baseUrl+"insert.php?case=usuarios";
        consultaApiRegistro(url);
     }, 3000);
 
@@ -438,13 +459,13 @@ function validarEmailRegister(campo){
 
 // LLENAR SELECTORES 
 function getMunicipios() {
-    url = "http://localhost/webservice/querys.php?case=municipios";
+    url = baseUrl+"querys.php?case=municipios";
     fetch(url)
     .then(response => response.json())
     .then(data => setMuni(data.response));
 }
 function getDepartamentos() {
-    url = "http://localhost/webservice/querys.php?case=departamentos";
+    url = baseUrl+"querys.php?case=departamentos";
     fetch(url)
     .then(response => response.json())
     .then(data => setDepa(data.response));
@@ -490,14 +511,14 @@ function eventPerfil(){
 
 
 function getPqrs() {
-    url = "http://localhost/Webservice/search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrl+"search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
 
     fetch(url)
     .then(response => response.json())
     .then(data => setDataUser(data.response));
 }
 function getUser(){
-    url = "http://localhost/Webservice/search.php?case=pqrs&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrl+"search.php?case=pqrs&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
     
     fetch(url)
     .then(response => response.json())
@@ -594,7 +615,7 @@ function editarInformaciones() {
         let telefono = document.querySelector("#telefonoUtp").value!=''||document.querySelector("#telefonoUtp").value.length>5?document.querySelector("#telefonoUtp").value:document.querySelector("#telefonoUtp").placeholder;
         
     
-        url = "http://localhost/webservice/Update.php?case=perfil&editinformation&id="+JSON.parse(localStorage.getItem('usuario')).id+"&telefono="+telefono+"&nombres="+nombres+"&apellidos="+apellidos+"&direccion="+direccion;
+        url = baseUrl+"Update.php?case=perfil&editinformation&id="+JSON.parse(localStorage.getItem('usuario')).id+"&telefono="+telefono+"&nombres="+nombres+"&apellidos="+apellidos+"&direccion="+direccion;
        
         fetch(url)
         .then(response => response.json())
@@ -612,7 +633,7 @@ function editarCredenciales() {
     dataEdit.append('password', document.querySelector("#passnew").value);
     dataEdit.append('lastpassword', document.querySelector("#passanti").value);
    
-    url = "http://localhost/webservice/Update.php?case=perfil&editcredential&id="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrl+"Update.php?case=perfil&editcredential&id="+JSON.parse(localStorage.getItem('usuario')).id;
     
     fetch(url,{
         method: 'POST',
@@ -730,13 +751,16 @@ const carrito = document.querySelector('#carrito');
 const listaCursos = document.querySelector('#lista-productos');
 const contenedorCarrito = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.querySelector('#vaciar-carrito'); 
+const agregarBtn = document.querySelector('#agregar-carrito'); 
 let articulosCarrito = [];
 
 
 
 cargarEventListeners();
 function cargarEventListeners() {
+   
 
+    
     //verifica que este logueado y compra producto
     document.querySelector("#comprar-carrito").addEventListener("click", goProduct)
    //Muestra informacion de carrito
@@ -748,7 +772,7 @@ function cargarEventListeners() {
      carrito.addEventListener('click', eliminarCurso);
 
      // Al Vaciar el carrito
-     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+     vaciarCarritoBtn.addEventListener('click', limpiarCarrito);
 
 
      // NUEVO: Contenido cargado
@@ -760,9 +784,27 @@ function cargarEventListeners() {
 }
 
 
+function mostrarAlert() {
+
+    Swal.fire({
+        title: 'Custom width, padding, color, background.',
+        width: 600,
+        padding: '3em',
+        color: '#716add',
+        background: '#fff url(/images/trees.png)',
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url("/images/nyan-cat.gif")
+          left top
+          no-repeat
+        `
+      });
+}
+
+
 function goProduct() {
-    console.log("carga")
-    const user = JSON.parse(localStorage.getItem('usuario'));
+    
+    
     carrito.style.display = "none";
     if(user!=null){
 
@@ -799,11 +841,50 @@ function agregarCurso(e) {
      
      // Delegation para agregar-carrito
      if(e.target.classList.contains('agregar-carrito')) {
-        
-          const curso = e.target.parentElement.parentElement;
+
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: 'Al carrito',
+            text: "¿Deseas agregar este producto al carrito?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si,Claro!',
+            cancelButtonText: 'No, Cancelar!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons.fire(
+                'Agregado!',
+                'Puedes ver tus productos en el icono de carrito.',
+                'success'
+              )
+              const curso = e.target.parentElement.parentElement;
          
-          // Enviamos el curso seleccionado para tomar sus datos
-          leerDatosCurso(curso);
+              // Enviamos el curso seleccionado para tomar sus datos
+              leerDatosCurso(curso);
+
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelado',
+                'Gracias por confirmar :)',
+                'error'
+              )
+            }
+          })
+
+
+          
      }
 }
 
@@ -861,7 +942,7 @@ function eliminarCurso(e) {
 // Muestra el curso seleccionado en el Carrito
 function carritoHTML() {
 
-     vaciarCarrito();
+    sincronizarCarrito();
 
      articulosCarrito.forEach(curso => {
           const row = document.createElement('tr');
@@ -890,15 +971,27 @@ function sincronizarStorage() {
      localStorage.setItem('carrito', JSON.stringify(articulosCarrito));
 }
 
-// Elimina los cursos del carrito en el DOM
-function vaciarCarrito() {
-     // forma rapida (recomendada)
-     while(contenedorCarrito.firstChild) {
-      
-          contenedorCarrito.removeChild(contenedorCarrito.firstChild);
 
+function limpiarCarrito() {
+    while(contenedorCarrito.firstChild) {
+        
+        contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+       
+    }
+    articulosCarrito  = [];
+    localStorage.removeItem("carrito");
+}
+// Elimina los cursos del carrito en el DOM
+function sincronizarCarrito() {
+     // forma rapida (recomendada)
+
+     while(contenedorCarrito.firstChild) {
+        
+          contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+         
       }
-      localStorage.removeItem("carrito");
+
+      
 }
 
 
@@ -1146,8 +1239,8 @@ function eventDashboard(){
 }
 
 function getPqrsActive(){
-    url = "http://localhost/WEbservice/querys.php?case=pqrs";
-    
+    url = baseUrl+"search.php?case=pqrs&searchReason=activo";
+    console.log(url)
     fetch(url)
     .then(response => response.json())
     .then(data => setDataPqrsAll(data.response));
@@ -1156,7 +1249,7 @@ function getPqrsActive(){
 }
 
 function getLastPeditor(){
-    url = "http://localhost/Webservice/querys.php?case=pedidos";
+    url = baseUrl+"querys.php?case=pedidos";
     
     fetch(url)
     .then(response => response.json())
@@ -1209,7 +1302,7 @@ function setDataPqrsAll(allPqrs){
     let html = "";
     for(let i = 0; i < allPqrs.length; i++){
 
-        if(allPqrs[i].estado=="Activo"){
+        if(allPqrs[i].estado=="activo"){
         html+=`<tr>
         <td>
           <div class="form-check">
@@ -1229,8 +1322,6 @@ function setDataPqrsAll(allPqrs){
           </button>
         </td>
       </tr>`;
-    }else{
-        html+=` <p style="font-weight: bold">Sin Pqrs</p> `
     }
        
     }
@@ -1376,7 +1467,7 @@ if(document.querySelector("#producto").value !== ''
 }
 
 function getCategorias() {
-    url = "http://localhost/WEbservice/querys.php?case=categorias";
+    url = baseUrl+"querys.php?case=categorias";
     fetch(url)
     .then(response => response.json())
     .then(data => setCate(data.response));
@@ -1483,3 +1574,233 @@ function confirmInsertProduct(data){
     },5000);
 
 }   
+
+
+// EVENTOS PQRS
+
+let validacion=document.getElementById("validacion");
+let arr = document.getElementsByName("radio-stacked");
+var valorespq;
+function pqrs() {
+
+   validacion.addEventListener("input",validarPqrs)
+   document.querySelector("#customControlValidation1").addEventListener("click",validarPqrs)
+   document.querySelector("#Result").addEventListener("click",ejectionpq);
+}
+function ejectionpq(e) {
+
+    e.preventDefault();
+
+    for (var i = 0; i < arr.length; i++) {
+
+        if (arr[i].checked) {
+            valorespq = document.getElementById(arr[i].id).value;
+        }        
+    }
+
+       
+    url = "http://localhost/webservice/Insert.php?case=pqrs&validacion="+validacion.value+"&rates="+valorespq+"&id="+user.id;
+    console.log(url);
+    fetch(url)
+    .then(response => response.json())
+    .then(data => alertOK(data.response))
+
+    document.querySelector("#miFormuPqrs").reset();
+    document.querySelector("#Result").disabled = true;
+    validacion.classList.remove("is-valid");
+}    
+function alertOK(data){
+    console.log(data);
+
+    if(data[0].response =="insert complete"){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Registro PQRS completo',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    }else{
+        Swal.fire({
+            title: 'Oh!',
+            text: 'Parece que hubo un fallo de conexión.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
+    }
+
+}
+function validarPqrs(e){
+   
+    if(e.target.value.length > 4 ) {
+        e.target.classList.remove('is-invalid');
+        e.target.classList.add('is-valid');
+   } else {
+        e.target.className+= ' is-invalid';
+   }
+   
+if(validacion.value !== '' && validacion.value.length > 5 &&  document.querySelector("#customControlValidation1").checked) {
+    
+    document.querySelector("#Result").disabled = false;
+}else{
+    document.querySelector("#Result").disabled = true;
+}
+
+
+}
+
+
+//--------------- EVENTOS BUSCAR PRODUCTOS-------------------------
+
+let buscar = document.querySelector("#buscar");
+let productoBusqueda = document.querySelector("#productoBusqueda");
+let categoriaBusqueda = document.querySelector("#categoriaBusqueda");
+let minBusqueda = document.querySelector("#minBusqueda");
+let maxBusqueda = document.querySelector("#maxBusqueda");
+let marcaBusqueda = document.querySelector("#marcaBusqueda");
+let ofertaBusqueda = document.querySelector("#ofertaBusqueda");
+
+function searchingProducts() {
+    let busquedaName = getParameterByName('busqueda');
+  
+   if(busquedaName!='') searchProductInApi(busquedaName);
+    buscar.addEventListener("click",searchFilterProduct);
+
+}
+
+function searchFilterProduct(e) {
+    e.preventDefault();
+
+    let url = "";
+
+    if(productoBusqueda.value==''
+    && categoriaBusqueda.value==''
+    && minBusqueda.value==''
+    && maxBusqueda.value==''
+    && marcaBusqueda.value==''
+    && !ofertaBusqueda.checked){
+        url = baseUrl+"Querys.php?case=productos";
+
+    }else if(productoBusqueda.value!=''
+    && categoriaBusqueda.value==''
+    && minBusqueda.value==''
+    && maxBusqueda.value==''
+    && marcaBusqueda.value==''
+    && !ofertaBusqueda.checked){
+        
+        url = baseUrl+"Search.php?case=productos&searchName="+productoBusqueda.value;
+    }else if(productoBusqueda.value!=''
+    && categoriaBusqueda.value!=''
+    && minBusqueda.value==''
+    && maxBusqueda.value==''
+    && marcaBusqueda.value==''
+    && !ofertaBusqueda.checked){
+      
+        url = baseUrl+"Search.php?case=productos&searchName="+productoBusqueda.value+"&searchCategory="+categoriaBusqueda.value;
+
+    }else if(productoBusqueda.value!=''
+    && categoriaBusqueda.value!=''
+    && minBusqueda.value!=''
+    && maxBusqueda.value!=''
+    && marcaBusqueda.value!=''
+    && !ofertaBusqueda.checked){
+      
+     
+        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
+
+    }else if(productoBusqueda.value!=''
+    && categoriaBusqueda.value!=''
+    && minBusqueda.value==''
+    && maxBusqueda.value==''
+    && marcaBusqueda.value!=''
+    && !ofertaBusqueda.checked){
+      
+     
+        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
+
+    }else if(productoBusqueda.value==''
+    && categoriaBusqueda.value!=''
+    && minBusqueda.value!=''
+    && maxBusqueda.value!=''
+    && marcaBusqueda.value==''
+    && !ofertaBusqueda.checked){
+      
+     
+        url = baseUrl+`Search.php?case=productos&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}`;
+
+    }
+
+    console.log(url)
+     fetch(url)
+    .then(response => response.json())
+    .then(data => verifiedValoresReturn(data.response));
+}
+
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function searchProductInApi(busquedaName) {
+
+    url = baseUrl+"Search.php?case=productos&searchName="+busquedaName;
+   
+    fetch(url)
+    .then(response => response.json())
+    .then(data => verifiedValoresReturn(data.response));
+}
+
+const productsSet = document.querySelector("#getBusquedaProduct");
+let htmlBusqueda=``;
+
+
+
+
+function verifiedValoresReturn(productos) {
+    htmlBusqueda=``
+  
+    if(!productos.response=="No found product" || productos.response==undefined){
+        
+        productos.forEach(element => {
+           
+            setDataProductBusqueda(element,htmlBusqueda);
+      
+        });
+        // console.log(html)
+        productsSet.innerHTML = htmlBusqueda;
+    }else if(productos.response=="No found product"){
+        Swal.fire({
+            title: 'Oh!',
+            text: 'No se encuentra esta definición del producto.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
+    }
+
+}
+function setDataProductBusqueda(producto) {
+
+    htmlBusqueda+=`
+        <div class="col ">
+        <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
+                    <img src="${producto.Imagen}" class="card-img-top" alt="post">
+                    <div class="card-body">
+                    <h5 class="card-title">${producto.Nombre}</h5>
+                    <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${producto.Precio}</b></p>
+                    <a href="#" class="btn btn-primary agregar-carrito" data-id="${producto.id}">Agregar</a>
+                    <a href="#" class="btn btn-danger">Detalle</a>
+                    </div>
+                </div>
+    
+        </div>
+        `;
+
+
+}
