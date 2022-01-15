@@ -61,6 +61,9 @@
               <li class="nav-item submenu" >
               <div class="nav-link" >
               <img src="<?php echo RUTA_IMAGENES?>Carrito.png" style="cursor: pointer;" class="iconHeaderBm" id="img-carrito">
+              <p>
+                <span class="d-lg-none d-md-block">Carrito</span>
+              </p>
               </div>
                         <div id="carrito" class="mostrarCarrito" style="display: none;">
                             <table class="table rounded-pill" id="lista-carrito">

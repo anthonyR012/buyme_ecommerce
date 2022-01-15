@@ -16,7 +16,7 @@
    
             <div class="loginBm shadow p-5 mb-5 rounded row">
 
-            <div class="col-sm-8 ">
+            <div class="col-sm-8 " id="signup">
             <center><img src="https://www.kipclin.com/images/slider/cache/68bcf983c9bb075fbbb36f69f7d82976/Banners-Navidad-KipClin-2021-01.jpg" width="100%"></center>
                 <form action="#" method="POST" id="formLogin">
                 
@@ -40,9 +40,35 @@
                                  <p>Soporte: +57 318 5796296</p><b>
                         
                               </b></font><b>
-                              </b></center>
+                              </b><P><a href="#" id="olvidar" title="Recuperar Clave">Olvide mi contraseña</a></P></center>
+                              
+                              
                 </form>
             </div>
+
+<!-- RECUPERAR CONRASEÑA -->            
+<div class="col-sm-8 " id="recuperarclave">
+            <h2 class="text-center mb-5">
+                Recuperar tu Clave
+            </h2> 
+
+            <form action="recuperarClave.php" id="formRecuperar" method="post">
+
+           
+
+                <div class="field-wrap">
+                <label class="textInputBm" >Correo Electronico</label><br>
+                <input id="emailRecuperacion" type="email" class="rounded  boxBm"  name="email" 
+                autocomplete="off"><br>
+                </div>
+            
+                <input type="submit" id="recuperarPass" class="btn btn-primary" value="RECUPERAR" disabled/>
+
+                <p><a href="#" id="volver" class="mt-3 mb-4" title="Volver">Volver</a></p>
+                <br><br>
+            </form>
+            </div>
+
                 <div class="col-sm-4">
                     <img src="<?php echo RUTA_IMAGENES;?>login.png" class="imgBm" alt="">
                 </div>

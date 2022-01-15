@@ -1,5 +1,5 @@
 
-<!-- RUTAS -->
+
 <?php require_once('../modulos/routes.php');
 ?>
 <!DOCTYPE html>
@@ -20,23 +20,7 @@
     
 <div class="contentPerfil">
       
-      <div class="barra2">
-       <div class="container">
-         <div class="row">
-           <div class="celulares col-sm">
-           <a class="nav-link" style="color:white;" href="#">Celulares</a>
-           </div>
-           <div class="computadores col-sm">
-           <a class="nav-link" style="color:white;" href="#">Computadores</a>
-           </div>
-           <div class="tablets col-sm">
-           <a class="nav-link " style="color:white;" href="#">Tablets</a>
-           </div>
-         </div>
-       </div>
-        
-     </div>
-
+     
      <div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel">
   <div class="carousel-indicators">
     <img src="<?php echo RUTA_IMAGENES ?>circulo.png" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">

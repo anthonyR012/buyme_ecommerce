@@ -186,18 +186,84 @@ function updateState(id){
 }
 
 //------------------EVENTOS LOGIN USUARIOS PETICION LOGIN-------------------- 
-
+    const btnRecuperar = document.querySelector("#recuperarPass");
+    const correoRecupero = document.querySelector("#emailRecuperacion");
 function eventLogin(){
+    
     
     const email = document.querySelector("#email");
     const pass = document.querySelector("#pass");
     const login = document.querySelector("#login");
+    btnRecuperar.addEventListener("click",sendMail);
 
+    correoRecupero.addEventListener("input",validarFormulario);
     email.addEventListener('input', validarFormulario);
     pass.addEventListener('input', validarFormulario);
     login.addEventListener("click",busqueUsuario);
-
+    showRememberPass();
 }
+
+function sendMail(e) {
+    e.preventDefault();
+
+    const data = new FormData();
+   
+    data.append('email', correoRecupero.value);
+    data.append('case', "claveTemporal");
+
+    url = baseUrl+"recuperarClave.php";
+
+    fetch(url,{
+        method: 'POST',
+        body: data
+    })
+    .then(response => response.json())
+    .then(data => confirmSend(data[0]));
+    document.querySelector('#formRecuperar').reset();
+    correoRecupero.classList.remove('is-valid');
+    correoRecupero.classList.remove('form-control');
+    btnRecuperar.disabled = true;
+    
+}
+
+function confirmSend(data) {
+    if(data.response=="change complete"){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Se ha generado una clave temporal, Revisa tu correo!!',
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+    }else{
+        Swal.fire({
+            title: ':(',
+            text: 'Este usuario no existe.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          });
+
+    }
+    
+}
+
+function showRememberPass() {
+$('#recuperarclave').hide(); 
+
+$('#olvidar').on('click', function() {
+    $('#signup').hide(); //para ocultar
+    $("#recuperarclave").fadeIn("slow"); //mostrar
+});
+
+$('#volver').on('click', function() {
+    $('#recuperarclave').hide(); //para ocultar
+    $("#signup").fadeIn("slow"); //mostrar
+});
+}
+
 
 function busqueUsuario(e) {
     e.preventDefault();
@@ -233,7 +299,7 @@ function consultaApi(url){
 }
 
 function confirmeCredenciales(data){
-    console.log(data);
+  
     if(data["response"]!=="No found user" && data["response"]!=="Login_failed"){
         
         const usuario = {
@@ -284,6 +350,9 @@ if(email.value !== '' && pass.value !== '' && email.value.length > 5 && pass.val
 }else{
     login.disabled = true;
 }
+    console.log(correoRecupero.value);
+    
+    console.log(btnRecuperar)
 
 
 }
@@ -297,8 +366,9 @@ function validarEmail(campo){
         
          campo.classList.add('is-valid');
          campo.classList.remove('is-invalid');
+         btnRecuperar.disabled = false;
     } else {
-        
+        btnRecuperar.disabled = true;
          campo.className+= ' is-invalid form-control';
     }
 
@@ -1249,7 +1319,7 @@ function getPqrsActive(){
 }
 
 function getLastPeditor(){
-    url = baseUrl+"querys.php?case=pedidos";
+    url = baseUrl+"search.php?case=pedidos&&searchState=activo";
     
     fetch(url)
     .then(response => response.json())
@@ -1265,7 +1335,7 @@ function setDataOrdersAll(allOrders){
         
         allOrders.forEach(element => {
             
-
+            console.log(element)
             html+=`
             <tr>
             <td>
@@ -1674,62 +1744,120 @@ function searchFilterProduct(e) {
     e.preventDefault();
 
     let url = "";
-
+    //FILTRO POR NADA
     if(productoBusqueda.value==''
     && categoriaBusqueda.value==''
     && minBusqueda.value==''
     && maxBusqueda.value==''
-    && marcaBusqueda.value==''
-    && !ofertaBusqueda.checked){
+    && marcaBusqueda.value==''){
         url = baseUrl+"Querys.php?case=productos";
-
+//FILTRO POR NOMBRE
     }else if(productoBusqueda.value!=''
     && categoriaBusqueda.value==''
     && minBusqueda.value==''
     && maxBusqueda.value==''
-    && marcaBusqueda.value==''
-    && !ofertaBusqueda.checked){
+    && marcaBusqueda.value==''){
         
         url = baseUrl+"Search.php?case=productos&searchName="+productoBusqueda.value;
+    
+    //FILTRO POR NOMBRE Y CATEGORIA
     }else if(productoBusqueda.value!=''
     && categoriaBusqueda.value!=''
     && minBusqueda.value==''
     && maxBusqueda.value==''
-    && marcaBusqueda.value==''
-    && !ofertaBusqueda.checked){
+    && marcaBusqueda.value==''){
       
         url = baseUrl+"Search.php?case=productos&searchName="+productoBusqueda.value+"&searchCategory="+categoriaBusqueda.value;
 
+    //FILTRO POR TODO
     }else if(productoBusqueda.value!=''
     && categoriaBusqueda.value!=''
     && minBusqueda.value!=''
     && maxBusqueda.value!=''
-    && marcaBusqueda.value!=''
-    && !ofertaBusqueda.checked){
+    && marcaBusqueda.value!=''){
       
      
         url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
 
+    //FILTRO POR NOMBRE, CATEGORIA Y MARCA 
     }else if(productoBusqueda.value!=''
     && categoriaBusqueda.value!=''
     && minBusqueda.value==''
     && maxBusqueda.value==''
-    && marcaBusqueda.value!=''
-    && !ofertaBusqueda.checked){
+    && marcaBusqueda.value!=''){
       
      
         url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
 
+    //FILTRO POR CATEGORIA, MIN Y MAX PRECIO
     }else if(productoBusqueda.value==''
     && categoriaBusqueda.value!=''
     && minBusqueda.value!=''
     && maxBusqueda.value!=''
-    && marcaBusqueda.value==''
-    && !ofertaBusqueda.checked){
+    && marcaBusqueda.value==''){
       
      
         url = baseUrl+`Search.php?case=productos&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}`;
+    //FILTRO POR NOMBRE, MIN Y MAX PRECIO Y MARCA
+    }else if(productoBusqueda.value!==''
+    && categoriaBusqueda.value==''
+    && minBusqueda.value!=''
+    && maxBusqueda.value!=''
+    && marcaBusqueda.value!=''){
+      
+     
+        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
+//FILTRO POR NOMBRE,CATEGORIA MIN Y MAX PRECIO 
+    }else if(productoBusqueda.value!==''
+    && categoriaBusqueda.value!=''
+    && minBusqueda.value!=''
+    && maxBusqueda.value!=''
+    && marcaBusqueda.value==''){
+      
+     
+        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+//FILTRO POR CATEGORIA
+    }else if(productoBusqueda.value==''
+    && categoriaBusqueda.value!=''
+    && minBusqueda.value==''
+    && maxBusqueda.value==''
+    && marcaBusqueda.value==''){
+      
+     
+        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+//FILTRO POR MARCA
+    }else if(productoBusqueda.value==''
+    && categoriaBusqueda.value==''
+    && minBusqueda.value==''
+    && maxBusqueda.value==''
+    && marcaBusqueda.value!=''){
+      
+     
+        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+//FILTRO POR MARCA Y CATEGORIA
+    }else if(productoBusqueda.value==''
+    && categoriaBusqueda.value!=''
+    && minBusqueda.value==''
+    && maxBusqueda.value==''
+    && marcaBusqueda.value!=''){
+      
+       
+        url = baseUrl+`Search.php?case=productos&searchBrand=${marcaBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+//FILTRO POR MIN, MAX Y NOMBRE
+    }else if(productoBusqueda.value!==''
+    && categoriaBusqueda.value==''
+    && minBusqueda.value!=''
+    && maxBusqueda.value!=''
+    && marcaBusqueda.value==''){
+      
+       
+        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}`;
 
+    }
+
+    
+    if(ofertaBusqueda.checked){
+            url+=`&searchOfert=true`;
     }
 
     console.log(url)
@@ -1763,8 +1891,19 @@ let htmlBusqueda=``;
 
 function verifiedValoresReturn(productos) {
     htmlBusqueda=``
-  
-    if(!productos.response=="No found product" || productos.response==undefined){
+    if(productos=="Error"){
+
+  Swal.fire({
+            title: 'Oh!',
+            text: 'Intenta probar con otro filtro.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
+    }else{
+  console.log(productos)
+    if( !productos.response=="No found product" || productos.response==undefined){
         
         productos.forEach(element => {
            
@@ -1783,7 +1922,7 @@ function verifiedValoresReturn(productos) {
             imageAlt: 'Custom image',
           })
     }
-
+    }
 }
 function setDataProductBusqueda(producto) {
 
