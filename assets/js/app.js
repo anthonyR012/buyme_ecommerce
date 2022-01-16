@@ -1731,12 +1731,74 @@ let minBusqueda = document.querySelector("#minBusqueda");
 let maxBusqueda = document.querySelector("#maxBusqueda");
 let marcaBusqueda = document.querySelector("#marcaBusqueda");
 let ofertaBusqueda = document.querySelector("#ofertaBusqueda");
+let contenedorOfertas = document.querySelector("#productsOferts");
 
 function searchingProducts() {
     let busquedaName = getParameterByName('busqueda');
-  
+    getsOfert();
    if(busquedaName!='') searchProductInApi(busquedaName);
     buscar.addEventListener("click",searchFilterProduct);
+
+}
+
+function getsOfert() {
+    url = baseUrl + "querys.php?case=productosOfertas";
+    fetch(url)
+    .then(response => response.json())
+    .then(data => showOfert(data.response));
+
+}
+htmlOfert ="";
+function showOfert(data) {
+   
+
+    data.forEach(element => {
+           
+        setDataProductOfert(element,htmlOfert);
+  
+    });
+    contenedorOfertas.innerHTML = htmlOfert;
+
+}
+
+function setDataProductOfert(producto) {
+  console.log(producto);
+    htmlOfert+=`
+        <div class="card ">
+        
+        <div class="position-absolute top-0 end-0 ">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="50px" y="0px"
+        width="100px" height="100px" viewBox="0 0 100 100"   enable-background="new 0 0 100 100" xml:space="preserve">
+     <!--- Etiqueta Oferta de Promoción -->
+       <g>
+         <!--- Etiqueta -->
+         <path fill-rule="evenodd" clip-rule="evenodd" class="oferta-verde" d="M0,0h41.4L100,58.6V100L0,0z"/>
+         <!--- Texto -->
+         <text x="20" y="38" transform="rotate(45 48 48)" class="texto-oferta-verde">${producto.tipo}</text>  
+       </g>
+     <!--- Etiqueta Superior triangular -->
+       <g>  
+         <path fill-rule="evenodd" clip-rule="evenodd" class="triangulo" d="M100,0v59L41,0H100z"/>
+         <!--- Texto triángulo -->  
+         <text x="30" y="11" transform="rotate(45 48 48)" class="texto-triangulo">-${producto.porcentaje_oferta}</text>
+         <text x="57" y="11" transform="rotate(45 48 48)" class="texto-descuento">%</text>
+       </g>  
+   
+     
+   </svg>
+   </div>
+
+            <img src="${producto.imagen}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">${producto.marca}</h5><p class="precio"> Ahora:  $<b >${producto.precio_oferta}</b> Antes: $<b class="text-decoration-line-through">${producto.precio_original}</b></p>
+            <p class="card-text">${producto.caracteristicas_oferta}, ${producto.descripcion_producto}.</p>
+            </div>
+            <div class="card-footer">
+            <a href="#" class="btn btn-primary agregar-carrito" data-id="${producto.id}" >Agregar</a>
+            <small class="text-muted">Oferta valida hasta ${producto.fecha_fin}</small>
+            </div>
+        </div>
+        `;
 
 }
 

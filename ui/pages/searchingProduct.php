@@ -104,7 +104,14 @@
    
 
     
-<div class="contentPerfil">
+<div class="contentPerfil" id="lista-productos">
+  <!-- inicio productos ofertas -->
+  <div class="container p-3" >
+  <div class="card-group" id="productsOferts">
+  
+  </div>
+</div>
+  <!-- fin productos ofertas -->
       <div class="container p-5" style="min-height: 800px;">
 
     
@@ -156,10 +163,10 @@
        
     </form>
     <div class="decor" style="margin-top: 60px;"></div>
-    
-    <div class="container" id="lista-productos">
-  <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3" id="getBusquedaProduct">
-  
+      <!-- /Muestra productos buscados -->
+    <div class="container" >
+  <!-- <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3" id="getBusquedaProduct"> -->
+  <div class="row row-cols-1 row-cols-md-3 g-4 " id="getBusquedaProduct">
     
     </div>
   </div>

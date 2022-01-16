@@ -115,3 +115,43 @@
   border-radius: 10px;
   color: white;
 }
+
+
+/*Productos Ofertas*/
+/* con fill cambiamos el color de la tipografía y los fondos de cada elemento 
+Con stroke la línea
+*/
+
+/* css triángulo */
+.texto-triangulo {
+  fill: white;
+  font-size:20px;
+  font-family:arial;
+  letter-spacing:-1px;
+
+}
+.texto-descuento {
+  fill: white;
+  font-size:14px;
+  font-family:arial;
+
+}
+/* fondo */
+.triangulo {
+  fill:#ff0000;
+  opacity:0.9;
+}
+/* css oferta */
+/* triángulo */
+.oferta-verde {
+  fill:#7ab800;
+  opacity:0.9;
+
+}
+/* texto */
+.texto-oferta-verde {
+  fill: white;
+  font-size:14px;
+  font-family:arial;
+}
+
