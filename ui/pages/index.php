@@ -112,7 +112,7 @@
  </div> 
 </div>    
  
-     
+     <div class="holaProducto" >//mi contenido html desde js</div>
     
 <?php include_once RUTA_MODULOS.'/footer.php'; ?>
 

@@ -811,7 +811,7 @@ if(document.querySelector("#passanti").value !== ''
 // ---------------------------EVENTOS INDEX, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventIndex(){
-
+   
   getProducts();
 }
 
@@ -1066,7 +1066,7 @@ function sincronizarCarrito() {
 
 
 function getProducts(){
-    url = "  http://localhost/webservice/querys.php?case=productos";
+    url = " http://localhost/webservice/querys.php?case=productos";
     
     fetch(url)
     .then(response => response.json())
@@ -1077,7 +1077,7 @@ function setDataProduct(products){
     const productSetPhone = document.querySelector("#getProductPhone");
     const productSetCompu = document.querySelector("#getProductCompu");
     const productSetTable = document.querySelector("#getProductTable");
-
+    
     let htmlPhone = "";
     let htmlTable = "";
     let htmlCompu = "";
@@ -1088,7 +1088,7 @@ function setDataProduct(products){
     htmlPhone = `<div class="carousel-inner text-center"> <div class="carousel-item active">`;
 
     products.forEach(element => {
-            
+          
         if(element.Categoria==="Celulares"){
             
             if(iphone<=4){
@@ -1370,8 +1370,9 @@ function setDataPqrsAll(allPqrs){
     if(allPqrs.length> 0){
     const tablePqrs = document.querySelector("#allPqrsExist");
     let html = "";
+    console.log(allPqrs)
     for(let i = 0; i < allPqrs.length; i++){
-
+       
         if(allPqrs[i].estado=="activo"){
         html+=`<tr>
         <td>
@@ -1382,7 +1383,7 @@ function setDataPqrsAll(allPqrs){
             </label>
           </div>
         </td>
-        <td class="text-left"><span style="font-weight: bold">${allPqrs[i].usuario}</span> ${allPqrs[i].detalle}<br><span style="color:red">${allPqrs[i].razon}</span></td>
+        <td class="text-left"><span style="font-weight: bold">${allPqrs[i].usuario}</span> ${allPqrs[i].detalle}<br><span style="color:red">${allPqrs[i].razon}</span>  ${allPqrs[i].correo}</td>
         <td class="td-actions text-right">
           <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
             <i class="now-ui-icons ui-2_settings-90"></i>
