@@ -195,13 +195,53 @@ function eventLogin(){
     const pass = document.querySelector("#pass");
     const login = document.querySelector("#login");
     btnRecuperar.addEventListener("click",sendMail);
-
+   
+    if(email.value.length >0 && pass.value.length >0){
+        console.log("false")
+        login.disabled = false;
+    }else{
+        console.log("true")
+        login.disabled = true;
+    }
+    
     correoRecupero.addEventListener("input",validarFormulario);
     email.addEventListener('input', validarFormulario);
     pass.addEventListener('input', validarFormulario);
     login.addEventListener("click",busqueUsuario);
     showRememberPass();
 }
+
+function f_recordar(recordar){
+    if(recordar.checked){
+       Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Se guardaran tus credenciales!!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+
+      document.cookie = "User_Email=" + document.getElementById('email').value;
+      document.cookie = "User_Pass=" + document.getElementById('pass').value;
+      }      
+   }
+
+
+   function f_olvidar(olvidar){
+    if(olvidar.checked){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Hemos olvidado tus credenciales satisfactoriamente!!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+      document.cookie = "User_Email=;";
+      document.cookie = "User_Pass=;";
+      window.location.reload(1);
+      }          
+   }
+
 
 function sendMail(e) {
     e.preventDefault();
@@ -811,9 +851,11 @@ if(document.querySelector("#passanti").value !== ''
 // ---------------------------EVENTOS INDEX, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventIndex(){
-   
+    
   getProducts();
+
 }
+
 
 // METODOS CARRITO DE COMPRA
 // Variables
@@ -2006,3 +2048,6 @@ function setDataProductBusqueda(producto) {
 
 
 }
+
+
+
