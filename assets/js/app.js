@@ -245,7 +245,16 @@ function f_recordar(recordar){
 
 function sendMail(e) {
     e.preventDefault();
-
+       // Spinner al presionar Enviar
+       const spinner = document.querySelector('#spinner2');
+       spinner.className += " spinner-grow text-muted";
+     
+  
+       // Ocultar Spinner y enviar informacion
+       setTimeout( () => {
+          spinner.classList.remove("spinner-grow");
+          
+       }, 3000);
     const data = new FormData();
    
     data.append('email', correoRecupero.value);
@@ -267,6 +276,7 @@ function sendMail(e) {
 }
 
 function confirmSend(data) {
+  
     if(data.response=="change complete"){
         Swal.fire({
             position: 'top-end',
@@ -339,8 +349,8 @@ function consultaApi(url){
 }
 
 function confirmeCredenciales(data){
-  
-    if(data["response"]!=="No found user" && data["response"]!=="Login_failed"){
+    console.log(data);
+    if(data["response"]!=="No_found_user" && data["response"]!=="Login_failed"){
         
         const usuario = {
             id: data["id"],
@@ -1304,27 +1314,18 @@ function setDataProduct(products){
     if(itable<=4){
         htmlTable +=`</div>`;
     }
+    baseImg = "http://localhost/buyme/assets/img/";
     htmlCompu += `
-    </div><button class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
+    </div><img src="${baseImg}flecha-izquierda.png" class="carousel-control-prev buttonStyle"  data-bs-target="#carouselControlsCompus" data-bs-slide="prev">  
    </button>
-   <button class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsCompus" data-bs-slide="next">
-   <span class="carousel-control-next-icon " aria-hidden="true"></span>
+   <img src="${baseImg}flecha-derecha.png"  class="carousel-control-next buttonStyle"  data-bs-target="#carouselControlsCompus" data-bs-slide="next">
    </button></div> `;
    htmlPhone += `
-   </div><button class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="prev">
-   <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
-  </button>
-  <button class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="next">
-  <span class="carousel-control-next-icon " aria-hidden="true"></span>
-  </button></div> `;
+   </div><img src="${baseImg}flecha-izquierda.png" class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="prev"/>
+  <img src="${baseImg}flecha-derecha.png" class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="next"></div> `;
   htmlTable += `
-  </div><button class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>   
- </button>
- <button class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="next">
- <span class="carousel-control-next-icon " aria-hidden="true"></span>
- </button></div> `;
+  </div><<img src="${baseImg}flecha-izquierda.png" class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="prev"/>  
+ <img src="${baseImg}flecha-derecha.png" class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="next"/></div> `;
 
     productSetPhone.innerHTML = htmlPhone;
     productSetCompu.innerHTML = htmlCompu;

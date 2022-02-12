@@ -27,7 +27,7 @@ if(empty($_COOKIE['User_Pass'])){
             <div class="loginBm shadow p-5 mb-5 rounded row">
 
             <div class="col-sm-8 " id="signup">
-            <center><img src="https://www.kipclin.com/images/slider/cache/68bcf983c9bb075fbbb36f69f7d82976/Banners-Navidad-KipClin-2021-01.jpg" width="100%"></center>
+            <center><img src="https://previews.123rf.com/images/ylivdesign/ylivdesign1705/ylivdesign170502813/78258025-banner-de-compras-en-l%C3%ADnea-horizontal-estilo-de-dibujos-animados.jpg" width="100%"></center>
                 <form action="#" method="POST" id="formLogin">
                 
                 <label class="textInputBm" >Correo Electronico</label><br>
@@ -86,6 +86,7 @@ if(empty($_COOKIE['User_Pass'])){
                 <input type="submit" id="recuperarPass" class="btn btn-primary" value="RECUPERAR" disabled/>
 
                 <p><a href="#" id="volver" class="mt-3 mb-4" title="Volver">Volver</a></p>
+                <div class="" id="spinner2"></div>
                 <br><br>
             </form>
             </div>
