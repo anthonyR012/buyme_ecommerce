@@ -1154,7 +1154,7 @@ function setDataProduct(products){
                 <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                 <img src="${element.Imagen}"  class="card-img-top" alt="post">
                 <div class="card-body">
-                <h5 class="card-title">${element.Nombre}</h5>
+                <h8 class="card-title">${element.Nombre}</h8>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                 <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1171,7 +1171,7 @@ function setDataProduct(products){
                     <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
-                    <h5 class="card-title">${element.Nombre}</h5>
+                    <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1185,7 +1185,7 @@ function setDataProduct(products){
                     <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
-                    <h5 class="card-title">${element.Nombre}</h5>
+                    <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1206,7 +1206,7 @@ function setDataProduct(products){
                 <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                 <img src="${element.Imagen}"  class="card-img-top" alt="post">
                 <div class="card-body">
-                <h5 class="card-title">${element.Nombre}</h5>
+                <h8 class="card-title">${element.Nombre}</h8>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                 <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1223,7 +1223,7 @@ function setDataProduct(products){
                     <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
-                    <h5 class="card-title">${element.Nombre}</h5>
+                    <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1237,7 +1237,7 @@ function setDataProduct(products){
                     <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
-                    <h5 class="card-title">${element.Nombre}</h5>
+                    <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1259,7 +1259,7 @@ function setDataProduct(products){
                 <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                 <img src="${element.Imagen}"  class="card-img-top" alt="post">
                 <div class="card-body">
-                <h5 class="card-title">${element.Nombre}</h5>
+                <h8 class="card-title">${element.Nombre}</h8>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                 <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1276,7 +1276,7 @@ function setDataProduct(products){
                     <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
-                    <h5 class="card-title">${element.Nombre}</h5>
+                    <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -1290,7 +1290,7 @@ function setDataProduct(products){
                     <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${element.Imagen}"  class="card-img-top" alt="post">
                     <div class="card-body">
-                    <h5 class="card-title">${element.Nombre}</h5>
+                    <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary" id="agregar-carrito" data-id="${element.id}">Agregar</a>
                     <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
@@ -2045,10 +2045,10 @@ function setDataProductBusqueda(producto) {
         <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
                     <img src="${producto.Imagen}" class="card-img-top" alt="post">
                     <div class="card-body">
-                    <h5 class="card-title">${producto.Nombre}</h5>
+                    <h8 class="card-title">${producto.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${producto.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${producto.id}">Agregar</a>
-                    <a href="#" class="btn btn-danger">Detalle</a>
+                    <a href="#" class="btn btn-danger btnDetalle">Detalle</a>
                     </div>
                 </div>
     

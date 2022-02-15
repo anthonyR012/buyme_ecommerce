@@ -34,8 +34,25 @@ html,body,p,ol,ul,li,pre,code,address,form,fieldset,blockquote{
     
 }
 
+.carousel-inner .carousel-item .card img{
+    
+    max-width: 170px;
+    max-height:170px;
+}
 
-
+.carousel-inner .carousel-item .card{
+    max-width: 208px;
+    max-height: 400px;
+    
+}
+#getBusquedaProduct .col .card img{
+    max-width: 170px;
+    max-height:160px;
+}
+#getBusquedaProduct .col .card{
+    max-width: 208px;
+    max-height: 400px;
+}
 #logoBm{
    
    height: 100%;
