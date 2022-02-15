@@ -216,7 +216,7 @@ function f_recordar(recordar){
        Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Se guardaran tus credenciales!!',
+            title: 'Se guardaran tus datos!!',
             showConfirmButton: false,
             timer: 2000
           });
@@ -959,7 +959,11 @@ function mostrarCarrito() {
 }
 // Función que añade el curso al carrito
 function agregarCurso(e) {
-     e.preventDefault();
+
+    if(!e.target.classList.contains("btnDetalle")){
+        e.preventDefault();
+    }
+     
      
      // Delegation para agregar-carrito
      if(e.target.classList.contains('agregar-carrito')) {
@@ -1153,7 +1157,7 @@ function setDataProduct(products){
                 <h5 class="card-title">${element.Nombre}</h5>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                <a href="#" class="btn btn-danger">Detalle</a>
+                <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                 </div>
             </div>
            
@@ -1170,7 +1174,7 @@ function setDataProduct(products){
                     <h5 class="card-title">${element.Nombre}</h5>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="#" class="btn btn-danger">Detalle</a>
+                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1184,7 +1188,7 @@ function setDataProduct(products){
                     <h5 class="card-title">${element.Nombre}</h5>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="#" class="btn btn-danger">Detalle</a>
+                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1205,7 +1209,7 @@ function setDataProduct(products){
                 <h5 class="card-title">${element.Nombre}</h5>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                <a href="#" class="btn btn-danger">Detalle</a>
+                <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                 </div>
             </div>
            
@@ -1222,7 +1226,7 @@ function setDataProduct(products){
                     <h5 class="card-title">${element.Nombre}</h5>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="#" class="btn btn-danger">Detalle</a>
+                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1236,7 +1240,7 @@ function setDataProduct(products){
                     <h5 class="card-title">${element.Nombre}</h5>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="#" class="btn btn-danger">Detalle</a>
+                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1258,7 +1262,7 @@ function setDataProduct(products){
                 <h5 class="card-title">${element.Nombre}</h5>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                <a href="#" class="btn btn-danger">Detalle</a>
+                <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                 </div>
             </div>
            
@@ -1275,7 +1279,7 @@ function setDataProduct(products){
                     <h5 class="card-title">${element.Nombre}</h5>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="#" class="btn btn-danger">Detalle</a>
+                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1289,7 +1293,7 @@ function setDataProduct(products){
                     <h5 class="card-title">${element.Nombre}</h5>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary" id="agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="#" class="btn btn-danger">Detalle</a>
+                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1331,10 +1335,14 @@ function setDataProduct(products){
     productSetCompu.innerHTML = htmlCompu;
     productSetTable.innerHTML = htmlTable;
 
+   
 
 }
 
-
+function detalles() {
+  
+   
+}
 // ---------------------------EVENTOS DASHBOARD, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventDashboard(){
