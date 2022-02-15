@@ -1018,7 +1018,7 @@ function agregarCurso(e) {
 function leerDatosCurso(curso) {
      const infoCurso = {
           imagen: curso.querySelector('img').src,
-          titulo: curso.querySelector('h5').textContent,
+          titulo: curso.querySelector('h8').textContent,
           precio: curso.querySelector('.precio b').textContent,
           id: curso.querySelector('a').getAttribute('data-id'), 
           cantidad: 1
@@ -1842,7 +1842,7 @@ function setDataProductOfert(producto) {
 
             <img src="${producto.imagen}" class="card-img-top" alt="...">
             <div class="card-body">
-            <h5 class="card-title">${producto.marca}</h5><p class="precio"> Ahora:  $<b >${producto.precio_oferta}</b> Antes: $<b class="text-decoration-line-through">${producto.precio_original}</b></p>
+            <h8 class="card-title">${producto.marca}</h8><p class="precio"> Ahora:  $<b >${producto.precio_oferta}</b> Antes: $<b class="text-decoration-line-through">${producto.precio_original}</b></p>
             <p class="card-text">${producto.caracteristicas_oferta}, ${producto.descripcion_producto}.</p>
             </div>
             <div class="card-footer">
