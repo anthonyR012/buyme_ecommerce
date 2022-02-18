@@ -31,7 +31,7 @@
       </div>
       <div class="carousel-inner ">
         <div class="carousel-item active ">
-          <img src="<?php echo RUTA_IMAGENES ?>/LandingPage1.png" class="d-block  " style="width:100%" alt="...">
+          <img src="<?php echo RUTA_IMAGENES ?>/LandingPage1.jpg" class="d-block  " style="width:100%" alt="...">
           <div class="carousel-caption d-none d-md-block" id="titleCarousel">
             <h5>Que esperas para comprar!!</h5>
             <p>En esta epoca decembrina.</p>

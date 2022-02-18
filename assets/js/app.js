@@ -1773,6 +1773,154 @@ if(validacion.value !== '' && validacion.value.length > 5 &&  document.querySele
 
 }
 
+function setDataPqrsUser(pqrs) {
+
+    let html = "";
+
+
+    if (pqrs.response != "No found pqrs") {
+        for (let i = 0; i < pqrs.length; i++) {
+
+
+            html += `<div class="col-4">
+            
+            <p class="textColumBm">Tipo PQRS:</p>
+            <p class="textColumBm">Descripción:</p>
+            <p class="textColumBm">Estado:</p>
+            
+
+        </div>
+    
+        <div class="col-8">
+            
+            <p class="textValueBm text-uppercase">${pqrs[i].razon}</p>
+            <p class="textValueBm text-uppercase text-break">${pqrs[i].detalle}</p>
+            <p class="textValueBm text-uppercase">${pqrs[i].estado}</p>
+                       
+            
+            <a href="user.php" data-remote="user.php" onclick= "editarpq(${pqrs[i].id});" data-toggle="modal" data-target="#edipq" id="Botoneditar" class="textValueBm text-uppercase"  >Editar</a>
+            <hr>
+
+
+
+        </div>
+
+       
+        
+        `;
+        }
+
+
+    } else {
+
+
+        html += `<div class="col-8"><p class="textColumBm">No hay PQRS registrados</p></div>`;
+    }
+    pqrsUser.innerHTML = html;
+
+
+}
+
+function editarpq(ide) {
+
+    url = "http://localhost/webservice/Querys.php?case=editarpqrs&Id_PQRS=" + ide;
+    console.log(url);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => selectpq(data.response))
+
+    
+}
+
+
+function selectpq(pqrs) {
+
+console.log(pqrs);
+    let hdmi = "";
+
+    hdmi += `
+<div class="modal-dialog" style="padding-top:70px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Editar pqrs</h5>
+            
+          </div>
+<div class="modal-body" style="background:var(--main-primary-color)">
+            <form action="#" method="POST" id="formEditpq">
+              <div class="container">
+                
+              <input type="hidden" id="ide" name="pass" value="${pqrs[0].id}" placeholder="Tipo Queja" class="input-100Bm" >
+              <input type="Text" id="Tipo" name="pass" value="${pqrs[0].estado}" placeholder="Tipo Queja" class="input-100Bm" >
+
+                <input type="Text" id="descripcion" name="pass" value="${pqrs[0].detalle}" placeholder="Descripcion" class="input-100Bm" >
+                
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal-dialog" Onclick = "cierre();">Close</button>
+          <button type="button" class="btn btn-primary" id="editCredential" data-bs-dismiss="modal-dialog"  Onclick = "updatepqr();">Aceptar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  ` ;
+
+
+    edipq.innerHTML = hdmi;
+
+    
+
+}
+function cierre(){
+location.reload();
+}
+
+function updatepqr(){
+
+
+    var ide = document.querySelector("#ide").value;
+    var Tipo = document.querySelector("#Tipo").value;
+    var descripcion = document.querySelector("#descripcion").value;
+
+    url = "http://localhost/webservice/Update.php?case=edicionPQRS&Detalles_PQRS=" + descripcion + "&Tipo_Estado=" + Tipo + "&Id_PQRS=" + ide;
+    console.log(url);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => AlerUpdate(data.response))
+
+
+    
+}
+function AlerUpdate(data) {
+    
+
+    if (data[0].response == "Update complete") {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Actualizacion de PQRS Completo',
+            showConfirmButton: false,
+            timer: 1500
+            
+        }).then(() => {
+            cierre();
+        });
+    } else {
+        Swal.fire({
+            title: 'Oh!',
+            text: 'Parece que hubo un fallo de conexión.',
+            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+        })
+    }
+
+}
+
+
 
 //--------------- EVENTOS BUSCAR PRODUCTOS-------------------------
 
@@ -2039,7 +2187,7 @@ function verifiedValoresReturn(productos) {
     }
 }
 function setDataProductBusqueda(producto) {
-
+    console.log(producto);
     htmlBusqueda+=`
         <div class="col ">
         <div class="card mx-2 my-2 shadow-lg rounded" style="width: 14rem;">
@@ -2057,6 +2205,8 @@ function setDataProductBusqueda(producto) {
 
 
 }
+
+
 
 
 

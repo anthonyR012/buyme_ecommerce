@@ -148,7 +148,10 @@
 
             </div>
         </div>
-      
+      <!-- Alerta editar pqrs -->
+        <div class="modal fade" id="edipq" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    </div>
+
       </div>
       
       <!-- FIN CONTENIDO -->
@@ -167,6 +170,7 @@
 
 <script>
 eventPerfil();
+setDataPqrsUser(pqrs);
 </script>
 
 </body>
