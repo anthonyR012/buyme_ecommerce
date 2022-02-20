@@ -84,8 +84,7 @@
                 <p class="colorTextBm1">MIS CREDENCIALES</p>
 
                 <div class="containerEditBm">
-                <img src="<?php echo RUTA_IMAGENES?>editar.png"
-                class="imgPerfilbm" alt="" data-bs-toggle="modal" data-bs-target="#editCredentials">
+              
                 </div>
               </div>
           <div class="row container">
@@ -170,7 +169,7 @@
 
 <script>
 eventPerfil();
-setDataPqrsUser(pqrs);
+
 </script>
 
 </body>

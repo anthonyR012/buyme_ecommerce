@@ -93,7 +93,7 @@
   </div>
      
     </div>
-  </div>
+
   <?php include '../modulos/footer.php'; ?>
  
   <script src="<?php echo RUTA_JS?>plugins/perfect-scrollbar.jquery.min.js"></script>

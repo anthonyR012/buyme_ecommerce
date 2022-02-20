@@ -74,7 +74,7 @@
             <span class="input-group-text" >Caracteristicas oferta</span>
             <textarea  id="caracteristicas" class=" input-100Bm" name="descripcion" aria-label="poster..."></textarea>
         </div>
-        <input type="number" id="porcentaje" name="nombre" placeholder="Porcentaje decuento" class="input-48Bm" required>
+        <input type="number" id="porcentaje" name="nombre" placeholder="Porcentaje descuento" class="input-48Bm" required>
             <input type="number" id="cantidad_oferta" name="apellido" placeholder="Cantidad productos" class="input-48Bm" required>
         <span class="input-group-text" >Fecha Inicio</span>
         <input type="date" id="inicio" name="nombre" placeholder="Fecha Inicio" class="input-48Bm" required>
@@ -105,8 +105,7 @@
 
       </div>
      
-    </div>
-  </div>
+    
   <?php include '../modulos/footer.php'; ?>
  
   <script src="<?php echo RUTA_JS?>plugins/perfect-scrollbar.jquery.min.js"></script>
