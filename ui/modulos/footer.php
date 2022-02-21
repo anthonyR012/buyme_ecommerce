@@ -24,7 +24,7 @@
         <div class="d-lg-none ">
             <div class="container-fluid">
           <nav>
-            <ul>
+            <ul >
               <li><i class="fas fa-users"></i>
                 <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" class="text-reset">
                  Sobre nosotros

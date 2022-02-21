@@ -1,6 +1,8 @@
 
+ //url rutas
  const user = JSON.parse(localStorage.getItem('usuario'));
- const baseUrl = "http://localhost/webservice/";
+ const baseUrlWebSocket = "http://localhost/webservice/";
+ const baseUrlPage = "http://localhost/buyme/";
 // --------------METODO GLOBALIZADO--------------------
 
 window.addEventListener('DOMContentLoaded',() => {
@@ -23,7 +25,7 @@ function getProductoBuscado(e){
     e.preventDefault();
     let busqueda  = busqueValorConcuerda.value;
    
-    location.href = "http://localhost/buyme/ui/pages/searchingProduct.php?busqueda="+busqueda;
+    location.href = baseUrlPage+"ui/pages/searchingProduct.php?busqueda="+busqueda;
     
    }
 
@@ -180,7 +182,7 @@ function verifyRolUser(user){
 
 }
 function updateState(id){
-    url = baseUrl+"Update.php?case=actividad&id="+id;
+    url = baseUrlWebSocket+"Update.php?case=actividad&id="+id;
     fetch(url)
     .then(response => response.json());
 }
@@ -260,7 +262,7 @@ function sendMail(e) {
     data.append('email', correoRecupero.value);
     data.append('case', "claveTemporal");
 
-    url = baseUrl+"recuperarClave.php";
+    url = baseUrlWebSocket+"recuperarClave.php";
 
     fetch(url,{
         method: 'POST',
@@ -290,7 +292,7 @@ function confirmSend(data) {
         Swal.fire({
             title: ':(',
             text: 'Este usuario no existe.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: baseUrlPage+'assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
@@ -327,7 +329,7 @@ function busqueUsuario(e) {
      setTimeout( () => {
         spinner.classList.remove("spinner-grow");
         
-        url = baseUrl+"Search.php?case=login";
+        url = baseUrlWebSocket+"Search.php?case=login";
         consultaApi(url);
      }, 3000);
 
@@ -367,7 +369,7 @@ function confirmeCredenciales(data){
         Swal.fire({
             title: 'Oh!',
             text: 'Este usuario no existe.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: baseUrlPage+'assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
@@ -477,7 +479,7 @@ function registrarUsuario(e) {
     setTimeout( () => {
        spinner.classList.remove("spinner-grow");
        
-       url = baseUrl+"insert.php?case=usuarios";
+       url = baseUrlWebSocket+"insert.php?case=usuarios";
        consultaApiRegistro(url);
     }, 3000);
 
@@ -579,13 +581,13 @@ function validarEmailRegister(campo){
 
 // LLENAR SELECTORES 
 function getMunicipios() {
-    url = baseUrl+"querys.php?case=municipios";
+    url = baseUrlWebSocket+"querys.php?case=municipios";
     fetch(url)
     .then(response => response.json())
     .then(data => setMuni(data.response));
 }
 function getDepartamentos() {
-    url = baseUrl+"querys.php?case=departamentos";
+    url = baseUrlWebSocket+"querys.php?case=departamentos";
     fetch(url)
     .then(response => response.json())
     .then(data => setDepa(data.response));
@@ -631,14 +633,14 @@ function eventPerfil(){
 
 
 function getPqrs() {
-    url = baseUrl+"search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrlWebSocket+"search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
 
     fetch(url)
     .then(response => response.json())
     .then(data => setDataUser(data.response));
 }
 function getUser(){
-    url = baseUrl+"search.php?case=pqrs&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrlWebSocket+"search.php?case=pqrs&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
     
     fetch(url)
     .then(response => response.json())
@@ -735,7 +737,7 @@ function editarInformaciones() {
         let telefono = document.querySelector("#telefonoUtp").value!=''||document.querySelector("#telefonoUtp").value.length>5?document.querySelector("#telefonoUtp").value:document.querySelector("#telefonoUtp").placeholder;
         
     
-        url = baseUrl+"Update.php?case=perfil&editinformation&id="+JSON.parse(localStorage.getItem('usuario')).id+"&telefono="+telefono+"&nombres="+nombres+"&apellidos="+apellidos+"&direccion="+direccion;
+        url = baseUrlWebSocket+"Update.php?case=perfil&editinformation&id="+JSON.parse(localStorage.getItem('usuario')).id+"&telefono="+telefono+"&nombres="+nombres+"&apellidos="+apellidos+"&direccion="+direccion;
        
         fetch(url)
         .then(response => response.json())
@@ -753,7 +755,7 @@ function editarCredenciales() {
     dataEdit.append('password', document.querySelector("#passnew").value);
     dataEdit.append('lastpassword', document.querySelector("#passanti").value);
    
-    url = baseUrl+"Update.php?case=perfil&editcredential&id="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrlWebSocket+"Update.php?case=perfil&editcredential&id="+JSON.parse(localStorage.getItem('usuario')).id;
     
     fetch(url,{
         method: 'POST',
@@ -783,7 +785,7 @@ function verifyChangePass(data){
         Swal.fire({
             title: 'Oh!',
             text: 'No concuerda la contraseña.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: baseUrlPage+'assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
@@ -934,13 +936,13 @@ function goProduct() {
         Swal.fire({
             title: 'Oh!',
             text: 'Parece que no estas registrado aún.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: baseUrlPage+'assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
           }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
-            location.href = "http://localhost/buyme/ui/credenciales/login.php"
+            location.href = baseUrlPage+"ui/credenciales/login.php"
           })
     }
 
@@ -1122,7 +1124,7 @@ function sincronizarCarrito() {
 
 
 function getProducts(){
-    url = " http://localhost/webservice/querys.php?case=productos";
+    url = baseUrlWebSocket+"querys.php?case=productos";
     
     fetch(url)
     .then(response => response.json())
@@ -1157,7 +1159,7 @@ function setDataProduct(products){
                 <h8 class="card-title">${element.Nombre}</h8>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                 </div>
             </div>
            
@@ -1174,7 +1176,7 @@ function setDataProduct(products){
                     <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                    <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1188,7 +1190,7 @@ function setDataProduct(products){
                     <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                    <a href="${baseUrlPage}pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1209,7 +1211,7 @@ function setDataProduct(products){
                 <h8 class="card-title">${element.Nombre}</h8>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                 </div>
             </div>
            
@@ -1226,7 +1228,7 @@ function setDataProduct(products){
                     <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                    <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1240,7 +1242,7 @@ function setDataProduct(products){
                     <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                    <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1262,7 +1264,7 @@ function setDataProduct(products){
                 <h8 class="card-title">${element.Nombre}</h8>
                 <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                 <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                 </div>
             </div>
            
@@ -1279,7 +1281,7 @@ function setDataProduct(products){
                     <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                    <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1293,7 +1295,7 @@ function setDataProduct(products){
                     <h8 class="card-title">${element.Nombre}</h8>
                     <p class="card-text text-truncate precio" style="max-width: 400px">Precio:$<b> ${element.Precio}</b></p>
                     <a href="#" class="btn btn-primary" id="agregar-carrito" data-id="${element.id}">Agregar</a>
-                    <a href="http://localhost/buyme/ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
+                    <a href="${baseUrlPage}ui/pages/detalle.php?id=${element.id}" class="btn btn-danger btnDetalle" >Detalle</a>
                     </div>
                 </div>
                     `;
@@ -1318,7 +1320,7 @@ function setDataProduct(products){
     if(itable<=4){
         htmlTable +=`</div>`;
     }
-    baseImg = "http://localhost/buyme/assets/img/";
+    baseImg = baseUrlPage+"assets/img/";
     htmlCompu += `
     </div><img src="${baseImg}flecha-izquierda.png" class="carousel-control-prev buttonStyle"  data-bs-target="#carouselControlsCompus" data-bs-slide="prev">  
    </button>
@@ -1360,7 +1362,7 @@ function eventDashboard(){
 }
 
 function getPqrsActive(){
-    url = baseUrl+"search.php?case=pqrs&searchReason=activo";
+    url = baseUrlWebSocket+"search.php?case=pqrs&searchReason=activo";
     console.log(url)
     fetch(url)
     .then(response => response.json())
@@ -1370,7 +1372,7 @@ function getPqrsActive(){
 }
 
 function getLastPeditor(){
-    url = baseUrl+"search.php?case=pedidos&&searchState=activo";
+    url = baseUrlWebSocket+"search.php?case=pedidos&&searchState=activo";
     
     fetch(url)
     .then(response => response.json())
@@ -1589,7 +1591,7 @@ if(document.querySelector("#producto").value !== ''
 }
 
 function getCategorias() {
-    url = baseUrl+"querys.php?case=categorias";
+    url = baseUrlWebSocket+"querys.php?case=categorias";
     fetch(url)
     .then(response => response.json())
     .then(data => setCate(data.response));
@@ -1625,7 +1627,7 @@ function insertServerProduct(e){
     setTimeout( () => {
        spinner.classList.remove("spinner-grow");
 
-       url = `http://localhost/webservice/insert.php?case=${isOfert?ofertaCase:productoCase}&nombre=${producto}&marca=${marca}&referencia=${referencia}&descripcion=${descripcion}&precio=${precio}&existencia=${cantidad}&garantia=${garantia}&categoria=${selectCategoria}&id_proveedor=${JSON.parse(localStorage.getItem('usuario')).id}`;
+       url = baseUrlWebSocket+`insert.php?case=${isOfert?ofertaCase:productoCase}&nombre=${producto}&marca=${marca}&referencia=${referencia}&descripcion=${descripcion}&precio=${precio}&existencia=${cantidad}&garantia=${garantia}&categoria=${selectCategoria}&id_proveedor=${JSON.parse(localStorage.getItem('usuario')).id}`;
        sendDataServerProduct(url);
     }, 3000);
     
@@ -1674,7 +1676,7 @@ function confirmInsertProduct(data){
         Swal.fire({
             title: 'Publicación exitosa!',
             text: 'Puedes modificar el contenido en (Mis productos).',
-            imageUrl: 'http://localhost/buyme/assets/img/bueno.png',
+            imageUrl: basUrlPage+'assets/img/bueno.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
@@ -1721,7 +1723,7 @@ function ejectionpq(e) {
     }
 
        
-    url = "http://localhost/webservice/Insert.php?case=pqrs&validacion="+validacion.value+"&rates="+valorespq+"&id="+user.id;
+    url = baseUrlWebSocket+"Insert.php?case=pqrs&validacion="+validacion.value+"&rates="+valorespq+"&id="+user.id;
     console.log(url);
     fetch(url)
     .then(response => response.json())
@@ -1746,7 +1748,7 @@ function alertOK(data){
         Swal.fire({
             title: 'Oh!',
             text: 'Parece que hubo un fallo de conexión.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: basUrlPage+'assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
@@ -1823,7 +1825,7 @@ function setDataPqrsUser(pqrs) {
 
 function editarpq(ide) {
 
-    url = "http://localhost/webservice/Querys.php?case=editarpqrs&Id_PQRS=" + ide;
+    url = baseUrlWebSocket+"Querys.php?case=editarpqrs&Id_PQRS=" + ide;
     console.log(url);
     fetch(url)
         .then(response => response.json())
@@ -1884,7 +1886,7 @@ function updatepqr(){
     var Tipo = document.querySelector("#Tipo").value;
     var descripcion = document.querySelector("#descripcion").value;
 
-    url = "http://localhost/webservice/Update.php?case=edicionPQRS&Detalles_PQRS=" + descripcion + "&Tipo_Estado=" + Tipo + "&Id_PQRS=" + ide;
+    url = webservice+"Update.php?case=edicionPQRS&Detalles_PQRS=" + descripcion + "&Tipo_Estado=" + Tipo + "&Id_PQRS=" + ide;
     console.log(url);
     fetch(url)
         .then(response => response.json())
@@ -1911,7 +1913,7 @@ function AlerUpdate(data) {
         Swal.fire({
             title: 'Oh!',
             text: 'Parece que hubo un fallo de conexión.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: baseUrlPage+'buyme/assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
@@ -1942,7 +1944,7 @@ function searchingProducts() {
 }
 
 function getsOfert() {
-    url = baseUrl + "querys.php?case=productosOfertas";
+    url = baseUrlWebSocket + "querys.php?case=productosOfertas";
     fetch(url)
     .then(response => response.json())
     .then(data => showOfert(data.response));
@@ -2012,7 +2014,7 @@ function searchFilterProduct(e) {
     && minBusqueda.value==''
     && maxBusqueda.value==''
     && marcaBusqueda.value==''){
-        url = baseUrl+"Querys.php?case=productos";
+        url = baseUrlWebSocket+"Querys.php?case=productos";
 //FILTRO POR NOMBRE
     }else if(productoBusqueda.value!=''
     && categoriaBusqueda.value==''
@@ -2020,7 +2022,7 @@ function searchFilterProduct(e) {
     && maxBusqueda.value==''
     && marcaBusqueda.value==''){
         
-        url = baseUrl+"Search.php?case=productos&searchName="+productoBusqueda.value;
+        url = baseUrlWebSocket+"Search.php?case=productos&searchName="+productoBusqueda.value;
     
     //FILTRO POR NOMBRE Y CATEGORIA
     }else if(productoBusqueda.value!=''
@@ -2029,7 +2031,7 @@ function searchFilterProduct(e) {
     && maxBusqueda.value==''
     && marcaBusqueda.value==''){
       
-        url = baseUrl+"Search.php?case=productos&searchName="+productoBusqueda.value+"&searchCategory="+categoriaBusqueda.value;
+        url = baseUrlWebSocket+"Search.php?case=productos&searchName="+productoBusqueda.value+"&searchCategory="+categoriaBusqueda.value;
 
     //FILTRO POR TODO
     }else if(productoBusqueda.value!=''
@@ -2039,7 +2041,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value!=''){
       
      
-        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
 
     //FILTRO POR NOMBRE, CATEGORIA Y MARCA 
     }else if(productoBusqueda.value!=''
@@ -2049,7 +2051,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value!=''){
       
      
-        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
 
     //FILTRO POR CATEGORIA, MIN Y MAX PRECIO
     }else if(productoBusqueda.value==''
@@ -2059,7 +2061,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value==''){
       
      
-        url = baseUrl+`Search.php?case=productos&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchCategory=${categoriaBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}`;
     //FILTRO POR NOMBRE, MIN Y MAX PRECIO Y MARCA
     }else if(productoBusqueda.value!==''
     && categoriaBusqueda.value==''
@@ -2068,7 +2070,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value!=''){
       
      
-        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchBrand=${marcaBusqueda.value}`;
 //FILTRO POR NOMBRE,CATEGORIA MIN Y MAX PRECIO 
     }else if(productoBusqueda.value!==''
     && categoriaBusqueda.value!=''
@@ -2077,7 +2079,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value==''){
       
      
-        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
 //FILTRO POR CATEGORIA
     }else if(productoBusqueda.value==''
     && categoriaBusqueda.value!=''
@@ -2086,7 +2088,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value==''){
       
      
-        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
 //FILTRO POR MARCA
     }else if(productoBusqueda.value==''
     && categoriaBusqueda.value==''
@@ -2095,7 +2097,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value!=''){
       
      
-        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
 //FILTRO POR MARCA Y CATEGORIA
     }else if(productoBusqueda.value==''
     && categoriaBusqueda.value!=''
@@ -2104,7 +2106,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value!=''){
       
        
-        url = baseUrl+`Search.php?case=productos&searchBrand=${marcaBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchBrand=${marcaBusqueda.value}&searchCategory=${categoriaBusqueda.value}`;
 //FILTRO POR MIN, MAX Y NOMBRE
     }else if(productoBusqueda.value!==''
     && categoriaBusqueda.value==''
@@ -2113,7 +2115,7 @@ function searchFilterProduct(e) {
     && marcaBusqueda.value==''){
       
        
-        url = baseUrl+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}`;
+        url = baseUrlWebSocket+`Search.php?case=productos&searchName=${productoBusqueda.value}&searchPMenor=${minBusqueda.value}&searchPMayor=${maxBusqueda.value}`;
 
     }
 
@@ -2138,7 +2140,7 @@ function getParameterByName(name) {
 
 function searchProductInApi(busquedaName) {
 
-    url = baseUrl+"Search.php?case=productos&searchName="+busquedaName;
+    url = baseUrlWebSocket+"Search.php?case=productos&searchName="+busquedaName;
    
     fetch(url)
     .then(response => response.json())
@@ -2158,7 +2160,7 @@ function verifiedValoresReturn(productos) {
   Swal.fire({
             title: 'Oh!',
             text: 'Intenta probar con otro filtro.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: baseUrlPage+'assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
@@ -2178,7 +2180,7 @@ function verifiedValoresReturn(productos) {
         Swal.fire({
             title: 'Oh!',
             text: 'No se encuentra esta definición del producto.',
-            imageUrl: 'http://localhost/buyme/assets/img/error.png',
+            imageUrl: baseUrlPage+'hassets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
