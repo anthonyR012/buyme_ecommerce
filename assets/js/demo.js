@@ -1,8 +1,8 @@
 
 //VARIABLES
 let meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-const baseUrlWebSocket = "http://localhost/webservice/";
-const baseUrlPage = "http://localhost/buyme/";
+const baseUrlWebSocketDemo = "http://localhost/webservice/";
+const baseUrlPageDemo = "http://localhost/buyme/";
 
 // FUNCIONES
 document.addEventListener('DOMContentLoaded',getDataRegisterUser);
@@ -247,7 +247,7 @@ demo = {
 
 function getActiveUser() {
 
-  url = baseUrlWebSocket+"querys.php?case=activos";
+  url = baseUrlWebSocketDemo+"querys.php?case=activos";
   fetch(url)
   .then(response => response.json())
   .then(data => 
@@ -257,7 +257,7 @@ function getActiveUser() {
 }
 
 function getDataSending() {
-  url = baseUrlWebSocket+"querys.php?case=enviosProductos";
+  url = baseUrlWebSocketDemo+"querys.php?case=enviosProductos";
   fetch(url)
   .then(response => response.json())
   .then(data => saveDataSend(data.response));
@@ -265,7 +265,7 @@ function getDataSending() {
 }
 
 function getDataRegisterProduct() {
-  url = baseUrlWebSocket+"querys.php?case=registradosProductos";
+  url = baseUrlWebSocketDemo+"querys.php?case=registradosProductos";
   fetch(url)
   .then(response => response.json())
   .then(data => saveDataProduct(data.response));
@@ -273,7 +273,7 @@ function getDataRegisterProduct() {
 }
 
 function getDataRegisterUser() {
-  url = baseUrlWebSocket+"querys.php?case=registradosUsuarios";
+  url = baseUrlWebSocketDemo+"querys.php?case=registradosUsuarios";
   fetch(url)
   .then(response => response.json())
   .then(data => saveDataUser(data.response));

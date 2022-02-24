@@ -479,7 +479,7 @@ function registrarUsuario(e) {
     setTimeout( () => {
        spinner.classList.remove("spinner-grow");
        
-       url = baseUrlWebSocket+"insert.php?case=usuarios";
+       url = baseUrlWebSocket+"Insert.php?case=usuarios";
        consultaApiRegistro(url);
     }, 3000);
 
@@ -581,13 +581,13 @@ function validarEmailRegister(campo){
 
 // LLENAR SELECTORES 
 function getMunicipios() {
-    url = baseUrlWebSocket+"querys.php?case=municipios";
+    url = baseUrlWebSocket+"Querys.php?case=municipios";
     fetch(url)
     .then(response => response.json())
     .then(data => setMuni(data.response));
 }
 function getDepartamentos() {
-    url = baseUrlWebSocket+"querys.php?case=departamentos";
+    url = baseUrlWebSocket+"Querys.php?case=departamentos";
     fetch(url)
     .then(response => response.json())
     .then(data => setDepa(data.response));
@@ -633,14 +633,14 @@ function eventPerfil(){
 
 
 function getPqrs() {
-    url = baseUrlWebSocket+"search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrlWebSocket+"Search.php?case=usuarios&&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
 
     fetch(url)
     .then(response => response.json())
     .then(data => setDataUser(data.response));
 }
 function getUser(){
-    url = baseUrlWebSocket+"search.php?case=pqrs&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
+    url = baseUrlWebSocket+"Search.php?case=pqrs&searchId="+JSON.parse(localStorage.getItem('usuario')).id;
     
     fetch(url)
     .then(response => response.json())
@@ -1124,7 +1124,7 @@ function sincronizarCarrito() {
 
 
 function getProducts(){
-    url = baseUrlWebSocket+"querys.php?case=productos";
+    url = baseUrlWebSocket+"Querys.php?case=productos";
     
     fetch(url)
     .then(response => response.json())
@@ -1362,7 +1362,7 @@ function eventDashboard(){
 }
 
 function getPqrsActive(){
-    url = baseUrlWebSocket+"search.php?case=pqrs&searchReason=activo";
+    url = baseUrlWebSocket+"Search.php?case=pqrs&searchReason=activo";
     console.log(url)
     fetch(url)
     .then(response => response.json())
@@ -1372,7 +1372,7 @@ function getPqrsActive(){
 }
 
 function getLastPeditor(){
-    url = baseUrlWebSocket+"search.php?case=pedidos&&searchState=activo";
+    url = baseUrlWebSocket+"Search.php?case=pedidos&&searchState=activo";
     
     fetch(url)
     .then(response => response.json())
@@ -1591,7 +1591,7 @@ if(document.querySelector("#producto").value !== ''
 }
 
 function getCategorias() {
-    url = baseUrlWebSocket+"querys.php?case=categorias";
+    url = baseUrlWebSocket+"Querys.php?case=categorias";
     fetch(url)
     .then(response => response.json())
     .then(data => setCate(data.response));
@@ -1627,7 +1627,7 @@ function insertServerProduct(e){
     setTimeout( () => {
        spinner.classList.remove("spinner-grow");
 
-       url = baseUrlWebSocket+`insert.php?case=${isOfert?ofertaCase:productoCase}&nombre=${producto}&marca=${marca}&referencia=${referencia}&descripcion=${descripcion}&precio=${precio}&existencia=${cantidad}&garantia=${garantia}&categoria=${selectCategoria}&id_proveedor=${JSON.parse(localStorage.getItem('usuario')).id}`;
+       url = baseUrlWebSocket+`Insert.php?case=${isOfert?ofertaCase:productoCase}&nombre=${producto}&marca=${marca}&referencia=${referencia}&descripcion=${descripcion}&precio=${precio}&existencia=${cantidad}&garantia=${garantia}&categoria=${selectCategoria}&id_proveedor=${JSON.parse(localStorage.getItem('usuario')).id}`;
        sendDataServerProduct(url);
     }, 3000);
     
@@ -1944,7 +1944,7 @@ function searchingProducts() {
 }
 
 function getsOfert() {
-    url = baseUrlWebSocket + "querys.php?case=productosOfertas";
+    url = baseUrlWebSocket + "Querys.php?case=productosOfertas";
     fetch(url)
     .then(response => response.json())
     .then(data => showOfert(data.response));
@@ -2180,7 +2180,7 @@ function verifiedValoresReturn(productos) {
         Swal.fire({
             title: 'Oh!',
             text: 'No se encuentra esta definición del producto.',
-            imageUrl: baseUrlPage+'hassets/img/error.png',
+            imageUrl: baseUrlPage+'assets/img/error.png',
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: 'Custom image',
