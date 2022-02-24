@@ -112,10 +112,13 @@
   </div>
 
   <?php include_once RUTA_MODULOS . '/footer.php'; ?>
+  
 
   <script>
     eventIndex();
   </script>
+<!-- incluir cookies -->
+<?php include_once(RUTA_MODULOS . '/tcookies.php'); ?>
 </body>
 
 </html>

@@ -2210,5 +2210,109 @@ function setDataProductBusqueda(producto) {
 
 
 
+//------------------------------------EVENTOS MIS PRODUCTOS-----------------
+
+function misProductos() {
+
+    getProductoPorId();
+ 
 
 
+}
+
+function getProductoPorId(){
+
+
+   url = baseUrlWebSocket+"Search.php?case=misProductos&id="+user.id;
+    
+   fetch(url)
+   .then(response => response.json())
+   .then(data => ponerProductos(data.response));
+}
+
+function ponerProductos(arrayProductos){
+
+console.log(arrayProductos)
+miContenedor = document.querySelector("#miContenedor");
+html = "";
+arrayProductos.forEach(element => {
+ 
+html += `<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+<div class="col">
+ 
+ <div class="card border border-warning" style="width: 13rem;">
+   <div class="fondo">
+   <img src="${element.Imagen}" class="card-img-top" alt="...">
+   </div>
+   <div class="card-body">
+     <h5 class="card-title">${element.Nombre}</h5>
+     <p class="card-text">${element.Descripcion}</p>
+     
+     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+     <button type="button" id="ofertar" class="btn btn-primary btn-sm ofertar" data-bs-toggle="modal" data-bs-target="#editOferta" data-id="${element.id}">Ofertar</button>
+     
+           
+   </div>
+ 
+ </div>
+</div>
+
+
+</div> `;
+});
+              
+
+miContenedor.innerHTML=html
+
+}
+
+
+                  
+  
+
+    function editarMisOfertas() {
+       
+        // GUARDAR VALORES VACIOS DE INPUT LLENOS.
+           // const dataEdit = new FormData(document.querySelector('#formOfertar'));
+            
+
+            let Tipo = document.querySelector("#TipoUpt").value!=''||document.querySelector("#TipoUpt").value.length>5?document.querySelector("#TipoUpt").value:document.querySelector("#TipoUpt").placeholder;
+    
+            let Caracteristicas = document.querySelector("#CaracteristicasUpt").value!=''||document.querySelector("#CaracteristicasUpt").value.length>5?document.querySelector("#CaracteristicasUpt").value:document.querySelector("#CaracteristicasUpt").placeholder;
+    
+            let Fecha = document.querySelector("#FechaUpt").value!=''||document.querySelector("#FechaUpt").value.length>5?document.querySelector("#FechaUpt").value:document.querySelector("#FechaUpt").placeholder;
+    
+            let FechaFin = document.querySelector("#FechaFinUtp").value!=''||document.querySelector("#FechaFinUtp").value.length>5?document.querySelector("#FechaFinUtp").value:document.querySelector("#FechaFinUtp").placeholder;
+            
+            let PorcOferta = document.querySelector("#PorcOfertaUtp").value!=''||document.querySelector("#PorcOfertaUtp").value.length>5?document.querySelector("#PorcOfertaUtp").value:document.querySelector("#PorcOfertaUtp").placeholder;
+
+            let PrecioOferta = document.querySelector("#PrecioOfertaUtp").value!=''||document.querySelector("#PrecioOfertaUtp").value.length>5?document.querySelector("#PrecioOfertaUtp").value:document.querySelector("#PrecioOfertaUtp").placeholder;
+
+            let CantidadOferta = document.querySelector("#CantidadOfertaUtp").value!=''||document.querySelector("#CantidadOfertaUtp").value.length>5?document.querySelector("#CantidadOfertaUtp").value:document.querySelector("#CantidadOfertaUtp").placeholder;
+            
+            const IdeditOferta = document.querySelector("#ofertar").getAttribute("data-id");
+            
+            console.log(IdeditOferta);
+
+            url = baseUrlWebSocket+"Insert.php?case=ofertarProductos&Id_Producto="+IdeditOferta+"&Tipo_de_Oferta="+Tipo+"&Caracteristicas_oferta="+Caracteristicas+"&Fecha_Inicio="+Fecha+"&Fecha_Fin="+FechaFin +"&Porc_Oferta="+PorcOferta +"&Precio_Oferta="+PrecioOferta +"&Cantidad_Oferta="+CantidadOferta;
+            console.log(url)
+            fetch(url)
+            .then(response => response.json())
+            .then(data => verifyChangePass(data.response));   
+            
+            
+    }
+
+        function verifyChangePass(response) {
+                console.log(response)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Se guardaran tus datos!!',
+                    showConfirmButton: false,
+                    timer: 2000
+                  });
+
+
+
+            }

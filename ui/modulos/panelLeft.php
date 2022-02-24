@@ -25,7 +25,12 @@
               <p>Publicar Producto</p>
             </a>
           </li>
-          
+          <li>
+            <a href="<?php echo RUTA_DASHBOARD . "misProductos.php";?>">
+              <i class="now-ui-icons files_box"></i>
+              <p>Mis Productos</p>
+            </a>
+          </li>
 
           <li>
             <a href="./user.php">
