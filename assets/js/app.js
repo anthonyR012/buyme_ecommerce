@@ -1330,7 +1330,7 @@ function setDataProduct(products){
    </div><img src="${baseImg}flecha-izquierda.png" class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="prev"/>
   <img src="${baseImg}flecha-derecha.png" class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsPhones" data-bs-slide="next"></div> `;
   htmlTable += `
-  </div><<img src="${baseImg}flecha-izquierda.png" class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="prev"/>  
+  </div><img src="${baseImg}flecha-izquierda.png" class="carousel-control-prev buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="prev"/>  
  <img src="${baseImg}flecha-derecha.png" class="carousel-control-next buttonStyle" type="button" data-bs-target="#carouselControlsTables" data-bs-slide="next"/></div> `;
 
     productSetPhone.innerHTML = htmlPhone;
@@ -1341,9 +1341,102 @@ function setDataProduct(products){
 
 }
 
-function detalles() {
-  
+function getDetalle(){
+    const valores = window.location.search;
+    const urlParams = new URLSearchParams(valores);
+    var id = urlParams.get('id');
+    url = baseUrlWebSocket+"Search.php?case=productos&searchId=" + id;
+    
+    fetch(url)
+    .then(response => response.json())
+    .then(data => setDetalle(data.response));
+    url = baseUrlWebSocket+"Search.php?case=comentarios&searchId=" + id; 
+    getComentarios(url);
+    
+}
+
+function getComentarios(url){
+    fetch(url)
+    .then(response => response.json())
+    .then(data => setComentarios(data.response));
+}
+
+function setComentarios(comentarios){
+    console.log(comentarios);
+
+    const comentariosSet = document.querySelector(".container-comments");
+    console.log(comentariosSet)
+    html = ``
+
+    comentarios.forEach(element => {
+        console.log(element)
+
+        html +=  `<div class="comments">
+                
+        <div class="info-comments">
+            <div class="header">
+                <h4>${element.usuario}</h4>
+                <h5>22/02/2022</h5>
+            </div>
+            <p>
+            ${element.comentario}
+            </p>
+        </div>
+        
+        </div>`
+    });
+
+    comentariosSet.innerHTML = html;
+}
+
+function setDetalle(products){
+
    
+
+    const productSet = document.querySelector("#getProducts");
+    console.log(products[0]);
+    html = ''
+
+         if(products[0].Existencias > 0){
+
+             var disponible = "Disponible";
+         }else{
+             var disponible = "Agotado";
+         }
+
+            html += `<div id="producto">
+            <div>
+                <img src="${products[0].Imagen}" alt="Computador HP" id="compu">
+            </div>
+            <h5 id="descripcion">${products[0].Nombre}</h5>
+            
+            <p id="codigo">Ref: ${products[0].Referencia} </p>
+            <p id="detalles"> Descripcion: ${products[0].Descripcion} </br> Marca: ${products[0].Marca} </br> Stock: ${disponible} </br> Existencia: ${products[0].Existencias} Unidad(es) </br>
+            Garantia: ${products[0].Garantia} año</p>
+            <div id="precio" class="precio">
+                </br></br>
+                Precio: <b>${products[0].Precio}</b>
+            </br>
+                <a href="#" class="btn btn-primary agregar-carrito" data-id="${products[0].id}" >Agregar</a>
+            </div>
+            
+        
+            <div id="crearComentarios" >
+                <p>Escribe tus comentarios</p>
+                <br><br>
+                <h5> 
+                <textarea name="comentarios" class='form-control rounded' style="background-color: aliceblue;height: 110px;min-height: 50px !important;max-height: 800px !important;"  placeholder="Foro de Comentarios" 
+                id="floatingTextarea" cols="40" rows="5"></textarea>
+                </h5>
+                <label for="floatingTextarea" ><h5>Tu opinión es muy importante!!!</h5></label>
+            </div>
+            </div>`
+
+        
+
+        productSet.innerHTML = html
+    
+    
 }
 // ---------------------------EVENTOS DASHBOARD, PETICION ESTADO ACTIVIDAD-----------------------
 

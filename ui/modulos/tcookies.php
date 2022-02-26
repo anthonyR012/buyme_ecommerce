@@ -2,7 +2,7 @@
   <!-- DESKTOP STATE -->
   <div id="tcookiesBm">
   
-                <div class="d-none d-lg-block">
+            
                 <div class="d-flex justify-content-center">
                   <div class="container mt-5 ">
                     <h3>Uso de Cookies</h3>
@@ -15,30 +15,11 @@
                   </div>                     
                     
                 </div>
-                </div>
+              
          
   </div>
 
- <!-- MOVILE STATE -->
-  <div id="tcookiesBm">
-  
-                <div class="d-lg-none ">
-                <div class="container-fluid">
-                
-                <div class="container mt-5 ">
-                    <h3>Uso de Cookies</h3>
-                    <p>Utilizamos cookies de terceros para generar estadísticas de tu navegación para mostrar publicidad, articulos y ofertas personalizadas</p>
-                    <p>Si sigues navegando estaras autorizando su uso</p>                      
-                      <center>
-                        <span id="contador"></span> <a id="stop" onclick="stop()">Stop</a>
-                        <p><button id="boton_acep" class="btn btn-primary" onclick="saveCookie()">Acepto</button></p>
-                      </center>
-                  </div>  
 
-                </div>
-                </div>
-         
-  </div>
   
 
 <?php 
@@ -51,7 +32,8 @@ $uac = $_COOKIE["acep_cookies"];?>
 <!--   Core JS Files   -->
 <script type="text/javascript">
 
-      function saveCookie(){      
+      function saveCookie(){
+         
         console.log("save") 
             document.cookie = "acep_cookies=ok";
             document.getElementById("tcookiesBm").style.animation="esconder 2s ease forwards";     
@@ -62,6 +44,7 @@ $uac = $_COOKIE["acep_cookies"];?>
     var stopTime= 'play';
 
     if(user_acep == 'ok'){
+     
       document.getElementById("tcookiesBm").style.display="none";  
     } 
     else{

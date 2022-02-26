@@ -1,0 +1,78 @@
+*{
+    margin: 0%;
+}
+
+#header{
+    padding: 0px 0px 0px 0px;
+    width: 100%;
+    margin: 0px;
+    background-color: #FF7A00;
+}
+
+
+
+#compu{
+    width: 400px;
+    position: absolute;
+    top: 30%;
+    left: 3%;
+    right: 3%;
+    margin: -25px 0 0 -25px
+}
+
+#descripcion{
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    right: 3%;
+    margin: -25px 0 0 -25px;
+    font-size: 24px;
+}
+
+#codigo{
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    right: 3%;
+    margin: -25px 0 0 -25px;
+    font-size: 18px;
+}
+
+#detalles{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    right: 3%;
+    margin: -25px 0 0 -25px;
+    font-size: 18px;
+}
+.botones{
+    background-color: #D48A32;
+    width: 200px;
+}
+
+#precio{
+    position: absolute;
+    top: 42%;
+    left: 55%;
+    right: 3%;
+    margin: -25px 0 0 -25px;
+    font-size: 18px;
+}
+
+#interes{
+    position: absolute;
+    top: 80%;
+    left: 30%;
+    right: 3%;
+    margin: -25px 0 0 -25px;
+    font-size: 18px;
+}
+#crearComentarios{
+    position: absolute;
+    top: 80%;
+    left: 60%;
+    right: 3%;
+    margin: -25px 0 0 -25px;
+    font-size: 18px;
+}

@@ -53,15 +53,91 @@
        
 </footer>
 
+
+<!-- OFFCANVAS INFERIOR -->
+
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Información de la empresa</h5>
+<!-- FILA -->
+    <div class="row">
+      <!-- PRIMER COLUMNA -->
+        <div class="col-sm-3">
+
+    <a href="https://www.facebook.com/antony.rubio.9822" target="blank"> 
+      <img src="<?php echo RUTA_IMAGENES?>facebook.png"  class="imgFooter" alt="" style="width: 80px;height: 80px;">
+    </a>
+
+    </div>
+ <!-- SEGUNDA COLUMNA -->
+    <div class="col-sm-3">
+    
+    <a href="https://www.instagram.com/rubio203ar/?hl=es-la" target="blank"> <img src="<?php echo RUTA_IMAGENES?>instagram.png"  class="imgFooter" alt="" style="width: 80px;height: 80px;">
+  </a>
+  </div>
+   <!-- TERCERA COLUMNA -->
+  <div class="col-sm-3">
+    
+    <a href="https://wa.link/s9f1yj" target="blank"> 
+      <img src="<?php echo RUTA_IMAGENES?>whatsapp.png"  class="imgFooter" alt="" style="width: 80px;height: 80px;">
+    </a>
+    </div>
+     <!-- CUARTA COLUMNA -->
+    <div class="col-sm-3">
+    <a   href="#agenda"
+    data-toggle="modal" data-target=""> 
+      <img src="<?php echo RUTA_IMAGENES?>about.png"
+       class="imgFooter" alt="" style="width: 80px;height: 80px;">
+    </a>
+    </div>
+   
+   
+    </div>
+  
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-  <div class="offcanvas-body small">
-    ...
+  <div class="offcanvas-body ">
+  <div class="copyright" id="copyright">
+            &copy; , Diseñado por <a href="#" class="text-reset" >ADSI 187</a>. Desarrollado por <a href="#" class="text-reset">ADSI 187</a>.
+          </div>
+          <p  style="height: 60px;font-size: 0.8em;">
+          Se reserva todo el diseño y programacion a Buyme.</p>
+          <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+
+            </script>
   </div>
 </div>
+
+
+<!-- ALERT MODAL MUESTRA VIDEO -->
+<div class="modal fade show" id="agenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-modal="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Guia para el usuario</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+            
+              <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" width="100%" height="100%" allowfullscreen style="min-width: 500px;min-height: 500px;"></iframe>
+            </div>
+
+              
+
+            </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
    <!--   Core JS Files   -->
 
    <script src="<?php echo RUTA_JS?>core/jquery.min.js"></script>
