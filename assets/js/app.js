@@ -1362,31 +1362,33 @@ function getComentarios(url){
 }
 
 function setComentarios(comentarios){
-    console.log(comentarios);
-
-    const comentariosSet = document.querySelector(".container-comments");
-    console.log(comentariosSet)
-    html = ``
-
-    comentarios.forEach(element => {
-        console.log(element)
-
-        html +=  `<div class="comments">
-                
-        <div class="info-comments">
-            <div class="header">
-                <h4>${element.usuario}</h4>
-                <h5>22/02/2022</h5>
+    
+    if(comentarios.response!="No found envio"){
+        const comentariosSet = document.querySelector(".container-comments");
+        console.log(comentariosSet)
+        html = ``
+    
+        comentarios.forEach(element => {
+            console.log(element)
+    
+            html +=  `<div class="comments">
+                    
+            <div class="info-comments">
+                <div class="header">
+                    <h4>${element.usuario}</h4>
+                    <h5>22/02/2022</h5>
+                </div>
+                <p>
+                ${element.comentario}
+                </p>
             </div>
-            <p>
-            ${element.comentario}
-            </p>
-        </div>
-        
-        </div>`
-    });
+            </div>`
+        });
+    
+        comentariosSet.innerHTML = html;
+    }
 
-    comentariosSet.innerHTML = html;
+   
 }
 
 function setDetalle(products){
@@ -1408,7 +1410,7 @@ function setDetalle(products){
             <div>
                 <img src="${products[0].Imagen}" alt="Computador HP" id="compu">
             </div>
-            <h5 id="descripcion">${products[0].Nombre}</h5>
+            <h8 id="descripcion">${products[0].Nombre}</h8>
             
             <p id="codigo">Ref: ${products[0].Referencia} </p>
             <p id="detalles"> Descripcion: ${products[0].Descripcion} </br> Marca: ${products[0].Marca} </br> Stock: ${disponible} </br> Existencia: ${products[0].Existencias} Unidad(es) </br>
