@@ -1,4 +1,3 @@
-
 <!-- RUTAS -->
 <?php require_once('../modulos/routes.php');?>
 <!DOCTYPE html>
@@ -159,6 +158,27 @@
           </div>
         </div>
       </div>
+     <!-- MODAL ENVIO DE CORREO RESPUESTA AL CLIENTE  -->
+      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Respuestas a PQRS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      <div class="col-8" id="formularioPQRS">
+        
+      
+      </div>
+      
+    </div>
+  </div>
+</div>
+
       <!-- NOTIFICACION EJEMPLO -->
       <!-- <div class="col-md-4">
            <button class="btn btn-primary btn-block" onclick="nowuiDashboard.showNotification('top','center','tienda online de compras')">Bottom Center</button>
@@ -173,11 +193,21 @@
   <script src="<?php echo RUTA_JS?>plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="<?php echo RUTA_JS?>now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  
+        
   <script src="<?php echo RUTA_JS?>demo.js" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
     <script>
       demo.initDashboardPageCharts();
       eventDashboard();
+
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+(function cambioestado() {
+emailjs.init("W-8vnBhTwHgIjCMBx");
+})();
+</script>
     </div>
   </div>
 

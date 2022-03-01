@@ -158,3 +158,28 @@ li{
       opacity: 0%;
     }    
   } 
+
+  /* boton carrito */
+#btn_carrito_container{
+    z-index: 100;
+    right: 0px;
+    margin-right: 20px;
+    bottom: 20px;  
+    width: 60px;
+    height: 60px;  	
+    float: right;    
+    position: fixed;  
+    text-align: center;  
+    cursor: pointer;
+    border-radius: 100%;
+    border: solid 2px white;
+    background-color: #FF7A00;
+    box-shadow: 0px 10px 40px -10px rgba(0,0,0,0.50);
+    opacity: 0%;
+  }
+  #btn_carrito_container img{
+    margin-top: 15px;
+    vertical-align:middle;
+    width: 30px;
+    height: auto;  
+  }

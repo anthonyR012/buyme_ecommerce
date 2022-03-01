@@ -1,5 +1,7 @@
 
-
+<div id="btn_carrito_container">
+<img src="<?php echo RUTA_IMAGENES?>Carrito.png" id="btn_carrito">
+</div>
 <!-- DESKTOP STATE -->
 <footer id="footerBm">
 
@@ -151,4 +153,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
 
+<script type="text/javascript">
+$(document).ready(function() {  	
+    function mostrarBtCarrito() {      
+        if (localStorage.getItem('carrito').length > 2) {
+          $("#btn_carrito_container").css("opacity", "100%");
+        }
+        else if (localStorage.getItem('carrito').length == 2) {
+          $("#btn_carrito_container").css("opacity", "0%");
+        }                
+    }
+    setInterval(mostrarBtCarrito, 2000);
+    console.log(localStorage.getItem('carrito').length);
+});
 
+</script>

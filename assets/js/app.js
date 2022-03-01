@@ -1,8 +1,8 @@
 
  //url rutas
  const user = JSON.parse(localStorage.getItem('usuario'));
- const baseUrlWebSocket = "http://localhost/webservice/";
- const baseUrlPage = "http://localhost/buyme/";
+ const baseUrlWebSocket = "https://buyme.hotmarketing.info/WebServices/";
+ const baseUrlPage = "https://buyme.hotmarketing.info/BuymeEcommerce/";
 // --------------METODO GLOBALIZADO--------------------
 
 window.addEventListener('DOMContentLoaded',() => {
@@ -883,10 +883,10 @@ let articulosCarrito = [];
 cargarEventListeners();
 function cargarEventListeners() {
    
-
-    
-    //verifica que este logueado y compra producto
-    document.querySelector("#comprar-carrito").addEventListener("click", goProduct)
+  //verifica que este logueado y compra producto
+  document.querySelector("#comprar-carrito").addEventListener("click", goProduct) //Pooll    
+  document.querySelector("#btn_carrito").addEventListener("click", goProduct) //Pooll
+ 
    //Muestra informacion de carrito
     document.querySelector('#img-carrito').addEventListener('click', mostrarCarrito)
      // Dispara cuando se presiona "Agregar Carrito"
@@ -907,6 +907,12 @@ function cargarEventListeners() {
      });
 }
 
+
+/*Para ir al apartado de comprar*/
+
+function irPago() {
+    location.href = baseUrlPage+"ui/cash/pago.php";
+}
 
 function mostrarAlert() {
 
@@ -931,7 +937,7 @@ function goProduct() {
     
     carrito.style.display = "none";
     if(user!=null){
-
+        location.href = baseUrlPage+"ui/pages/compra.php"; 
     }else{
         Swal.fire({
             title: 'Oh!',
@@ -1376,7 +1382,7 @@ function setComentarios(comentarios){
             <div class="info-comments">
                 <div class="header">
                     <h4>${element.usuario}</h4>
-                    <h5>22/02/2022</h5>
+                    <h5>${element.fecha_entrega}</h5>
                 </div>
                 <p>
                 ${element.comentario}
@@ -1430,7 +1436,15 @@ function setDetalle(products){
                 <textarea name="comentarios" class='form-control rounded' style="background-color: aliceblue;height: 110px;min-height: 50px !important;max-height: 800px !important;"  placeholder="Foro de Comentarios" 
                 id="floatingTextarea" cols="40" rows="5"></textarea>
                 </h5>
-                <label for="floatingTextarea" ><h5>Tu opinión es muy importante!!!</h5></label>
+                <label for="floatingTextarea" >
+                <div>
+                <form class="row">
+                    <div class="mx-auto my-auto">
+                        <button class="btn btn-primary" type="submit" onClick="insertarComentarios() ">Enviar</button>
+                    </div>
+                </form>    
+            </div>
+                <h5>Tu opinión es muy importante!!!</h5></label>
             </div>
             </div>`
 
@@ -1440,6 +1454,33 @@ function setDetalle(products){
     
     
 }
+function insertarComentarios(){
+  
+    const valores = window.location.search;
+    const urlParams = new URLSearchParams(valores);
+    var id = urlParams.get('id');
+
+    var comentario = document.getElementById('floatingTextarea').value;
+    console.log(comentario, id,user.id);
+    const fecha = new Date();
+    const hoy = fecha.getDate();
+    const ango = fecha.getFullYear(); 
+    const mes = fecha.getMonth() + 1; 
+
+
+    let date = ango+"/"+mes+"/"+hoy;
+    
+    console.log(date);
+    url = baseUrlWebSocket+"Insert.php?case=comentarios&comentario=" + comentario + "&Id_producto=" + id + "&Id_usuario="+user.id+"&fecha="+date;
+    
+    fetch(url)
+    .then(response => response.json())
+    .then(data =>{
+
+     if(data.response[0]=="insert complete"){window.reload();}
+    });
+}
+
 // ---------------------------EVENTOS DASHBOARD, PETICION ESTADO ACTIVIDAD-----------------------
 
 function eventDashboard(){
@@ -1513,39 +1554,142 @@ function setDataOrdersAll(allOrders){
     document.querySelector(".addOrdersAll").innerHTML = html;
 }
 
-function setDataPqrsAll(allPqrs){
-    
-    if(allPqrs.length> 0){
-    const tablePqrs = document.querySelector("#allPqrsExist");
-    let html = "";
-    console.log(allPqrs)
-    for(let i = 0; i < allPqrs.length; i++){
-       
-        if(allPqrs[i].estado=="activo"){
-        html+=`<tr>
-        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" >
-              <span class="form-check-sign"></span>
-            </label>
-          </div>
+function setDataPqrsAll(allPqrs) {
+    console.log(allPqrs[0]);
+
+    if (allPqrs.length > 0) {
+        const tablePqrs = document.querySelector("#allPqrsExist");
+        let html = "";
+        for (let i = 0; i < allPqrs.length; i++) {
+
+            if (allPqrs[i].estado == "activo") {
+                html += `<tr>
+        
+        <td class="text-left">
+        <span style="font-weight: bold">${allPqrs[i].usuario}</span>
+        <span style="font-weight: bold">${allPqrs[i].correo}</span>
+        ${allPqrs[i].detalle}<br>
+        <span style="color:red">${allPqrs[i].razon}</span>
         </td>
-        <td class="text-left"><span style="font-weight: bold">${allPqrs[i].usuario}</span> ${allPqrs[i].detalle}<br><span style="color:red">${allPqrs[i].razon}</span>  ${allPqrs[i].correo}</td>
         <td class="td-actions text-right">
-          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-            <i class="now-ui-icons ui-2_settings-90"></i>
+
+          <button type="button"  rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task" data-toggle="modal" data-target="#exampleModal2" onclick="respuestaPQ(${allPqrs[i].id},'${allPqrs[i].correo}','${allPqrs[i].razon}','${allPqrs[i].usuario}');">
+            <i class="now-ui-icons ui-2_settings-90"   ></i>
           </button>
-          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-            <i class="now-ui-icons ui-1_simple-remove"></i>
-          </button>
+         
         </td>
       </tr>`;
+            }
+
+        }
+        tablePqrs.innerHTML = html;
+
     }
-       
+}
+
+function respuestaPQ(pq, correo, razon, name) {
+    console.log(pq);
+
+
+    let html = "";
+
+    html = `
+    <form action="#" method="POST" id="formEditpq">
+    <div class="container">
+      
+    <input type="hidden" id="idcorreo" value="${pq}"name="pass"  class="input-100Bm" > </input>
+    
+    <label>From Name: </label>
+    <input type="text" id="nombre" name="pass"  value="Servicio al Cliente Buyme" placeholder="From" class="input-100Bm" v-model="from_name"></input>
+    <label>To Name: </label>
+    <input type="text" id="user" name="pass"  value="${name}" placeholder="To" class="input-100Bm" v-model="to_name" ></input>  
+    <label>To Email: </label>
+    <input type="text" id="correo" name="pass"  value="${correo}" placeholder="To" class="input-100Bm" v-model="from_email" ></input>  
+    <label>Subject: </label>  
+    <input type="text" id="razon" name="pass" placeholder="Asunto Correo" value="Respuesta a su ${razon}"class="input-100Bm" 
+    v-model="subject" > </input>
+    <label>Message: </label>
+    <textarea  type="TextArea" id="respuestaOQ" name="pass"  placeholder="Respuesta PQRS" class="input-100Bm"
+    v-model="message" ></textarea>
+      
+  </form>
+
+</div>  
+
+<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" onclick="cambioestado(${pq});">Responder</button>
+      </div>`
+        ;
+
+    formularioPQRS.innerHTML = html;
+
+    console.log(document.getElementById("correo").value);
+}
+function cambioestado(id) {
+
+
+    let data = {
+        from_name: document.getElementById("nombre").value,
+        from_email: document.getElementById("correo").value,
+        to_name: document.getElementById("user").value,
+        message: document.getElementById("respuestaOQ").value,
+        subject: document.getElementById("razon").value,
+    };
+
+    emailjs.send("buyme", "BuymeADSI187", data)
+        .then(function cambioestado(response) {
+            if (response.text === 'OK') {
+                console.log('El correo se ha enviado de forma exitosa');
+            }
+            console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
+        }, function (err) {
+            console.log('Ocurrió un problema al enviar el correo');
+            console.log("FAILED. error=", err);
+        });
+
+
+
+
+
+
+    url = baseUrlWebSocket + "Update.php?case=cambioPQRS&Id_PQRS=" + id;
+    console.log(url);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => Alercorreo(data.response))
+
+
+
+
+}
+
+
+function Alercorreo(data) {
+
+
+    if (data[0].response == "Envio correo complete") {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Correo de respuesta enviado con satisfaccion',
+            showConfirmButton: false,
+            timer: 1500
+
+        }).then(() => {
+            cierre();
+        });
+    } else {
+        Swal.fire({
+            title: 'Oh!',
+            text: 'Parece que hubo un fallo de conexión.',
+            imageUrl: baseUrlPage + 'buyme/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+        })
     }
-    tablePqrs.innerHTML = html;
-    }
+
 }
 
 // ------------EVENTOS CREACION DE PRODUCTOS---------------
@@ -2411,3 +2555,70 @@ miContenedor.innerHTML=html
 
 
             }
+
+
+            // EVENTOS PEDIDOS
+function insertpedido(){
+    
+    var estado = "Activo";
+    var valor_t = localStorage.getItem('valorCompra');
+
+    url = baseUrlWebSocket+"Insert.php?case=pedidos"+"&Estado_Pedido="+estado+"&Valor_Total="+valor_t+"&Id_Usuario="+JSON.parse(localStorage.getItem('usuario')).id;
+    console.log(url);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => AlerUpdate(data.response))
+    
+}
+function AlerUpdate(data) {
+    
+
+    if (data[0].response == "insert complete") {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Compra Finalizada',
+            showConfirmButton: false,
+            timer: 1500
+            
+        }).then(() => {
+            /*cierre();*/
+        });
+    } else {
+        Swal.fire({
+            title: 'Oh!',
+            text: 'Parece que hubo un fallo de conexión.',
+            imageUrl: baseUrlPage+'/assets/img/error.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+        })
+    }
+
+}
+
+function insertDetallespedido(){    
+    
+    var arrayProductos = localStorage.getItem('carrito');
+
+    url = baseUrlWebSocket+"Insert.php?case=detalle_pedidos"+"&arrayProductos="+arrayProductos;
+    console.log(url);
+    fetch(url)
+        .then(response => response.json())
+        /*.then(data => AlerUpdate(data.response))*/
+    
+}
+
+function enviarReporteEmail(){    
+    
+    var arrayProductos = localStorage.getItem('carrito');
+    var valor_tCompra = localStorage.getItem('valorCompra');
+    
+
+    url = baseUrlWebSocket+"reportePedido.php?case=reportePedido"+"&arrayProductos="+arrayProductos+"&Valor_Total="+valor_tCompra+"&Id_Usuario="+JSON.parse(localStorage.getItem('usuario')).id;
+    console.log(url);
+    fetch(url)
+        .then(response => response.json())
+        /*.then(data => AlerUpdate(data.response))*/
+    
+}
