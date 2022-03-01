@@ -1,8 +1,8 @@
 
  //url rutas
  const user = JSON.parse(localStorage.getItem('usuario'));
- const baseUrlWebSocket = "https://buyme.hotmarketing.info/WebServices/";
- const baseUrlPage = "https://buyme.hotmarketing.info/BuymeEcommerce/";
+ const baseUrlWebSocket = "http://localhost/WebService/";
+ const baseUrlPage = "http://localhost/Buyme/";
 // --------------METODO GLOBALIZADO--------------------
 
 window.addEventListener('DOMContentLoaded',() => {
@@ -1508,7 +1508,7 @@ function getPqrsActive(){
 }
 
 function getLastPeditor(){
-    url = baseUrlWebSocket+"Search.php?case=pedidos&&searchState=activo";
+    url = baseUrlWebSocket+"Search.php?case=pedidos&searchState=activo";
     
     fetch(url)
     .then(response => response.json())
@@ -1518,13 +1518,13 @@ function getLastPeditor(){
 
 
 function setDataOrdersAll(allOrders){
-
+    
     html = ""
     if(allOrders.length> 0 || !allOrders =="Error"){
         
         allOrders.forEach(element => {
             
-            console.log(element)
+          
             html+=`
             <tr>
             <td>
@@ -1544,7 +1544,7 @@ function setDataOrdersAll(allOrders){
             </td>
           </tr>`;
         });
-
+        console.log(html)
         
         
     }else{
@@ -1559,26 +1559,41 @@ function setDataPqrsAll(allPqrs) {
 
     if (allPqrs.length > 0) {
         const tablePqrs = document.querySelector("#allPqrsExist");
-        let html = "";
+        let html = ` <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Detalle</th>
+            <th scope="col">Razon</th>
+          </tr>
+        </thead>`;
+
         for (let i = 0; i < allPqrs.length; i++) {
 
             if (allPqrs[i].estado == "activo") {
-                html += `<tr>
-        
-        <td class="text-left">
-        <span style="font-weight: bold">${allPqrs[i].usuario}</span>
-        <span style="font-weight: bold">${allPqrs[i].correo}</span>
-        ${allPqrs[i].detalle}<br>
-        <span style="color:red">${allPqrs[i].razon}</span>
-        </td>
-        <td class="td-actions text-right">
+                html += `
+      
+     
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>${allPqrs[i].usuario}</td>
+      <td>${allPqrs[i].correo}</td>
+      <td>${allPqrs[i].detalle}</td>
+      <td style="color:red">${allPqrs[i].razon}</td>
+
+      <td class="td-actions text-right">
 
           <button type="button"  rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task" data-toggle="modal" data-target="#exampleModal2" onclick="respuestaPQ(${allPqrs[i].id},'${allPqrs[i].correo}','${allPqrs[i].razon}','${allPqrs[i].usuario}');">
             <i class="now-ui-icons ui-2_settings-90"   ></i>
           </button>
          
         </td>
-      </tr>`;
+    </tr>
+    
+</table>`;
             }
 
         }
@@ -2568,7 +2583,6 @@ function insertpedido(){
     fetch(url)
         .then(response => response.json())
         .then(data => AlerUpdate(data.response))
-    
 }
 function AlerUpdate(data) {
     
@@ -2600,13 +2614,28 @@ function AlerUpdate(data) {
 function insertDetallespedido(){    
     
     var arrayProductos = localStorage.getItem('carrito');
-
+    insertEnvio();
     url = baseUrlWebSocket+"Insert.php?case=detalle_pedidos"+"&arrayProductos="+arrayProductos;
     console.log(url);
     fetch(url)
         .then(response => response.json())
         /*.then(data => AlerUpdate(data.response))*/
     
+}
+
+function insertEnvio(){    
+    const fecha = new Date();
+    const hoy = fecha.getDate();
+    const ango = fecha.getFullYear(); 
+    const mes = fecha.getMonth() + 1; 
+
+    console.log("envios")
+    let date = ango+"/"+mes+"/"+hoy;
+
+    url = baseUrlWebSocket+"Insert.php?case=envios&idPago="+4+"&fecha="+date;
+    console.log(url);
+    fetch(url)
+        .then(response => response.json())
 }
 
 function enviarReporteEmail(){    
@@ -2618,7 +2647,7 @@ function enviarReporteEmail(){
     url = baseUrlWebSocket+"reportePedido.php?case=reportePedido"+"&arrayProductos="+arrayProductos+"&Valor_Total="+valor_tCompra+"&Id_Usuario="+JSON.parse(localStorage.getItem('usuario')).id;
     console.log(url);
     fetch(url)
-        .then(response => response.json())
+        .then(response => console.log("envios"+response.json()))
         /*.then(data => AlerUpdate(data.response))*/
     
 }

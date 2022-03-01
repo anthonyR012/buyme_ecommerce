@@ -134,8 +134,7 @@
                 <p class="colorTextBm3">MIS PQRS</p>
 
                 <div class="containerEditBm">
-                <img src="<?php echo RUTA_IMAGENES?>editar.png"
-                class="imgPerfilbm" alt="">
+               
                 </div>
               </div>
           <div class="row container" id="pqrsUser">
